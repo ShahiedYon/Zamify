@@ -1,6 +1,6 @@
 const {chromium}=require('playwright');require('fs').mkdirSync(require('path').join(__dirname,'test-output'),{recursive:true});const assert=require('assert');
 (async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.EXAM_SPRINT_CHROME||undefined,args:['--no-sandbox','--single-process','--no-zygote','--disable-gpu']});const page=await browser.newPage({viewport:{width:390,height:844}});let errors=[];page.on('pageerror',e=>errors.push(e.message));
-await page.goto(require('url').pathToFileURL(require('path').join(__dirname,'Preview.html')).href);
+await page.goto(require('url').pathToFileURL(require('path').join(__dirname,'Preview.html')).href);await page.locator('#zami-welcome').waitFor({state:'detached'});
 assert.equal(await page.evaluate(()=>pool().length),10);
 assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
 await page.screenshot({path:require('path').join(__dirname,'test-output','mobile-home.png'),fullPage:true,animations:"disabled"});
@@ -15,7 +15,7 @@ for(const q of bank){await page.evaluate(id=>{state.session={ids:[id],index:0,an
  assert(!await page.locator('[data-action=check]').isDisabled(),'Submit not ready '+q.id);await page.locator('[data-action=check]').click();assert(await page.locator('.feedback').innerText().then(t=>t.includes('Correct —')),'Incorrect grade '+q.id);assert.equal(await page.locator('.rationale').count(),q.options.length);
  if(q.id===11)await page.screenshot({path:require('path').join(__dirname,'test-output','mobile-feedback.png'),fullPage:true,animations:"disabled"});
  assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),'Overflow '+q.id);
- await page.reload();if(!await page.locator('[data-action=resume]').count()){console.log('RESUME FAILURE',q.id,await page.evaluate(()=>({session:state.session,tab,full:state.previewFullPack,storageOK})),errors);throw Error('Missing resume');}await page.locator('[data-action=resume]').click();assert(await page.locator('.feedback').count()===1,'Resume '+q.id);await page.locator('[data-action=next]').click();
+ await page.reload();await page.locator('#zami-welcome').waitFor({state:'detached'});if(!await page.locator('[data-action=resume]').count()){console.log('RESUME FAILURE',q.id,await page.evaluate(()=>({session:state.session,tab,full:state.previewFullPack,storageOK})),errors);throw Error('Missing resume');}await page.locator('[data-action=resume]').click();assert(await page.locator('.feedback').count()===1,'Resume '+q.id);await page.locator('[data-action=next]').click();
 }
 // Wrong permutations and extra selections earn no partial credit.
 for(const id of [5,10,29]){await page.evaluate(id=>{const q=BANK.find(q=>q.id===id);state.session={ids:[id],index:0,answers:[],assisted:[],title:'Wrong answer QA'};tab='quiz';selected=q.answer.slice();[selected[0],selected[1]]=[selected[1],selected[0]];if(q.kind==='multi')selected=[0,1];quiz()},id);await page.locator('[data-action=check]').click();assert(await page.locator('.feedback.bad').count()===1,'Wrong-answer grade '+id);}

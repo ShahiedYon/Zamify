@@ -28,11 +28,18 @@ public class MainActivity extends Activity {
         web.getSettings().setMixedContentMode(0);
         web.setWebViewClient(new WebViewClient() {
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest req) {
-                if (req.getUrl().toString().equals(HOST + "index.html")) {
+                if ("https".equals(req.getUrl().getScheme()) && "app.zamify.local".equals(req.getUrl().getHost()) && "/index.html".equals(req.getUrl().getPath())) {
                     try { return new WebResourceResponse("text/html", "UTF-8", getAssets().open("index.html")); }
                     catch (IOException e) { return new WebResourceResponse("text/plain", "UTF-8", null); }
                 }
                 return new WebResourceResponse("text/plain", "UTF-8", null);
+            }
+            @Override public void onPageCommitVisible(WebView view, String url) {
+                view.postVisualStateCallback(0, new WebView.VisualStateCallback() {
+                    @Override public void onComplete(long requestId) {
+                        view.evaluateJavascript("window.zamifyNativeVisible=true;window.startZamifyWelcome && window.startZamifyWelcome()", null);
+                    }
+                });
             }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest req) {
                 Uri uri = req.getUrl();
@@ -51,7 +58,7 @@ public class MainActivity extends Activity {
                 return insets;
             });
         }
-        web.loadUrl(HOST + "index.html");
+        web.loadUrl(HOST + "index.html#android");
     }
     @Override public void onBackPressed() {
         web.evaluateJavascript("window.appBack && window.appBack()", value -> {

@@ -1,6 +1,6 @@
 # Zamify
 
-An offline Android study app with a standalone HTML preview. This repository contains the existing 0.7.0 development baseline. It is not a production release.
+An offline Android study app with a standalone HTML preview. This repository contains the 0.8.0 development version. It is not a production release.
 
 ## Source layout
 
@@ -44,3 +44,11 @@ Browser tests require Playwright and Chromium. Use `EXAM_SPRINT_CHROME` to selec
 ## Development limitations
 
 The app includes 10 free practice questions and a 65-question developer demonstration. Checkout and production purchase entitlements are not implemented. Content is practice material, not official exam content or a guarantee of certification. Progress is stored locally.
+
+## Home and welcome update
+
+The home screen centres Zami, with a direct free-practice/resume action, a single available exam and five topic shortcuts. The muted beige palette is retained.
+
+The native WebView now signals when content is ready to draw before starting the welcome. The welcome runs once per page load, pauses its dismissal while the page is hidden, supports skip/Back/Escape and respects reduced motion. This addresses a suspected startup timing issue; real-device validation is still required.
+
+`node test-home-welcome.cjs` covers home navigation, responsive widths, intro lifecycle and the simulated native readiness signal. The GitHub Actions workflow runs browser checks and builds a debug APK. Its temporary debug signing identity differs from previously installed test builds. Do not uninstall an existing app if you need to preserve its local progress; use the original signing key locally for a compatible update.
