@@ -1,11 +1,11 @@
 plugins { id 'com.android.application' }
 android {
     namespace 'com.zamify.study'
-    compileSdk 35
+    compileSdk 36
     defaultConfig {
         applicationId 'com.zamify.study'
         minSdk 26
-        targetSdk 35
+        targetSdk 36
         versionCode 8
         versionName '0.8.0'
     }
