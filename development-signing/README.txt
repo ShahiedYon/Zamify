@@ -1,0 +1,1 @@
+Local development signing keys are deliberately excluded from GitHub. The SDK helper creates a new debug key when absent. Retain the original key privately if you need to update existing installations. Never use a debug key for production.

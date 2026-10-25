@@ -1,0 +1,17 @@
+.gradle/
+local.properties
+**/build/
+test-build/
+test-output/
+*.keystore
+*.idsig
+
+*.jks
+*.apk
+*.aab
+.env
+.env.*
+node_modules/
+__pycache__/
+.DS_Store
+downloads/

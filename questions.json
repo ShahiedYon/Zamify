@@ -1,0 +1,2007 @@
+[
+  {
+    "id": 1,
+    "domain": 1,
+    "q": "A shop predicts next month’s sales amount. Which technique fits?",
+    "options": [
+      "Classification",
+      "Regression",
+      "Clustering",
+      "Translation"
+    ],
+    "answer": 1,
+    "why": "Regression predicts a numeric value. Classification predicts categories; clustering groups similar records.",
+    "clues": [
+      {
+        "text": "sales amount",
+        "why": "The output is a number, rather than a category."
+      }
+    ],
+    "hint": "Name the type of output before choosing a technique.",
+    "analysis": "The task is forecasting a numeric sales value. Select a numeric prediction technique; the business being a shop is background.",
+    "trap": "Do not choose classification merely because sales records contain categories.",
+    "reasons": [
+      "Classification predicts a class, such as high or low sales, rather than the requested amount.",
+      "Regression predicts a continuous numeric target, such as sales revenue.",
+      "Clustering discovers groups; it does not directly predict a future sales amount.",
+      "Translation converts languages and does not solve numeric forecasting."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 2,
+    "domain": 1,
+    "q": "A model learns from emails already marked spam or safe. What is this?",
+    "options": [
+      "Unsupervised learning",
+      "Reinforcement learning",
+      "Supervised learning",
+      "Pre-training only"
+    ],
+    "answer": 2,
+    "why": "Supervised learning uses labeled examples. The spam labels supply the target answers.",
+    "clues": [
+      {
+        "text": "already marked",
+        "why": "Known target labels are available during training."
+      }
+    ],
+    "hint": "Ask whether the desired answers are supplied with the examples.",
+    "analysis": "The key condition is that training emails already have spam/safe labels. That is different from discovering groups without labels.",
+    "trap": "Spam is the application; labeled examples determine the learning type.",
+    "reasons": [
+      "Unsupervised learning discovers structure without target labels.",
+      "Reinforcement learning uses feedback about actions and rewards, not just labeled email examples.",
+      "Supervised learning maps examples to known target labels.",
+      "Pre-training describes a training stage, not the best description of these labeled examples."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 3,
+    "domain": 1,
+    "q": "Which metric matters most when missing actual fraud is especially costly?",
+    "options": [
+      "Recall",
+      "Precision",
+      "Accuracy",
+      "F1 score"
+    ],
+    "answer": 0,
+    "why": "Recall measures the proportion of actual fraud cases detected, directly addressing missed positives.",
+    "clues": [
+      {
+        "text": "missing actual fraud",
+        "why": "False negatives are the error the business most wants to reduce."
+      }
+    ],
+    "hint": "Focus on the costliest error, not a generic overall score.",
+    "analysis": "Find the priority: catching actual fraud. Recall measures detected positives out of all actual positives.",
+    "trap": "High accuracy can hide missed fraud when most transactions are legitimate.",
+    "reasons": [
+      "Recall measures the proportion of actual fraud cases detected, directly addressing missed positives.",
+      "Precision measures how trustworthy positive fraud alerts are, rather than how many actual fraud cases were missed.",
+      "Accuracy can be dominated by legitimate transactions when fraud is rare.",
+      "F1 balances precision and recall; the stated priority specifically emphasizes missed fraud and therefore recall."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 4,
+    "domain": 1,
+    "q": "Which AWS service converts recorded speech into text?",
+    "options": [
+      "Amazon Polly",
+      "Amazon Translate",
+      "Amazon Comprehend",
+      "Amazon Transcribe"
+    ],
+    "answer": 3,
+    "why": "Transcribe recognizes speech. Polly does the reverse: text to speech.",
+    "clues": [
+      {
+        "text": "speech into text",
+        "why": "Check the direction of conversion."
+      }
+    ],
+    "hint": "Identify what goes in and what must come out.",
+    "analysis": "Audio is the input and a transcript is the output. Choose speech recognition rather than speech synthesis.",
+    "trap": "Polly and Transcribe are easy to reverse: read the input/output direction.",
+    "reasons": [
+      "Polly generates speech from text, the reverse direction.",
+      "Translate converts text between languages.",
+      "Comprehend analyzes text; it does not transcribe audio.",
+      "Transcribe converts speech recordings into text."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 5,
+    "domain": 1,
+    "kind": "multi",
+    "q": "Which TWO tasks should primarily use deterministic rules rather than a probabilistic model?",
+    "options": [
+      "Group customers by similar purchasing behavior",
+      "Calculate a tax amount using an exact published formula",
+      "Recognize objects in product photographs",
+      "Enforce whether an identity has permission to read a restricted object",
+      "Forecast next month’s sales"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "reasons": [
+      "Grouping by similarity can use ML clustering.",
+      "An exact formula should be computed directly rather than estimated.",
+      "Object recognition is a common computer-vision task.",
+      "Authorization must be enforced by a policy decision, not guessed by a model.",
+      "Forecasting unknown future values is a common prediction task."
+    ],
+    "why": "Exact formulas and permission enforcement require rule-based outcomes, while clustering, vision and forecasting can benefit from learned predictions.",
+    "clues": [
+      {
+        "text": "deterministic rules",
+        "why": "Choose tasks requiring exact calculation or an enforced access decision."
+      }
+    ],
+    "hint": "Look for exact outcomes, and select exactly two tasks.",
+    "analysis": "Distinguish uncertain prediction from actions that must follow exact rules. Both the calculation and the authorization condition need deterministic enforcement.",
+    "trap": "A model may help describe a rule, but it should not replace the calculation or authorization control.",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 6,
+    "domain": 2,
+    "q": "What is a token in a language model?",
+    "options": [
+      "A unit of text processed by the model",
+      "Exactly one complete word in every case",
+      "Exactly one character in every case",
+      "The entire prompt treated as one indivisible item"
+    ],
+    "answer": 0,
+    "why": "A token is a model-processing unit; a tokenizer can represent words, word fragments or other text units.",
+    "clues": [
+      {
+        "text": "token",
+        "why": "The question asks about model text processing, not account security."
+      }
+    ],
+    "hint": "Think about the pieces into which model input is split.",
+    "analysis": "Interpret token in the language-model context. It refers to text units; the same word can mean credentials in other contexts.",
+    "trap": "A familiar security meaning of token is a distractor here.",
+    "reasons": [
+      "A token is a model-processing unit; a tokenizer can represent words, word fragments or other text units.",
+      "One word can use multiple tokens; the correspondence is not always one token per word.",
+      "Tokens are not necessarily single characters, although some may represent a character.",
+      "A prompt typically consists of many tokens, not one indivisible unit."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 7,
+    "domain": 2,
+    "q": "What does an embedding represent?",
+    "options": [
+      "An encrypted copy of the source text",
+      "A numeric representation of semantic features",
+      "The position of a word in a billing record",
+      "A confidence score proving an answer is factual"
+    ],
+    "answer": 1,
+    "why": "Embeddings encode features in numeric vectors used in tasks such as semantic similarity search.",
+    "clues": [
+      {
+        "text": "embedding",
+        "why": "The concept represents semantic information numerically."
+      }
+    ],
+    "hint": "Look for a representation that enables similarity comparison.",
+    "analysis": "Identify what embeddings do: encode features in vectors, allowing related content to be compared.",
+    "trap": "A vector is a representation, not encryption or a guarantee of meaning.",
+    "reasons": [
+      "Embeddings are representations, not encryption, and should not be treated as protection against data disclosure.",
+      "Embeddings encode features in numeric vectors used in tasks such as semantic similarity search.",
+      "A billing-record position does not describe semantic vector representation.",
+      "A vector embedding does not prove an answer is correct or supply a calibrated factual confidence score."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 8,
+    "domain": 2,
+    "q": "A chatbot invents a believable citation. What is this called?",
+    "options": [
+      "Data poisoning",
+      "Prompt injection",
+      "Hallucination",
+      "Model distillation"
+    ],
+    "answer": 2,
+    "why": "Fabricating a plausible citation is an example of hallucination: generated content without factual support.",
+    "clues": [
+      {
+        "text": "invents a believable citation",
+        "why": "The output sounds credible but lacks factual support."
+      }
+    ],
+    "hint": "Distinguish fluent wording from verified evidence.",
+    "analysis": "The failure is fabricated factual content. Neither a confident tone nor a citation-shaped string proves truth.",
+    "trap": "Do not treat a plausible citation as a checked source.",
+    "reasons": [
+      "Data poisoning corrupts training or source data; the scenario describes an unsupported generated assertion.",
+      "Prompt injection involves instructions trying to redirect the system; no such attack is described.",
+      "Fabricating a plausible citation is an example of hallucination: generated content without factual support.",
+      "Distillation trains a smaller model from a teacher and is not the name for fabricated content."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 9,
+    "domain": 2,
+    "q": "Which service offers managed access to foundation models from multiple providers?",
+    "options": [
+      "AWS CloudTrail",
+      "Amazon S3",
+      "AWS Config",
+      "Amazon Bedrock"
+    ],
+    "answer": 3,
+    "why": "Bedrock provides managed foundation-model access. S3 stores objects; Config tracks resource configuration.",
+    "clues": [
+      {
+        "text": "multiple providers",
+        "why": "The requirement is managed foundation-model access, not storage."
+      }
+    ],
+    "hint": "Choose the service whose main purpose matches the requested capability.",
+    "analysis": "Match both conditions: managed model access and a choice of providers. Other cloud services may support the application but do not provide this capability.",
+    "trap": "A component used by an AI app is not necessarily the model-access service.",
+    "reasons": [
+      "CloudTrail provides activity logging for audit use.",
+      "S3 stores objects; it does not itself provide managed model inference.",
+      "Config tracks resource configuration and compliance rules.",
+      "Bedrock offers managed access to foundation models from different providers."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 10,
+    "domain": 2,
+    "kind": "match",
+    "q": "Match each AI application concept to its primary role.",
+    "options": [
+      "IAM authorization",
+      "Fine-tuning",
+      "MCP",
+      "RAG"
+    ],
+    "answer": [
+      2,
+      0,
+      3,
+      1
+    ],
+    "reasons": [
+      "IAM determines what an identity may access or do.",
+      "Fine-tuning adapts model weights using training examples.",
+      "MCP standardizes connections to external tools and context.",
+      "RAG retrieves source material to supply as generation context."
+    ],
+    "why": "MCP connects; IAM authorizes; RAG retrieves grounding material; fine-tuning updates weights.",
+    "clues": [
+      {
+        "text": "primary role",
+        "why": "These capabilities solve different parts of the application."
+      }
+    ],
+    "hint": "Separate connecting, authorizing, retrieving and training.",
+    "analysis": "Match each capability to its specific job; do not assume a tool-connection protocol provides permission enforcement.",
+    "trap": "A connected tool still requires authorization, and retrieved content is not itself model training.",
+    "prompts": [
+      "Standardize connection to external tools and context",
+      "Limit an identity to approved actions and resources",
+      "Supply current document passages at answer time",
+      "Adapt model weights using curated training examples"
+    ],
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 11,
+    "domain": 3,
+    "q": "A chatbot needs this week’s internal policies without retraining. Choose an approach.",
+    "options": [
+      "Retrieve current policies with RAG",
+      "Fine-tune only on last month’s policies",
+      "Pre-train a new foundation model",
+      "Distill a smaller model from the current model"
+    ],
+    "answer": 0,
+    "why": "RAG can retrieve current policy passages and supply them as runtime context without changing model weights.",
+    "clues": [
+      {
+        "text": "this week’s internal policies",
+        "why": "The knowledge is changing and must be supplied at answer time."
+      }
+    ],
+    "hint": "Separate fresh knowledge from changing the model’s behavior.",
+    "analysis": "The task requires current internal information with no retraining. Retrieval can supply updated documents as context; verify retrieval freshness and access rights too.",
+    "trap": "No retraining alone is not a universal RAG rule; it fits here because fresh document knowledge is required.",
+    "reasons": [
+      "RAG can retrieve current policy passages and supply them as runtime context without changing model weights.",
+      "Fine-tuning updates weights and last month’s examples do not supply this week’s changes.",
+      "Pre-training changes weights and is unnecessary for retrieving frequently changing documents.",
+      "Distillation transfers model behavior; it does not itself fetch this week’s private documents."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 12,
+    "domain": 3,
+    "q": "A prompt includes three examples of the desired response. Which technique is used?",
+    "options": [
+      "Zero-shot",
+      "Distillation",
+      "Few-shot",
+      "Pre-training"
+    ],
+    "answer": 2,
+    "why": "Few-shot prompting supplies examples in context. It does not update model weights.",
+    "clues": [
+      {
+        "text": "three examples",
+        "why": "The prompt demonstrates the desired behavior."
+      }
+    ],
+    "hint": "Count examples in the prompt, not model parameters.",
+    "analysis": "Three demonstrations supplied in the prompt make this few-shot prompting. The model is not being trained on a new dataset.",
+    "trap": "Examples in a prompt are not automatically fine-tuning.",
+    "reasons": [
+      "Zero-shot prompting does not supply task demonstrations.",
+      "Distillation trains a student to learn from a teacher model.",
+      "Few-shot prompting uses a small number of examples in context.",
+      "Pre-training learns model parameters from a broad training corpus."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 13,
+    "domain": 3,
+    "q": "Which change generally makes model responses less random?",
+    "options": [
+      "Increase the maximum output tokens",
+      "Lower the temperature",
+      "Increase top K to admit more candidates",
+      "Increase the context-window limit"
+    ],
+    "answer": 1,
+    "why": "Lower temperature generally favors higher-probability tokens and reduces randomness; factual correctness is still not guaranteed.",
+    "clues": [
+      {
+        "text": "less random",
+        "why": "The requested change is about sampling variation."
+      }
+    ],
+    "hint": "Match the parameter to the behavior it controls.",
+    "analysis": "Choose the control for randomness. Lower temperature generally concentrates sampling, but output correctness still requires evaluation.",
+    "trap": "Less random does not mean more factual in every case.",
+    "reasons": [
+      "An output-token cap controls length rather than directly reducing sampling variation.",
+      "Lower temperature generally favors higher-probability tokens and reduces randomness; factual correctness is still not guaranteed.",
+      "A higher top K admits more candidate tokens and is not the requested reduction in sampling variation.",
+      "Context capacity limits the information that can fit, rather than directly setting sampling randomness."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 14,
+    "domain": 3,
+    "q": "A team wants a smaller model to learn from a larger model’s outputs. What is this?",
+    "options": [
+      "Few-shot prompting",
+      "Retrieval-augmented generation",
+      "Prompt caching",
+      "Model distillation"
+    ],
+    "answer": 3,
+    "why": "Distillation trains a smaller student to learn from a larger teacher model.",
+    "clues": [
+      {
+        "text": "smaller model",
+        "why": "A smaller student is learning from a larger teacher."
+      }
+    ],
+    "hint": "Distinguish training a student from retrieving documents.",
+    "analysis": "The goal is transferring capabilities from a larger model to a smaller one. That is a model-training relationship rather than context retrieval.",
+    "trap": "Do not confuse distillation with compressing a prompt.",
+    "reasons": [
+      "Few-shot prompting supplies examples at inference time without training a student model.",
+      "RAG retrieves source material for context and does not itself train a student.",
+      "Prompt caching reuses supported processing of repeated context rather than transferring model capabilities.",
+      "Distillation trains a smaller student to learn from a larger teacher model."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 15,
+    "domain": 3,
+    "q": "Which outcome best measures a support agent’s business usefulness?",
+    "options": [
+      "Task completion with acceptable cost",
+      "Longest generated answer",
+      "Largest parameter count",
+      "Most stored vectors"
+    ],
+    "answer": 0,
+    "why": "Measure task completion against cost and quality goals, rather than model size alone.",
+    "clues": [
+      {
+        "text": "business usefulness",
+        "why": "The measure must reflect a real user outcome."
+      }
+    ],
+    "hint": "Ask what success means to the business.",
+    "analysis": "The task is evaluating a support agent as a product. Successful task completion balanced with cost and quality is more meaningful than size or verbosity.",
+    "trap": "A larger model or longer answer is not automatically more useful.",
+    "reasons": [
+      "Task completion with acceptable cost connects performance to a business objective.",
+      "Long answers may be irrelevant or costly; length alone is not success.",
+      "Parameter count is a model characteristic, not a direct business result.",
+      "Vector count indicates stored representations, not customer outcomes."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 16,
+    "domain": 4,
+    "q": "A hiring model performs poorly for one demographic. What should the team examine?",
+    "options": [
+      "Rely on the aggregate accuracy alone",
+      "Increase inference capacity before evaluating errors",
+      "Compare subgroup outcomes and training-data representation",
+      "Use only a random sample dominated by the largest group"
+    ],
+    "answer": 2,
+    "why": "Subgroup evaluation and representation checks help investigate whether the system serves different populations adequately.",
+    "clues": [
+      {
+        "text": "one demographic",
+        "why": "Overall metrics may conceal subgroup differences."
+      }
+    ],
+    "hint": "Look beyond the average score to who experiences errors.",
+    "analysis": "The concern is uneven performance across groups. Examine subgroup outcomes and representation before deciding what corrective action is justified.",
+    "trap": "Bias is not ruled out by high aggregate accuracy.",
+    "reasons": [
+      "An overall score can conceal a much higher error rate for a subgroup.",
+      "Capacity affects throughput and latency; it does not diagnose demographic prediction disparities.",
+      "Subgroup evaluation and representation checks help investigate whether the system serves different populations adequately.",
+      "A majority-dominated sample may repeat the blind spot affecting the underrepresented group."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 17,
+    "domain": 4,
+    "q": "What does model explainability help users understand?",
+    "options": [
+      "How to reduce endpoint hosting costs",
+      "Why a prediction was made",
+      "How to encrypt every training record",
+      "Whether every prediction is guaranteed factual"
+    ],
+    "answer": 1,
+    "why": "Explainability helps people interpret influential factors or reasons behind a model prediction.",
+    "clues": [
+      {
+        "text": "explainability",
+        "why": "The user needs an interpretation of the model’s decision."
+      }
+    ],
+    "hint": "Separate explanation from access to raw training data.",
+    "analysis": "The goal is understanding the reasons or influential factors behind a prediction. This does not require exposing confidential training records.",
+    "trap": "An explanation of influential factors is not a proof of causation.",
+    "reasons": [
+      "Hosting-cost optimization is an operational concern, not what explainability describes.",
+      "Explainability helps people interpret influential factors or reasons behind a model prediction.",
+      "Encryption protects data; it does not explain a particular prediction.",
+      "An explanation is not a guarantee that a prediction is correct or fair."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 18,
+    "domain": 4,
+    "q": "Which feature helps filter harmful content in a Bedrock application?",
+    "options": [
+      "Amazon Bedrock Guardrails",
+      "AWS Identity and Access Management",
+      "AWS CloudTrail",
+      "Amazon Macie"
+    ],
+    "answer": 0,
+    "why": "Bedrock Guardrails provides configurable content safeguards, which should be evaluated alongside other controls.",
+    "clues": [
+      {
+        "text": "filter harmful content",
+        "why": "The required capability is a generation safeguard."
+      }
+    ],
+    "hint": "Choose a control that acts on model input or output.",
+    "analysis": "Match a content-safety requirement to a configurable safeguard. Keep other controls and evaluation because filtering is imperfect.",
+    "trap": "Guardrails reduce risk; they are not an absolute safety guarantee.",
+    "reasons": [
+      "Bedrock Guardrails provides configurable content safeguards, which should be evaluated alongside other controls.",
+      "IAM controls authorization; it does not itself classify and filter generated harmful text.",
+      "CloudTrail supports auditing account activity rather than directly filtering a response.",
+      "Macie discovers sensitive data in S3; it is not the Bedrock response content-filter feature."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 19,
+    "domain": 4,
+    "q": "What should a team assess before commercial use of generated artwork?",
+    "options": [
+      "Only image dimensions",
+      "Only rendering speed",
+      "Only token count",
+      "Usage rights and IP risks"
+    ],
+    "answer": 3,
+    "why": "Generated content can carry intellectual-property risks. Review rights and intended use before publishing.",
+    "clues": [
+      {
+        "text": "commercial use",
+        "why": "The intended use raises rights and licensing questions."
+      }
+    ],
+    "hint": "Ask what nontechnical risk remains even when generation succeeds.",
+    "analysis": "The scenario asks what to assess before publication, not how to improve model performance. Rights and intellectual-property risks directly affect commercial reuse.",
+    "trap": "Being generated by AI does not automatically grant unrestricted rights.",
+    "reasons": [
+      "Dimensions affect presentation, not permission to use the artwork.",
+      "Rendering speed affects efficiency, not licensing or ownership risk.",
+      "Token count is not evidence of intellectual-property clearance.",
+      "Usage rights and IP risks should be assessed for the intended use."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 20,
+    "domain": 4,
+    "q": "Which approach best supports safe, high-impact AI decisions?",
+    "options": [
+      "Automatically approve outputs above a confidence threshold",
+      "Expose technical confidence scores without a review process",
+      "Use human review and a process to correct harmful errors",
+      "Assume a large model makes oversight unnecessary"
+    ],
+    "answer": 2,
+    "why": "Human oversight and correction mechanisms help detect and address harmful errors in high-impact decisions.",
+    "clues": [
+      {
+        "text": "high-impact",
+        "why": "Errors could seriously affect people."
+      }
+    ],
+    "hint": "Choose safeguards proportional to the consequence of a mistake.",
+    "analysis": "High-impact use calls for meaningful oversight and correction mechanisms. Automation alone cannot justify approving every output.",
+    "trap": "A confident model can still make a harmful decision.",
+    "reasons": [
+      "A confidence threshold alone does not provide adequate review for every high-impact use.",
+      "Scores alone do not create a meaningful path to review or correction.",
+      "Human oversight and correction mechanisms help detect and address harmful errors in high-impact decisions.",
+      "Model scale does not remove error, bias or accountability concerns."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 21,
+    "domain": 5,
+    "q": "An AI application should access only its required S3 objects. Apply which principle?",
+    "options": [
+      "Make the bucket publicly readable for easier access",
+      "Use least-privilege IAM permissions",
+      "Encrypt the bucket but grant broad read permissions",
+      "Give the application a shared administrator credential"
+    ],
+    "answer": 1,
+    "why": "Least privilege restricts permitted actions and resources to those required for the application.",
+    "clues": [
+      {
+        "text": "only its required S3 objects",
+        "why": "Scope access to the actual task."
+      }
+    ],
+    "hint": "Look for the smallest sufficient permission boundary.",
+    "analysis": "The application needs specific objects, so permissions should be limited to those resources and necessary actions.",
+    "trap": "An application needing access does not justify broad account permissions.",
+    "reasons": [
+      "Public access exceeds the application’s need and may expose objects to others.",
+      "Least privilege restricts permitted actions and resources to those required for the application.",
+      "Encryption protects data but does not justify giving an application excess authorization.",
+      "Administrator credentials exceed the required scope and weaken accountability when shared."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 22,
+    "domain": 5,
+    "q": "Which AWS service records account API activity for auditing?",
+    "options": [
+      "Amazon CloudWatch metrics only",
+      "AWS Config configuration history",
+      "AWS CloudTrail",
+      "AWS Artifact compliance reports"
+    ],
+    "answer": 2,
+    "why": "CloudTrail records supported account API events and related activity for audit and investigation.",
+    "clues": [
+      {
+        "text": "API activity",
+        "why": "The requirement is an audit trail of account actions."
+      }
+    ],
+    "hint": "Distinguish API auditing from model inference and text services.",
+    "analysis": "The investigator needs records of supported account API events. Select the auditing service rather than language-processing capabilities.",
+    "trap": "Logs serve different purposes; account activity is distinct from text generation.",
+    "reasons": [
+      "Operational metrics are not a substitute for an account API activity audit trail.",
+      "Config tracks resource configuration; it does not replace the requested API event history.",
+      "CloudTrail records supported account API events and related activity for audit and investigation.",
+      "Artifact provides compliance documents rather than recording your account’s API calls."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 23,
+    "domain": 5,
+    "q": "Which service helps discover sensitive data in Amazon S3?",
+    "options": [
+      "Amazon Macie",
+      "AWS Key Management Service",
+      "AWS CloudTrail",
+      "AWS Identity and Access Management"
+    ],
+    "answer": 0,
+    "why": "Macie helps discover sensitive data in S3 objects.",
+    "clues": [
+      {
+        "text": "sensitive data in Amazon S3",
+        "why": "The goal is identifying sensitive content in stored objects."
+      }
+    ],
+    "hint": "Separate discovery of sensitive data from encryption of that data.",
+    "analysis": "The combination of data discovery and S3 points to a purpose-built sensitive-data service. Discovery does not itself solve every protection requirement.",
+    "trap": "Finding sensitive data is different from controlling who may read it.",
+    "reasons": [
+      "Macie helps discover sensitive data in S3 objects.",
+      "KMS manages cryptographic keys; it does not perform the requested sensitive-content discovery.",
+      "CloudTrail records account activity, not a content classification scan of S3 objects.",
+      "IAM controls access permissions rather than discovering sensitive content."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 24,
+    "domain": 5,
+    "q": "A retrieved document tells an agent to reveal secrets. What is the main threat?",
+    "options": [
+      "An ordinary factual hallucination",
+      "A training underfitting problem",
+      "An output-length limit",
+      "Prompt injection"
+    ],
+    "answer": 3,
+    "why": "Prompt injection attempts to redirect an AI system through untrusted instructions, such as retrieved text.",
+    "clues": [
+      {
+        "text": "retrieved document",
+        "why": "The instructions are arriving through untrusted source content."
+      }
+    ],
+    "hint": "Ask whether source data is being promoted into authority.",
+    "analysis": "A document is attempting to redirect the agent and expose secrets. Treat retrieved content as data and keep tool permissions outside its control.",
+    "trap": "RAG grounding does not make retrieved instructions trustworthy.",
+    "reasons": [
+      "The document is issuing hostile instructions rather than merely causing an unsupported factual statement.",
+      "Underfitting concerns inadequate learning and does not describe this instruction attack.",
+      "An output-length cap concerns generation size, not a request to reveal secrets.",
+      "Prompt injection attempts to redirect an AI system through untrusted instructions, such as retrieved text."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 25,
+    "domain": 5,
+    "q": "Which practice makes a training dataset’s origins traceable?",
+    "options": [
+      "Store a model accuracy score without dataset metadata",
+      "Document source and transformation lineage",
+      "Retain only the current dataset filename",
+      "Record the endpoint latency for each request"
+    ],
+    "answer": 1,
+    "why": "Lineage documents where the data came from and how it changed.",
+    "clues": [
+      {
+        "text": "origins traceable",
+        "why": "The goal is documenting provenance and transformations."
+      }
+    ],
+    "hint": "Look for the practice that lets an auditor follow the data’s history.",
+    "analysis": "Traceability requires recording where data came from and how it changed. Access credentials do not provide that history.",
+    "trap": "Logging everything without recording provenance may still leave the origin unclear.",
+    "reasons": [
+      "Accuracy alone does not identify data origins or transformations.",
+      "Lineage documents where the data came from and how it changed.",
+      "A filename alone usually does not provide the full provenance or transformation history.",
+      "Latency measures response time, not dataset provenance."
+    ],
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 26,
+    "domain": 1,
+    "q": "A retailer groups customers by similar purchasing behavior without predefined segment labels. Which technique fits?",
+    "options": [
+      "Regression",
+      "Clustering",
+      "Binary classification",
+      "Speech recognition"
+    ],
+    "answer": 1,
+    "why": "Clustering discovers groups based on similarity without predefined target labels.",
+    "reasons": [
+      "Regression predicts a numeric target, not unlabeled groups.",
+      "Clustering discovers groups based on similarity without predefined target labels.",
+      "Binary classification needs a defined two-class target rather than unknown segments.",
+      "Speech recognition transcribes audio and is unrelated to this grouping task."
+    ],
+    "clues": [
+      {
+        "text": "without predefined segment labels",
+        "why": "The groups are not known targets."
+      }
+    ],
+    "hint": "Decide whether labels are given or groups must be discovered.",
+    "analysis": "The desired output is customer groups, and no labels exist. This combines a grouping goal with unsupervised learning.",
+    "trap": "Unlabeled does not automatically mean clustering; the grouping objective is also essential.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 27,
+    "domain": 1,
+    "q": "A spam filter raises false alarms on legitimate emails. Which metric directly asks how many predicted spam emails really are spam?",
+    "options": [
+      "Recall",
+      "Accuracy",
+      "Precision",
+      "Mean absolute error"
+    ],
+    "answer": 2,
+    "why": "Precision measures actual positives among predicted positives, matching alert reliability.",
+    "reasons": [
+      "Recall asks how many actual spam messages were found, not whether spam alerts are trustworthy.",
+      "Accuracy mixes correct spam and safe predictions and may hide the relevant error.",
+      "Precision measures actual positives among predicted positives, matching alert reliability.",
+      "Mean absolute error measures numeric prediction error, not class-alert reliability."
+    ],
+    "clues": [
+      {
+        "text": "predicted spam",
+        "why": "The denominator is the set of positive predictions."
+      }
+    ],
+    "hint": "Write out which group appears after the phrase out of.",
+    "analysis": "The question conditions on emails predicted as spam. Precision evaluates the correctness of that positive-prediction group.",
+    "trap": "Precision and recall differ in their denominator, even when both discuss correct positives.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 28,
+    "domain": 1,
+    "q": "A classifier achieves excellent training results but performs poorly on unseen examples. What is the most likely issue?",
+    "options": [
+      "Underfitting",
+      "Overfitting",
+      "Expected generalization",
+      "High inference latency"
+    ],
+    "answer": 1,
+    "why": "Strong training results with poor unseen performance suggest fitting training-specific patterns that do not generalize.",
+    "reasons": [
+      "Underfitting generally produces inadequate performance even on the training data.",
+      "Strong training results with poor unseen performance suggest fitting training-specific patterns that do not generalize.",
+      "Expected generalization would produce adequate results on unseen examples too.",
+      "Latency is response time and does not explain the described training-versus-test quality gap."
+    ],
+    "clues": [
+      {
+        "text": "unseen examples",
+        "why": "Generalization, not training memorization, is the concern."
+      }
+    ],
+    "hint": "Compare training performance with performance on new data.",
+    "analysis": "A large training-versus-unseen performance gap suggests overfitting. Diagnose the gap rather than celebrating the training score.",
+    "trap": "More training accuracy alone can worsen the actual problem.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 29,
+    "domain": 1,
+    "kind": "order",
+    "q": "Arrange this simplified ML workflow after the business problem is defined.",
+    "options": [
+      "Train the model on the training split",
+      "Deploy the evaluated model and monitor it",
+      "Prepare the data and create appropriate dataset splits",
+      "Evaluate the trained model on held-out data"
+    ],
+    "answer": [
+      2,
+      0,
+      3,
+      1
+    ],
+    "reasons": [
+      "Training uses the prepared training data.",
+      "Deploy only after suitable evaluation, and keep monitoring.",
+      "Prepare data and separate evaluation data before training.",
+      "Held-out evaluation assesses generalization before deployment."
+    ],
+    "why": "Prepare and split → train → evaluate on held-out data → deploy and monitor.",
+    "clues": [
+      {
+        "text": "simplified ML workflow",
+        "why": "Use the dependencies between stages, not a claim that all projects are strictly linear."
+      }
+    ],
+    "hint": "Ask what must exist before training and before deployment.",
+    "analysis": "Prepared splits precede training; evaluate the resulting model before deploying it. Real development revisits these stages when results are inadequate.",
+    "trap": "Tuning repeatedly against the final test set contaminates the final estimate of generalization.",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 30,
+    "domain": 1,
+    "q": "A website needs a prediction while a customer is waiting at checkout. Which inference pattern fits best?",
+    "options": [
+      "Nightly batch inference",
+      "Real-time inference",
+      "Offline model training",
+      "Historical data labeling"
+    ],
+    "answer": 1,
+    "why": "Real-time inference serves low-latency predictions for interactive requests.",
+    "reasons": [
+      "Nightly batch processing does not return a result during the current checkout.",
+      "Real-time inference serves low-latency predictions for interactive requests.",
+      "Training creates or updates the model; it is not the live prediction step.",
+      "Labeling prepares examples rather than responding to the customer."
+    ],
+    "clues": [
+      {
+        "text": "while a customer is waiting",
+        "why": "The result is needed during an interactive transaction."
+      }
+    ],
+    "hint": "Identify the required response time before selecting a processing pattern.",
+    "analysis": "The checkout request needs an immediate prediction. Real-time inference matches this latency condition.",
+    "trap": "A prediction workload is not necessarily a training workload.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 31,
+    "domain": 1,
+    "q": "A team processes millions of records overnight and does not need immediate responses. Which inference pattern is most appropriate?",
+    "options": [
+      "Real-time per-user endpoints only",
+      "Continuous manual labeling",
+      "Batch inference",
+      "Retrain for every record"
+    ],
+    "answer": 2,
+    "why": "Batch inference suits large groups of predictions without an immediate-response requirement.",
+    "reasons": [
+      "Interactive endpoints can work but do not best match the stated overnight bulk requirement.",
+      "Labeling is a data-preparation task, not inference over the records.",
+      "Batch inference suits large groups of predictions without an immediate-response requirement.",
+      "Retraining for each record confuses model training with using a trained model."
+    ],
+    "clues": [
+      {
+        "text": "overnight",
+        "why": "Bulk processing can be deferred."
+      }
+    ],
+    "hint": "Look for whether results are required immediately or can arrive together later.",
+    "analysis": "The workload is large and delay is acceptable. A bulk prediction pattern fits better than a per-user interactive pattern.",
+    "trap": "Large volume alone is not enough; the relaxed latency requirement matters too.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 32,
+    "domain": 1,
+    "q": "A mobile app must read a prepared text message aloud. Which AWS service fits?",
+    "options": [
+      "Amazon Transcribe",
+      "Amazon Comprehend",
+      "Amazon Translate",
+      "Amazon Polly"
+    ],
+    "answer": 3,
+    "why": "Polly generates speech from text.",
+    "reasons": [
+      "Transcribe turns speech into text, the reverse direction.",
+      "Comprehend analyzes text, such as sentiment or entities.",
+      "Translate converts languages but does not supply the requested speech output.",
+      "Polly generates speech from text."
+    ],
+    "clues": [
+      {
+        "text": "text message aloud",
+        "why": "Text is the input; audio is the output."
+      }
+    ],
+    "hint": "State the input and output formats before looking at the service names.",
+    "analysis": "The task is text-to-speech synthesis. No transcription or language conversion is requested.",
+    "trap": "Do not choose a speech-related service without checking the conversion direction.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 33,
+    "domain": 1,
+    "q": "A game-playing model learns by taking actions and receiving rewards. Which learning approach fits?",
+    "options": [
+      "Supervised learning from fixed class labels",
+      "Reinforcement learning",
+      "Unsupervised clustering",
+      "Numeric regression only"
+    ],
+    "answer": 1,
+    "why": "Reinforcement learning optimizes behavior based on interaction and rewards.",
+    "reasons": [
+      "Fixed labeled examples differ from learning through actions and reward signals.",
+      "Reinforcement learning optimizes behavior based on interaction and rewards.",
+      "Clustering discovers groups rather than a rewarded action policy.",
+      "Regression predicts numbers; it does not describe the action-and-reward learning setup."
+    ],
+    "clues": [
+      {
+        "text": "actions and receiving rewards",
+        "why": "The feedback evaluates actions in an environment."
+      }
+    ],
+    "hint": "Ask how the learning system receives feedback.",
+    "analysis": "Actions, environment feedback and rewards characterize reinforcement learning. The fact that it is a game is only supporting context.",
+    "trap": "Not every game AI uses reinforcement learning; the described feedback mechanism determines the answer.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 34,
+    "domain": 2,
+    "q": "A company needs one model to interpret a product photo and answer a text question about it. Which capability is required?",
+    "options": [
+      "Text-only generation",
+      "Multimodal understanding",
+      "Text embedding generation only",
+      "Speech transcription only"
+    ],
+    "answer": 1,
+    "why": "The model must understand both visual content and text to answer the request.",
+    "reasons": [
+      "A text-only model cannot directly interpret the product image.",
+      "The model must understand both visual content and text to answer the request.",
+      "Text embeddings alone do not provide the requested image interpretation and response.",
+      "Speech transcription handles audio, not the product photo."
+    ],
+    "clues": [
+      {
+        "text": "photo and answer a text question",
+        "why": "Two input/output modalities are involved."
+      }
+    ],
+    "hint": "List the content formats that the model must handle.",
+    "analysis": "The required capability spans image interpretation and language. Select support for both modalities.",
+    "trap": "A model that generates images is not necessarily a model that understands image inputs.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 35,
+    "domain": 2,
+    "q": "An on-demand model charges per input and output token. Which change most directly reduces generation cost when answer quality remains acceptable?",
+    "options": [
+      "Increase the maximum output for every request",
+      "Send all conversation history whether relevant or not",
+      "Remove unnecessary prompt text and cap output while checking quality",
+      "Fine-tune a larger model solely to increase its parameter count"
+    ],
+    "answer": 2,
+    "why": "For the stated token-priced model, reducing unnecessary input and output can lower cost while preserving the required quality.",
+    "reasons": [
+      "A larger output allowance can increase token usage instead of reducing it.",
+      "Irrelevant history increases billed input without necessarily helping answer quality.",
+      "For the stated token-priced model, reducing unnecessary input and output can lower cost while preserving the required quality.",
+      "Increasing model size is not a direct remedy for excessive token use and may add costs."
+    ],
+    "clues": [
+      {
+        "text": "per input and output token",
+        "why": "Both sides of the interaction can affect billing."
+      }
+    ],
+    "hint": "Match the cost driver to the resource you can reduce.",
+    "analysis": "This question explicitly states a token-based price. Trim irrelevant input and unnecessary output, then verify the answer still satisfies the task.",
+    "trap": "The shortest answer is not automatically best if it loses necessary information.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 36,
+    "domain": 2,
+    "q": "A team wants a general-purpose model already trained on broad datasets to adapt to several tasks. What type of model is this?",
+    "options": [
+      "Foundation model",
+      "Single hard-coded business rule",
+      "Database index",
+      "Access policy"
+    ],
+    "answer": 0,
+    "why": "A foundation model is broadly trained and can support multiple downstream tasks.",
+    "reasons": [
+      "A foundation model is broadly trained and can support multiple downstream tasks.",
+      "A fixed business rule is not a broadly trained adaptable model.",
+      "A database index speeds retrieval; it is not a generative model.",
+      "An access policy governs authorization rather than learning tasks."
+    ],
+    "clues": [
+      {
+        "text": "already trained on broad datasets",
+        "why": "Broad pre-training supports adaptation across tasks."
+      }
+    ],
+    "hint": "Separate a reusable learned model from a fixed rule or infrastructure component.",
+    "analysis": "The defining property is broad training followed by reuse across tasks. A task-specific classifier alone would not imply this scope.",
+    "trap": "General-purpose does not mean accurate for every business task without evaluation.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 37,
+    "domain": 2,
+    "kind": "order",
+    "q": "Order these stages in a simplified foundation-model lifecycle, including optional adaptation.",
+    "options": [
+      "Evaluate the adapted model against task requirements",
+      "Pre-train the foundation model",
+      "Deploy the model and collect feedback",
+      "Select and curate suitable training data",
+      "Adapt the model if the target task needs it"
+    ],
+    "answer": [
+      3,
+      1,
+      4,
+      0,
+      2
+    ],
+    "reasons": [
+      "Evaluate the result of training/adaptation before deployment.",
+      "Pre-training requires selected and prepared data.",
+      "Deployment follows evaluation; feedback can inform later iterations.",
+      "Data selection and curation support the subsequent training stage.",
+      "Task adaptation follows a base model and is not always necessary."
+    ],
+    "why": "Curate data → pre-train → adapt if needed → evaluate → deploy and collect feedback.",
+    "clues": [
+      {
+        "text": "including optional adaptation",
+        "why": "Place adaptation after a base model exists and before its final task evaluation."
+      }
+    ],
+    "hint": "Trace the dependencies from source data to a deployed model.",
+    "analysis": "The simplified sequence starts with data, produces a base model, optionally adapts it, evaluates suitability, then deploys with feedback.",
+    "trap": "The ordered exercise is a simplified dependency chain; real projects can iterate and evaluate at multiple points.",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 38,
+    "domain": 2,
+    "q": "An assistant selects a tool, checks its result and chooses a next action toward a goal. What is the key capability?",
+    "options": [
+      "Static object storage",
+      "Agentic behavior",
+      "Text tokenization alone",
+      "A fixed lookup table only"
+    ],
+    "answer": 1,
+    "why": "An agent can select and use tools as part of a goal-directed workflow.",
+    "reasons": [
+      "Storage holds data and does not choose goal-directed actions.",
+      "An agent can select and use tools as part of a goal-directed workflow.",
+      "Tokenization prepares text units but does not describe planning and actions.",
+      "A fixed lookup alone does not describe selecting and iterating on tool actions."
+    ],
+    "clues": [
+      {
+        "text": "chooses a next action",
+        "why": "The system is taking goal-directed actions, beyond generating text."
+      }
+    ],
+    "hint": "Look for decisions and tool use rather than conversational tone.",
+    "analysis": "The assistant uses observations to guide further actions. That is the agentic part of the description.",
+    "trap": "A chatbot is not automatically an agent just because it sounds conversational.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 39,
+    "domain": 2,
+    "q": "A company can call a suitable foundation model through a managed API instead of hosting its own model servers. What is a likely advantage?",
+    "options": [
+      "No need to evaluate output",
+      "Less infrastructure management",
+      "No possible security responsibilities",
+      "Guaranteed zero inference cost"
+    ],
+    "answer": 1,
+    "why": "A managed API reduces the infrastructure the customer must operate directly.",
+    "reasons": [
+      "Application owners still need to evaluate output quality and suitability.",
+      "A managed API reduces the infrastructure the customer must operate directly.",
+      "Customers retain responsibilities such as permissions and appropriate data handling.",
+      "Managed inference can still incur usage charges."
+    ],
+    "clues": [
+      {
+        "text": "instead of hosting its own model servers",
+        "why": "The comparison concerns operating the infrastructure."
+      }
+    ],
+    "hint": "Choose an operational benefit without turning it into an absolute guarantee.",
+    "analysis": "The benefit is reduced server operations. Managed service does not remove evaluation, cost or all customer responsibilities.",
+    "trap": "Beware options claiming a managed service eliminates every responsibility.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 40,
+    "domain": 2,
+    "q": "An app prepares relevant documents, conversation history and tool descriptions for a model call. Which concept best describes this?",
+    "options": [
+      "Context engineering",
+      "Training from scratch",
+      "Disk encryption",
+      "Class-label balancing"
+    ],
+    "answer": 0,
+    "why": "Context engineering organizes useful information and instructions supplied to a model at runtime.",
+    "reasons": [
+      "Context engineering organizes useful information and instructions supplied to a model at runtime.",
+      "Runtime context preparation does not itself update model weights.",
+      "Encryption protects data; it does not choose relevant context for a call.",
+      "Class-label balancing concerns training-data distribution rather than runtime context."
+    ],
+    "clues": [
+      {
+        "text": "for a model call",
+        "why": "The information is being assembled at inference time."
+      }
+    ],
+    "hint": "Distinguish changing the input from changing the trained model.",
+    "analysis": "Relevant context and tool information are prepared before inference. This is a runtime design task, not necessarily training.",
+    "trap": "A long prompt is not automatically well-engineered context.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 41,
+    "domain": 2,
+    "q": "A product needs an open-source framework for building model-driven agents on AWS. Which option is designed for agent development?",
+    "options": [
+      "AWS Artifact",
+      "Amazon Macie",
+      "Strands Agents",
+      "AWS Config"
+    ],
+    "answer": 2,
+    "why": "Strands Agents is an open-source SDK for building model-driven agents.",
+    "reasons": [
+      "Artifact provides access to compliance documents and agreements.",
+      "Macie helps discover sensitive data in S3.",
+      "Strands Agents is an open-source SDK for building model-driven agents.",
+      "Config tracks resource configuration and rule compliance."
+    ],
+    "clues": [
+      {
+        "text": "framework for building model-driven agents",
+        "why": "The requirement is development tooling for agents."
+      }
+    ],
+    "hint": "Match the requested development role, not simply a service that mentions AI security.",
+    "analysis": "An agent-building SDK fits the development requirement. Compliance and data-discovery tools support other concerns.",
+    "trap": "Services in the same ecosystem do not all perform the same job.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 42,
+    "domain": 2,
+    "q": "A team wants managed runtime and supporting services for operating agents at scale. Which AWS offering is designed for this?",
+    "options": [
+      "Amazon Polly",
+      "Amazon Bedrock AgentCore",
+      "AWS Artifact",
+      "Amazon Translate"
+    ],
+    "answer": 1,
+    "why": "Bedrock AgentCore provides services for deploying and operating agents.",
+    "reasons": [
+      "Polly synthesizes speech rather than operating general-purpose agent workloads.",
+      "Bedrock AgentCore provides services for deploying and operating agents.",
+      "Artifact provides compliance documents, not an agent runtime.",
+      "Translate converts text between languages rather than hosting agents."
+    ],
+    "clues": [
+      {
+        "text": "operating agents at scale",
+        "why": "The requirement is operational support, not only writing agent code."
+      }
+    ],
+    "hint": "Distinguish an agent-development framework from managed runtime services.",
+    "analysis": "Focus on deployment and operations for agents. AgentCore is designed for that role, whereas specialized language services are not a general runtime.",
+    "trap": "Writing an agent and operating it reliably are different requirements.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 43,
+    "domain": 2,
+    "q": "A company wants an assistant that helps develop software from specifications. Which AWS tool best fits?",
+    "options": [
+      "Amazon Transcribe",
+      "Amazon Macie",
+      "Amazon Polly",
+      "Kiro"
+    ],
+    "answer": 3,
+    "why": "Kiro is an AI development tool supporting specification-driven software development.",
+    "reasons": [
+      "Transcribe converts speech recordings to text.",
+      "Macie discovers sensitive data in S3.",
+      "Polly converts text into speech.",
+      "Kiro is an AI development tool supporting specification-driven software development."
+    ],
+    "clues": [
+      {
+        "text": "develop software from specifications",
+        "why": "The application is software development, not speech processing."
+      }
+    ],
+    "hint": "Identify the business workflow before selecting the tool.",
+    "analysis": "The request concerns moving specifications into software development work. Choose the development tool rather than a specialized text/audio service.",
+    "trap": "AI-related names alone do not establish a match to the workflow.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 44,
+    "domain": 2,
+    "q": "Two models meet quality requirements. One is faster and cheaper for the company’s representative workload. What is the best next selection step?",
+    "options": [
+      "Choose the largest model regardless",
+      "Benchmark the tradeoffs and choose the workload-appropriate model",
+      "Select only by provider popularity",
+      "Ignore measured latency and cost"
+    ],
+    "answer": 1,
+    "why": "Representative testing lets the team compare quality, latency and cost against requirements.",
+    "reasons": [
+      "Size alone does not show suitability once quality requirements are met.",
+      "Representative testing lets the team compare quality, latency and cost against requirements.",
+      "Popularity is not evidence that the model meets this workload’s constraints.",
+      "Measured latency and cost are directly relevant selection criteria."
+    ],
+    "clues": [
+      {
+        "text": "representative workload",
+        "why": "Evaluate the actual use case rather than a generic ranking."
+      }
+    ],
+    "hint": "Look for a decision grounded in requirements and measured tradeoffs.",
+    "analysis": "Both candidates pass the quality threshold. Compare cost and responsiveness under realistic conditions before choosing.",
+    "trap": "The largest or most famous model is not automatically the best business fit.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 45,
+    "domain": 3,
+    "kind": "multi",
+    "q": "Which TWO approaches can supply task guidance or current document information without changing model weights?",
+    "options": [
+      "Retrieve relevant source passages with RAG",
+      "Fine-tune the model on domain examples",
+      "Include a few demonstrations in the prompt",
+      "Pre-train a new foundation model",
+      "Train a student model by distillation"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "reasons": [
+      "RAG supplies runtime source context without itself changing model weights.",
+      "Fine-tuning updates model parameters.",
+      "Few-shot demonstrations guide the inference call through prompt context.",
+      "Pre-training learns model parameters from data.",
+      "Distillation trains a student and changes the student model’s parameters."
+    ],
+    "why": "RAG and few-shot prompting can modify runtime context without training the model.",
+    "clues": [
+      {
+        "text": "without changing model weights",
+        "why": "Separate runtime context from training-based parameter changes."
+      }
+    ],
+    "hint": "Choose exactly two options that act through the model’s input context.",
+    "analysis": "Retrieval and prompt demonstrations modify the information provided at inference time. Training, fine-tuning and distillation learn parameters.",
+    "trap": "Both RAG and prompting avoid weight updates, but they meet different information needs.",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 46,
+    "domain": 3,
+    "q": "A model must label sentiment from an instruction with no demonstrations in the prompt. Which prompting technique is this?",
+    "options": [
+      "Few-shot",
+      "Zero-shot",
+      "Distillation",
+      "Continuous pre-training"
+    ],
+    "answer": 1,
+    "why": "Zero-shot asks the model to perform the task without demonstrations.",
+    "reasons": [
+      "Few-shot includes a small set of demonstrations.",
+      "Zero-shot asks the model to perform the task without demonstrations.",
+      "Distillation trains a student from a teacher.",
+      "Continuous pre-training changes model parameters with additional training."
+    ],
+    "clues": [
+      {
+        "text": "no demonstrations",
+        "why": "Count examples rather than instructions."
+      }
+    ],
+    "hint": "An instruction is not the same thing as a worked example.",
+    "analysis": "The task and output can be specified in detail while still being zero-shot if no demonstrations are supplied.",
+    "trap": "Zero-shot does not mean the prompt contains no guidance.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 47,
+    "domain": 3,
+    "q": "An application needs semantic search over internal documents. What should be compared to find related meaning?",
+    "options": [
+      "Exact filename matches alone",
+      "Encrypted object keys",
+      "Embedding vectors",
+      "Document creation timestamps alone"
+    ],
+    "answer": 2,
+    "why": "Embedding-vector similarity can help compare meaning between queries and documents.",
+    "reasons": [
+      "Exact filenames can miss semantically related material with different wording.",
+      "Encryption keys serve security needs and are not semantic feature vectors.",
+      "Embedding-vector similarity can help compare meaning between queries and documents.",
+      "Creation time describes recency, not semantic similarity."
+    ],
+    "clues": [
+      {
+        "text": "semantic search",
+        "why": "The goal is similarity of meaning, not exact filename matching."
+      }
+    ],
+    "hint": "Choose a representation designed for comparing semantic features.",
+    "analysis": "Meaning-based retrieval commonly compares query and content embeddings. Retrieval quality still depends on the model and indexing strategy.",
+    "trap": "Semantic similarity is useful evidence of relevance, not a guarantee of factual accuracy.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 48,
+    "domain": 3,
+    "q": "Why might a RAG pipeline split long source documents into chunks?",
+    "options": [
+      "To hide all source references",
+      "To guarantee unbiased answers",
+      "To retrieve focused passages that fit the available context",
+      "To replace access permissions"
+    ],
+    "answer": 2,
+    "why": "Focused chunks can improve passage retrieval and fit within input constraints.",
+    "reasons": [
+      "Chunking can preserve source metadata; hiding references is not its purpose.",
+      "Chunking alone cannot guarantee fairness or factual correctness.",
+      "Focused chunks can improve passage retrieval and fit within input constraints.",
+      "Access controls remain necessary regardless of chunk size."
+    ],
+    "clues": [
+      {
+        "text": "long source documents",
+        "why": "Retrieval needs manageable units within context limits."
+      }
+    ],
+    "hint": "Think about what the retriever returns and the model can accept.",
+    "analysis": "Chunking creates units suitable for retrieval and context assembly. Chunk size should preserve enough surrounding meaning for the task.",
+    "trap": "Smaller chunks are not always better; too little context can break meaning.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 49,
+    "domain": 3,
+    "q": "A RAG chatbot cites a policy paragraph that was replaced last month. What should the team investigate first?",
+    "options": [
+      "Increase sampling temperature",
+      "Check source freshness and index synchronization",
+      "Increase the maximum response length",
+      "Switch to a larger model without checking the retrieved context"
+    ],
+    "answer": 1,
+    "why": "Check source versions, ingestion and index updates to determine why obsolete information was retrieved.",
+    "reasons": [
+      "Temperature changes sampling behavior and does not refresh outdated documents.",
+      "Check source versions, ingestion and index updates to determine why obsolete information was retrieved.",
+      "Longer output can still repeat the same obsolete passage.",
+      "A larger model can receive and rely on the same stale context; inspect retrieval first."
+    ],
+    "clues": [
+      {
+        "text": "was replaced last month",
+        "why": "The content used for grounding is outdated."
+      }
+    ],
+    "hint": "Trace the answer back to the source and its ingestion process.",
+    "analysis": "The visible failure is stale grounding material. Check source versions, refresh processes and retrieval results before changing the model.",
+    "trap": "A citation proves a source was referenced, not that the source is current.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 50,
+    "domain": 3,
+    "q": "A prompt asks for a JSON object with three named fields. What most directly improves the chance of the desired format?",
+    "options": [
+      "Describe only the topic and omit the field names",
+      "Specify the required schema and a valid example, then validate output",
+      "Use a higher temperature to encourage format variation",
+      "Repeat an ambiguous request several times without testing"
+    ],
+    "answer": 1,
+    "why": "Clear structure and a valid example improve guidance; programmatic validation still checks whether the response meets the contract.",
+    "reasons": [
+      "Omitting field names leaves the required output structure ambiguous.",
+      "Clear structure and a valid example improve guidance; programmatic validation still checks whether the response meets the contract.",
+      "More variation does not directly improve adherence to an exact JSON structure.",
+      "Repeating ambiguity does not resolve it or verify valid JSON."
+    ],
+    "clues": [
+      {
+        "text": "three named fields",
+        "why": "The desired structure should be explicit."
+      }
+    ],
+    "hint": "Choose the change that removes ambiguity from the requested output.",
+    "analysis": "Specify fields, constraints and an example. Validate the response programmatically because prompting alone does not guarantee valid JSON.",
+    "trap": "A well-written format instruction still needs output validation in production.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 51,
+    "domain": 3,
+    "q": "A model response must stop after a short answer. Which inference setting most directly limits generated length?",
+    "options": [
+      "Maximum output tokens",
+      "Temperature",
+      "Top P",
+      "Number of few-shot examples"
+    ],
+    "answer": 0,
+    "why": "Maximum output tokens directly caps generation length, although a cap can truncate content.",
+    "reasons": [
+      "Maximum output tokens directly caps generation length, although a cap can truncate content.",
+      "Temperature influences sampling variation, not a hard length cap.",
+      "Top P controls the candidate token distribution, not the maximum output length.",
+      "Examples can guide behavior but do not enforce a hard output-length limit."
+    ],
+    "clues": [
+      {
+        "text": "limits generated length",
+        "why": "The control should act on output tokens."
+      }
+    ],
+    "hint": "Separate inference settings from training and infrastructure settings.",
+    "analysis": "The requirement is a length cap. Use the output-token limit and check that the resulting answer is complete enough.",
+    "trap": "Truncating an answer is not the same as teaching the model to be concise.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 52,
+    "domain": 3,
+    "kind": "match",
+    "q": "Match each foundation-model evaluation technique to what it assesses.",
+    "options": [
+      "BERTScore",
+      "BLEU",
+      "LLM-as-a-judge",
+      "ROUGE"
+    ],
+    "answer": [
+      1,
+      3,
+      0,
+      2
+    ],
+    "reasons": [
+      "BERTScore uses contextual embeddings to compare generated and reference text.",
+      "BLEU uses n-gram precision with a brevity penalty and is commonly associated with translation.",
+      "An LLM judge evaluates responses against supplied criteria but can have its own biases and errors.",
+      "ROUGE measures overlap with reference text and is commonly used for summaries."
+    ],
+    "why": "BLEU is associated with translation overlap; ROUGE with summary overlap; BERTScore with semantic comparison; an LLM judge with rubric-based model assessment.",
+    "clues": [
+      {
+        "text": "evaluation technique",
+        "why": "Distinguish reference overlap, semantic similarity and model-based judgment."
+      }
+    ],
+    "hint": "Identify how each metric compares or judges the generated response.",
+    "analysis": "Different techniques capture different aspects of text quality. None of these alone guarantees factual correctness.",
+    "trap": "A good overlap score does not prove truth; a model judge also needs validation.",
+    "prompts": [
+      "Translation comparison using n-gram precision and a brevity penalty",
+      "Reference-summary overlap",
+      "Comparison using contextual token embeddings",
+      "A language model scores answers against a rubric"
+    ],
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 53,
+    "domain": 3,
+    "q": "A summarization team wants an overlap-based metric comparing generated summaries with reference summaries. Which fits?",
+    "options": [
+      "ROUGE",
+      "Inference latency",
+      "Task completion rate",
+      "Token throughput"
+    ],
+    "answer": 0,
+    "why": "ROUGE compares overlap with reference text and is commonly used for summary evaluation.",
+    "reasons": [
+      "ROUGE compares overlap with reference text and is commonly used for summary evaluation.",
+      "Latency measures response time, not overlap with a reference summary.",
+      "Task completion is a business outcome measure rather than a reference-overlap metric.",
+      "Throughput measures processing volume or speed, not textual summary overlap."
+    ],
+    "clues": [
+      {
+        "text": "overlap-based metric",
+        "why": "A reference-text comparison is requested."
+      }
+    ],
+    "hint": "Separate content-quality measures from system-operation measures.",
+    "analysis": "The requirement is summary overlap, which points to ROUGE. Add checks for factuality because overlap alone does not establish truth.",
+    "trap": "A summary can share many words with a reference and still contain factual errors.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 54,
+    "domain": 3,
+    "q": "A company uses another language model to score generated answers. What is an important evaluation risk?",
+    "options": [
+      "The judge can have its own biases and errors",
+      "The judge guarantees objective truth",
+      "Human review becomes impossible",
+      "The candidate model no longer needs prompts"
+    ],
+    "answer": 0,
+    "why": "Model judges can be biased or mistaken; calibrate them against suitable criteria and human judgments.",
+    "reasons": [
+      "Model judges can be biased or mistaken; calibrate them against suitable criteria and human judgments.",
+      "A second model is not an infallible source of truth.",
+      "Human review remains possible and can help validate the evaluation.",
+      "A judge does not eliminate the candidate model’s input requirements."
+    ],
+    "clues": [
+      {
+        "text": "another language model to score",
+        "why": "The evaluator is itself a fallible model."
+      }
+    ],
+    "hint": "Apply the same skepticism to the evaluator as to the system being evaluated.",
+    "analysis": "LLM-as-a-judge can scale assessment but requires validation. Compare judgments against trusted examples and inspect disagreement.",
+    "trap": "Automating an evaluation does not remove subjectivity or error.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 55,
+    "domain": 3,
+    "q": "A support agent retrieves correct documents but frequently fails to complete refund tasks. What should its evaluation include?",
+    "options": [
+      "Only retrieval relevance",
+      "Only model size",
+      "End-to-end task completion and tool outcomes",
+      "Only number of stored documents"
+    ],
+    "answer": 2,
+    "why": "End-to-end testing captures whether the agent achieves the requested outcome with its tools.",
+    "reasons": [
+      "Retrieval relevance alone misses planning or tool-execution failures.",
+      "Model size does not establish that the workflow completes successfully.",
+      "End-to-end testing captures whether the agent achieves the requested outcome with its tools.",
+      "Document count does not measure execution success."
+    ],
+    "clues": [
+      {
+        "text": "fails to complete refund tasks",
+        "why": "The failure occurs at the workflow outcome, not necessarily retrieval."
+      }
+    ],
+    "hint": "Evaluate the whole application rather than only a good component.",
+    "analysis": "Correct retrieval is necessary but insufficient for a tool-using agent. Assess completion, failures and safe handling of actions.",
+    "trap": "A component score can be high while the user experience still fails.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 56,
+    "domain": 3,
+    "q": "A team repeatedly changes prompts and cannot tell which version caused a quality regression. What practice helps?",
+    "options": [
+      "Delete old prompts",
+      "Version prompts and record evaluation results",
+      "Hide test datasets",
+      "Measure only response length"
+    ],
+    "answer": 1,
+    "why": "Versioning and associated results allow changes and regressions to be traced.",
+    "reasons": [
+      "Deleting history makes comparing behavior harder.",
+      "Versioning and associated results allow changes and regressions to be traced.",
+      "Hiding test data from the development process does not establish prompt history.",
+      "Length alone does not capture the relevant quality regression."
+    ],
+    "clues": [
+      {
+        "text": "which version caused",
+        "why": "The need is traceability of changes and their measured effects."
+      }
+    ],
+    "hint": "Choose a practice that connects an artifact version with evidence.",
+    "analysis": "Record prompt versions and run comparable evaluations for each change. Otherwise multiple changes can obscure the cause.",
+    "trap": "More prompt experimentation is not helpful if changes and results are not tracked.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 57,
+    "domain": 3,
+    "q": "A chatbot must answer using private company documents and show the supporting source passages. Which Bedrock capability best fits?",
+    "options": [
+      "Amazon Bedrock Knowledge Bases",
+      "Amazon Bedrock Guardrails alone",
+      "AWS Artifact",
+      "Amazon Comprehend"
+    ],
+    "answer": 0,
+    "why": "Knowledge Bases supports retrieving connected source material for grounded responses and source references.",
+    "reasons": [
+      "Knowledge Bases supports retrieving connected source material for grounded responses and source references.",
+      "Guardrails provides safeguards but does not itself replace document ingestion and retrieval.",
+      "Artifact provides AWS compliance documents, not a general question-answering store for the company’s private policies.",
+      "Comprehend analyzes text; it is not the Bedrock retrieval-and-grounded-generation capability."
+    ],
+    "clues": [
+      {
+        "text": "supporting source passages",
+        "why": "The answer must be grounded in the company’s own documents."
+      }
+    ],
+    "hint": "Identify the retrieval-and-grounding requirement before selecting a service.",
+    "analysis": "Use document retrieval and grounding rather than a speech service. Document access controls and source freshness still require attention.",
+    "trap": "Do not confuse AWS compliance reports with a knowledge base over your own business documents.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 58,
+    "domain": 4,
+    "q": "A team wants one place to document a model’s intended use, limitations and evaluation results. What fits?",
+    "options": [
+      "A CloudTrail event log alone",
+      "A SageMaker Model Card",
+      "An IAM permission policy",
+      "An embedding vector index"
+    ],
+    "answer": 1,
+    "why": "A Model Card records key model details, intended use, limitations and evaluation information.",
+    "reasons": [
+      "An activity log does not replace structured documentation of intended use and limitations.",
+      "A Model Card records key model details, intended use, limitations and evaluation information.",
+      "IAM policies define permissions rather than documenting the model’s intended use.",
+      "A vector index supports retrieval rather than serving as a model governance record."
+    ],
+    "clues": [
+      {
+        "text": "intended use, limitations",
+        "why": "The goal is transparent model documentation."
+      }
+    ],
+    "hint": "Choose the artifact that explains the model to stakeholders.",
+    "analysis": "The question asks for a model-information record. Documentation improves transparency but does not itself prove the model is fair or safe.",
+    "trap": "A model card is evidence of documentation, not a certification of correctness.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 59,
+    "domain": 4,
+    "kind": "multi",
+    "q": "A region is almost absent from training data but is part of the intended user population. Which TWO actions best investigate this risk?",
+    "options": [
+      "Evaluate results separately for users from that region",
+      "Assume the overall accuracy establishes regional fairness",
+      "Collect or curate suitable examples representing that population",
+      "Increase hosting capacity instead of evaluating the regional data",
+      "Exclude regional failures from the evaluation report"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "reasons": [
+      "Subgroup evaluation helps identify failures hidden by aggregate results.",
+      "Overall accuracy can hide poor regional performance.",
+      "Appropriate representative examples can address the identified data coverage gap.",
+      "Capacity addresses throughput, not representation or regional prediction quality.",
+      "Omitting failures hides risk rather than investigating it."
+    ],
+    "why": "Assess regional outcomes and improve suitable representation rather than relying on the aggregate score.",
+    "clues": [
+      {
+        "text": "almost absent from training data",
+        "why": "The data may not represent an intended population."
+      }
+    ],
+    "hint": "Choose one action that examines outcomes and one that addresses data coverage.",
+    "analysis": "Evaluate the regional outcomes and inspect or improve the relevant data representation. More overall examples are insufficient if the missing region remains absent.",
+    "trap": "A dataset can be large and still omit important users.",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 60,
+    "domain": 4,
+    "q": "A team selects an AI model for routine tasks that a smaller model can handle at the required quality. Which choice supports sustainability?",
+    "options": [
+      "Always use the largest model",
+      "Consider a smaller suitable model and measure resource use",
+      "Generate maximum-length answers every time",
+      "Run redundant inference without a need"
+    ],
+    "answer": 1,
+    "why": "Choosing a fit-for-purpose model and measuring resource use can reduce unnecessary computation.",
+    "reasons": [
+      "A larger model can consume unnecessary resources when the smaller one meets the task.",
+      "Choosing a fit-for-purpose model and measuring resource use can reduce unnecessary computation.",
+      "Unneeded output can increase compute and cost.",
+      "Unnecessary repeated inference adds work without a justified benefit."
+    ],
+    "clues": [
+      {
+        "text": "at the required quality",
+        "why": "The smaller model already meets the business threshold."
+      }
+    ],
+    "hint": "Balance adequate quality against resource consumption.",
+    "analysis": "The task does not need the largest model. Evaluate a smaller suitable model rather than assuming more computation is always better.",
+    "trap": "Sustainability should not be claimed from size alone; measure the relevant workload.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 61,
+    "domain": 4,
+    "q": "A user needs to challenge an AI-assisted decision that affects them. Which design best supports accountability?",
+    "options": [
+      "Provide no explanation or appeal route",
+      "Offer understandable reasons and a human review channel",
+      "Treat the model’s confidence as final authority",
+      "Prevent user feedback"
+    ],
+    "answer": 1,
+    "why": "Understandable reasons and human review support accountability and correction.",
+    "reasons": [
+      "Without explanation or review, a user cannot meaningfully contest a possible error.",
+      "Understandable reasons and human review support accountability and correction.",
+      "Confidence is not a guarantee that a decision is appropriate.",
+      "Blocking feedback prevents problems being raised and investigated."
+    ],
+    "clues": [
+      {
+        "text": "challenge an AI-assisted decision",
+        "why": "Users need a way to understand and contest the outcome."
+      }
+    ],
+    "hint": "Think about the person affected, not just the automated workflow.",
+    "analysis": "An accountable system gives understandable information and a path to review. The design should reflect the impact of the decision.",
+    "trap": "A technical explanation alone may be insufficient if no correction process exists.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 62,
+    "domain": 5,
+    "q": "Which AWS service helps assess resource configurations against defined rules over time?",
+    "options": [
+      "AWS Config",
+      "AWS CloudTrail",
+      "Amazon CloudWatch metrics",
+      "AWS Artifact"
+    ],
+    "answer": 0,
+    "why": "Config records resource configurations and evaluates them against rules.",
+    "reasons": [
+      "Config records resource configurations and evaluates them against rules.",
+      "CloudTrail records supported API activity; that differs from evaluating configuration state against a rule.",
+      "Metrics monitor operational quantities rather than replacing resource configuration compliance checks.",
+      "Artifact supplies compliance documents rather than tracking your resource configurations over time."
+    ],
+    "clues": [
+      {
+        "text": "resource configurations against defined rules",
+        "why": "The requirement is configuration compliance rather than API event history."
+      }
+    ],
+    "hint": "Distinguish resource state from records of who called an API.",
+    "analysis": "The focus is whether configured resources comply with rules. CloudTrail would address account API activity, a related but different question.",
+    "trap": "Audit and compliance tools overlap in purpose but capture different evidence.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 63,
+    "domain": 5,
+    "q": "A team needs AWS compliance reports and agreements to support a review. Which service provides access to these documents?",
+    "options": [
+      "Amazon Macie",
+      "Amazon Transcribe",
+      "AWS Artifact",
+      "Amazon Bedrock Knowledge Bases"
+    ],
+    "answer": 2,
+    "why": "Artifact provides access to AWS compliance reports and agreements.",
+    "reasons": [
+      "Macie discovers sensitive data in S3 rather than providing AWS compliance reports.",
+      "Transcribe handles speech-to-text conversion.",
+      "Artifact provides access to AWS compliance reports and agreements.",
+      "Knowledge Bases retrieves connected business data; it is not the primary AWS compliance-report portal."
+    ],
+    "clues": [
+      {
+        "text": "AWS compliance reports and agreements",
+        "why": "The company needs AWS-provided documentation."
+      }
+    ],
+    "hint": "Ask whether the task is obtaining reports or scanning the company’s data.",
+    "analysis": "The required evidence is AWS compliance documentation, which differs from monitoring a customer’s resources.",
+    "trap": "Accessing a compliance report does not automatically make your application compliant.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 64,
+    "domain": 5,
+    "q": "A model accesses customer data through a managed AWS service. Which statement best reflects shared responsibility?",
+    "options": [
+      "AWS handles every customer data decision",
+      "The customer still controls appropriate permissions and data handling",
+      "Managed services never require encryption",
+      "The customer must own all AWS physical servers"
+    ],
+    "answer": 1,
+    "why": "Customer responsibilities include appropriate data handling and access controls; exact duties vary by service.",
+    "reasons": [
+      "The customer retains responsibilities for its data and access choices.",
+      "Customer responsibilities include appropriate data handling and access controls; exact duties vary by service.",
+      "Encryption remains relevant for managed services.",
+      "AWS operates its physical infrastructure; customer ownership of it is not required."
+    ],
+    "clues": [
+      {
+        "text": "managed AWS service",
+        "why": "Management shifts some duties but does not eliminate customer obligations."
+      }
+    ],
+    "hint": "Reject both extremes: no customer responsibility and all infrastructure responsibility.",
+    "analysis": "Apply the service-specific shared responsibility model. Data and access decisions do not disappear just because a service is managed.",
+    "trap": "The division of duties varies by service and configuration.",
+    "kind": "single",
+    "reviewedOn": "2026-10-24"
+  },
+  {
+    "id": 65,
+    "domain": 5,
+    "kind": "multi",
+    "q": "An agent may read order status but must never issue refunds. Which TWO controls directly enforce this action boundary?",
+    "options": [
+      "Grant the agent identity only the required order-read permissions",
+      "Tell the model in its system prompt that refunds are forbidden",
+      "Expose only approved read-only tools and reject unauthorized actions at execution",
+      "Hide the refund button while keeping a broad refund-capable API credential",
+      "Lower the model temperature to zero"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "reasons": [
+      "Scoped identity permissions limit the operations the agent can actually perform.",
+      "A prompt supports behavior but is not an authorization boundary.",
+      "Execution-time tool restrictions can block actions outside the approved capability set.",
+      "Hiding a UI element does not revoke the underlying credential’s capabilities.",
+      "Sampling settings do not enforce authorization."
+    ],
+    "why": "Identity permissions and execution-time tool restrictions enforce the action boundary; prompts and temperature do not.",
+    "clues": [
+      {
+        "text": "directly enforce",
+        "why": "The control must block the prohibited action outside model-generated instructions."
+      }
+    ],
+    "hint": "Select the controls enforced by identity and tool execution, not wording or sampling.",
+    "analysis": "Use least-privilege authorization and an approved tool-execution boundary together. Prompt instructions can complement these controls but cannot replace them.",
+    "trap": "A tool hidden from the interface may remain callable through an overprivileged credential.",
+    "reviewedOn": "2026-10-24"
+  }
+]

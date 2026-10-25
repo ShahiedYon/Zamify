@@ -1,0 +1,10 @@
+const {chromium}=require('playwright'),assert=require('assert'),path=require('path');
+(async()=>{const b=await chromium.launch({executablePath:process.env.EXAM_SPRINT_CHROME,args:['--no-sandbox','--single-process','--no-zygote','--disable-gpu']});const p=await b.newPage({viewport:{width:390,height:844}});await p.goto(require('url').pathToFileURL(path.join(__dirname,'Preview.html')).href);
+assert.equal(await p.locator('.brand').innerText().then(t=>t.split('\n')[0]),'Zamify');
+await p.evaluate(()=>{state=fresh();state.attempts=[{id:1,choice:0,correct:false,assisted:false,at:Date.now()},{id:6,choice:BANK.find(q=>q.id===6).answer,correct:true,assisted:true,at:Date.now()}];state.missed=[1,6];save();go('home')});
+await p.locator('[data-action=smart]').click();assert.deepEqual(await p.evaluate(()=>state.session.ids.slice(0,2).sort((a,b)=>a-b)),[1,6]);assert.equal(await p.evaluate(()=>new Set(state.session.ids).size),5);assert(!await p.locator('.nav').isVisible());assert.equal(await p.locator('mark').count(),0);
+await p.evaluate(()=>{state.session={ids:[1,6],index:0,answers:[],assisted:[],title:'Focus sprint'};selected=0;tab='quiz';quiz();check();next();hint();selected=BANK.find(q=>q.id===6).answer;check();next()});
+assert.equal(await p.locator('.result-item').count(),2);assert(await p.locator('.result-hero').innerText().then(t=>t.includes('50%')));assert(await p.locator('.nav').isVisible());await p.screenshot({path:path.join(__dirname,'test-output','zamify-results.png'),fullPage:true,animations:"disabled"});
+await p.locator('[data-review-id="1"]').click();assert.deepEqual(await p.evaluate(()=>state.session.ids),[1]);assert.equal(await p.evaluate(()=>state.session.answers.length),0);
+await p.locator('[data-action=exit]').click();await p.locator('[data-action=resume]').click();assert.equal(await p.evaluate(()=>state.session.ids[0]),1);
+await b.close();console.log('PASS Zamify: real review-first focus selection, unique questions, concealed clues, focused quiz navigation, actual results, individual remediation, and resume.');})().catch(e=>{console.error(e);process.exit(1)});
