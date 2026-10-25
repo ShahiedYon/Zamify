@@ -9,4 +9,19 @@ android {
         versionCode 8
         versionName '0.8.0'
     }
+    sourceSets {
+        main.assets.srcDirs = []
+        debug.assets.srcDirs = ['src/main/assets']
+        release.assets.srcDirs = [layout.buildDirectory.dir('generated/freeReleaseAssets')]
+    }
+}
+
+tasks.register('prepareFreeReleaseAssets', Exec) {
+    workingDir rootProject.projectDir
+    commandLine 'python3', 'prepare_release.py'
+    inputs.files(rootProject.file('Preview.html'), rootProject.file('questions.json'))
+    outputs.file(layout.buildDirectory.file('generated/freeReleaseAssets/index.html'))
+}
+tasks.named('mergeReleaseAssets') {
+    dependsOn tasks.named('prepareFreeReleaseAssets')
 }
