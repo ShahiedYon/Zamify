@@ -8,6 +8,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
+import android.content.pm.ApplicationInfo;
 import android.widget.Toast;
 import android.net.Uri;
 import android.graphics.Insets;
@@ -29,6 +30,15 @@ public class MainActivity extends Activity {
         web.getSettings().setDomStorageEnabled(true);
         web.getSettings().setAllowFileAccess(false);
         web.getSettings().setAllowContentAccess(false);
+        web.getSettings().setAllowFileAccessFromFileURLs(false);
+        web.getSettings().setAllowUniversalAccessFromFileURLs(false);
+        web.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
+        web.getSettings().setSupportMultipleWindows(false);
+        web.getSettings().setSafeBrowsingEnabled(true);
+        web.getSettings().setBlockNetworkLoads(true);
+        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) == 0) {
+            WebView.setWebContentsDebuggingEnabled(false);
+        }
         web.getSettings().setMixedContentMode(0);
         web.setWebViewClient(new WebViewClient() {
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest req) {
