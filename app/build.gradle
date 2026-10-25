@@ -22,6 +22,8 @@ tasks.register('prepareFreeReleaseAssets', Exec) {
     inputs.files(rootProject.file('Preview.html'), rootProject.file('questions.json'))
     outputs.file(layout.buildDirectory.file('generated/freeReleaseAssets/index.html'))
 }
-tasks.named('mergeReleaseAssets') {
-    dependsOn tasks.named('prepareFreeReleaseAssets')
+tasks.configureEach {
+    if (name == 'mergeReleaseAssets') {
+        dependsOn tasks.named('prepareFreeReleaseAssets')
+    }
 }
