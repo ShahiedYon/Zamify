@@ -11,7 +11,11 @@ import android.content.ActivityNotFoundException;
 import android.widget.Toast;
 import android.net.Uri;
 import android.graphics.Insets;
+import android.graphics.Color;
+import android.view.View;
 import android.view.WindowInsets;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import java.io.IOException;
 
 public class MainActivity extends Activity {
@@ -50,13 +54,25 @@ public class MainActivity extends Activity {
                 return true;
             }
         });
-        setContentView(web);
+        FrameLayout root = new FrameLayout(this);
+        root.setBackgroundColor(0xffe7dfd0);
+        root.addView(web, new FrameLayout.LayoutParams(-1, -1));
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        setContentView(root);
         if (android.os.Build.VERSION.SDK_INT >= 30) {
-            web.setOnApplyWindowInsetsListener((v, insets) -> {
-                Insets bars = insets.getInsets(WindowInsets.Type.systemBars());
+            getWindow().setDecorFitsSystemWindows(false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            getWindow().setNavigationBarColor(Color.TRANSPARENT);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            root.setOnApplyWindowInsetsListener((v, insets) -> {
+                int handled = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
+                Insets bars = insets.getInsets(handled);
                 v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
-                return insets;
+                // WebView still receives changing IME insets for visual-viewport resizing.
+                // Only the system bars/cutout already handled by this root are zeroed.
+                return new WindowInsets.Builder(insets).setInsets(handled, Insets.NONE).build();
             });
+            root.requestApplyInsets();
         }
         web.loadUrl(HOST + "index.html#android");
     }
