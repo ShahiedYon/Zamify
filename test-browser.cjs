@@ -1,5 +1,5 @@
 const {chromium}=require('playwright');require('fs').mkdirSync(require('path').join(__dirname,'test-output'),{recursive:true});const assert=require('assert');
-(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.EXAM_SPRINT_CHROME||undefined,args:['--no-sandbox','--single-process','--no-zygote','--disable-gpu']});const page=await browser.newPage({viewport:{width:390,height:844}});let errors=[];page.on('pageerror',e=>errors.push(e.message));
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.EXAM_SPRINT_CHROME||undefined,args:['--no-sandbox','--single-process','--no-zygote','--disable-gpu']});const page=await browser.newPage({viewport:{width:390,height:844}});await page.emulateMedia({reducedMotion:'reduce'});let errors=[];page.on('pageerror',e=>errors.push(e.message));
 await page.goto(require('url').pathToFileURL(require('path').join(__dirname,'Preview.html')).href);await page.locator('#zami-welcome').waitFor({state:'detached'});
 assert.equal(await page.evaluate(()=>pool().length),10);
 assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
