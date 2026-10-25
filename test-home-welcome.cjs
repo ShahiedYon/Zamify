@@ -54,6 +54,28 @@ fs.mkdirSync(path.join(__dirname,'test-output'),{recursive:true});
  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.nav')).display!=='none');
  assert(await page.locator('.nav').isVisible());
  await page.locator('.nav [data-tab=catalog]').click();
+ for(const [width,height] of [[320,568],[390,844]]){
+  await page.setViewportSize({width,height});
+  for(const tab of ['home','learn','progress','about']){
+   await page.locator(`.nav [data-tab=${tab}]`).click();
+   const fit=await page.evaluate(()=>{
+    const shell=document.querySelector('.shell'),nav=document.querySelector('.nav');
+    shell.scrollTop=shell.scrollHeight;
+    return {last:shell.lastElementChild.getBoundingClientRect().bottom,edge:shell.getBoundingClientRect().bottom,nav:nav.getBoundingClientRect().top};
+   });
+   assert(fit.last<=fit.edge+1&&fit.edge<=fit.nav+1,`${tab} final item under navigation at ${width}x${height}`);
+  }
+  for(const id of [1,10,29,45]){
+   await page.evaluate(id=>{state.previewFullPack=true;state.session={ids:[id],index:0,answers:[],assisted:[],title:'Layout check'};tab='quiz';selected=null;quiz();topOfPage()},id);
+   const fit=await page.evaluate(()=>{
+    const shell=document.querySelector('.shell');shell.scrollTop=shell.scrollHeight;
+    return {last:shell.lastElementChild.getBoundingClientRect().bottom,edge:shell.getBoundingClientRect().bottom,nav:getComputedStyle(document.querySelector('.nav')).display};
+   });
+   assert(fit.last<=fit.edge+1&&fit.nav==='none',`Question ${id} final action hidden at ${width}x${height}`);
+  }
+  await page.evaluate(()=>{state.previewFullPack=false;state.session=null;save();go('catalog')});
+ }
+ await page.setViewportSize({width:390,height:844});
  for(let d=1;d<=5;d++){
   await page.locator(`.topic-card[data-domain="${d}"]`).click();
   assert((await page.locator('.module-cue').innerText()).includes('Module '+d+' of 5'));
