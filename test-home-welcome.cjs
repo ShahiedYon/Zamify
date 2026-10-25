@@ -12,7 +12,7 @@ fs.mkdirSync(path.join(__dirname,'test-output'),{recursive:true});
  await page.screenshot({path:'test-output/welcome.png'});
  await page.locator('#zami-welcome').waitFor({state:'detached'});
  assert(!await page.locator('.shell').evaluate(el=>el.inert));
- assert.equal(await page.locator('#main').evaluate(el=>getComputedStyle(el).outlineStyle),'none','The programmatic content focus must not draw a frame around the page');
+ assert.deepEqual(await page.evaluate(()=>({tag:document.activeElement.tagName,inMain:document.querySelector('#main').contains(document.activeElement),outline:getComputedStyle(document.activeElement).outlineStyle})),{tag:'H1',inMain:true,outline:'none'},'The welcome should focus its heading without framing the whole page');
  // Page reloads get a new welcome, but internal navigation does not.
  await page.reload();await page.getByRole('button',{name:'Let’s go →',exact:true}).click();
  await page.locator('#zami-welcome').waitFor({state:'detached'});
