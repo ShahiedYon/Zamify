@@ -27,6 +27,32 @@ fs.mkdirSync(path.join(__dirname,'test-output'),{recursive:true});
   assert.equal(await page.locator('.course-card').count(),1);
   if(width===390||width===1440)await page.screenshot({path:`test-output/home-${width}.png`,fullPage:true,animations:'disabled'});
  }
+ // A fixed footer used to cross the course button at phone height. The content
+ // pane now ends above the nav, and its last action can scroll fully into view.
+ for(const [width,height] of [[320,568],[360,640],[390,844],[412,915],[844,390]]){
+  await page.setViewportSize({width,height});
+  await page.locator('.nav [data-tab=catalog]').click();
+  const layout=await page.evaluate(()=>{
+   const shell=document.querySelector('.shell'),nav=document.querySelector('.nav');
+   shell.scrollTop=shell.scrollHeight;
+   const s=shell.getBoundingClientRect(),n=nav.getBoundingClientRect();
+   const last=document.querySelector('.home-footer').getBoundingClientRect();
+   return {shellBottom:s.bottom,navTop:n.top,navBottom:n.bottom,viewport:innerHeight,lastBottom:last.bottom,overflow:document.documentElement.scrollWidth>innerWidth};
+  });
+  assert(!layout.overflow,`Horizontal overflow ${width}x${height}`);
+  assert(layout.shellBottom<=layout.navTop+1,`Navigation covers content ${width}x${height}`);
+  assert(layout.lastBottom<=layout.shellBottom+1,`Last home item hidden ${width}x${height}`);
+  assert(layout.navBottom<=layout.viewport+1,`Navigation below viewport ${width}x${height}`);
+  await page.locator('.course-bottom .btn').scrollIntoViewIfNeeded();
+  assert(await page.locator('.course-bottom .btn').isVisible());
+ }
+ await page.setViewportSize({width:390,height:844});
+ await page.locator('.nav [data-tab=learn]').click();
+ await page.locator('#search').focus();
+ assert(await page.locator('.nav').isHidden(),'The keyboard editing state should make space for the search field');
+ await page.locator('#search').blur();
+ assert(await page.locator('.nav').isVisible());
+ await page.locator('.nav [data-tab=catalog]').click();
  for(let d=1;d<=5;d++){
   await page.locator(`.topic-card[data-domain="${d}"]`).click();
   assert((await page.locator('.module-cue').innerText()).includes('Module '+d+' of 5'));
