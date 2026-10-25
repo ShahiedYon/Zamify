@@ -51,6 +51,7 @@ fs.mkdirSync(path.join(__dirname,'test-output'),{recursive:true});
  await page.locator('#search').focus();
  assert(await page.locator('.nav').isHidden(),'The keyboard editing state should make space for the search field');
  await page.locator('#search').blur();
+ await page.waitForFunction(()=>getComputedStyle(document.querySelector('.nav')).display!=='none');
  assert(await page.locator('.nav').isVisible());
  await page.locator('.nav [data-tab=catalog]').click();
  for(let d=1;d<=5;d++){
