@@ -23,7 +23,7 @@ tasks.register('prepareFreeReleaseAssets', Exec) {
     outputs.file(layout.buildDirectory.file('generated/freeReleaseAssets/index.html'))
 }
 tasks.configureEach {
-    if (name == 'mergeReleaseAssets') {
+    if (name.contains('Release') && name != 'prepareFreeReleaseAssets') {
         dependsOn tasks.named('prepareFreeReleaseAssets')
     }
 }
