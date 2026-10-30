@@ -53,3 +53,22 @@ reset action still clears local history.
 Before calling the pack comprehensive exam preparation, review the remaining
 55 items and map coverage to individual objectives. Independent expert review
 and real-device testing remain required before a paid release.
+
+## Guided highlights — 30 October 2026
+
+Guided highlights are on by default and can be switched off on a question.
+The ten revised items have curated keyPoints; other items use their existing
+clue phrases. Multiple-answer instructions such as TWO are emphasized too.
+Only question text is highlighted; answer choices are not marked as correct.
+
+Once highlights have been displayed for an attempt, that attempt remains
+assisted even if the user hides them before submitting. The preference and
+per-question assistance survive reload. A later correct attempt with highlights
+off and no hint can clear the review queue. Unaided metrics exclude both hints
+and guided highlights. Source facts, keys and content revisions are unchanged.
+
+Local regression checks cover default visibility, switching off, reload,
+assisted scoring and later unaided review. Interactive 320px preview confirmed
+the requested question highlights before answering and assisted feedback.
+The automated browser disclosure assertion now targets the named analysis
+disclosure instead of relying on its position after adding transfer examples.

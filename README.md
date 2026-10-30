@@ -54,6 +54,13 @@ local history and excluded from current progress. Sessions involving changed
 wording restart; current-version sessions and unchanged-question results remain
 compatible. The original ten free IDs and 65-question total are preserved.
 
+## Guided question highlights
+
+Guided highlights are on by default. The question toolbar can switch them off
+for unaided practice. Seeing highlights counts as learning support for that
+attempt, including after a reload or after hiding them again. Correct guided
+answers remain in review until a later correct answer without support.
+
 ## Development limitations
 
 The app includes 10 free practice questions and a 65-question developer demonstration. Checkout and production purchase entitlements are not implemented. Content is practice material, not official exam content or a guarantee of certification. Progress is stored locally.

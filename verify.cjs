@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const root=__dirname,html=fs.readFileSync(root+'/Preview.html','utf8'),script=html.match(/<script>([\s\S]*?)<\/script>/)[1],data=new Map();
 function launch(fail=false){const main={innerHTML:''},gloss={innerHTML:''};const context=vm.createContext({document:{querySelector:s=>s==='#main'?main:s==='#glossary'?gloss:null,querySelectorAll:()=>[],addEventListener:()=>{}},window:{scrollTo(){}},localStorage:{getItem:k=>{if(fail)throw Error('storage');return data.get(k)||null},setItem:(k,v)=>{if(fail)throw Error('storage');data.set(k,v)}}});vm.runInContext(script,context);return{run:s=>vm.runInContext(s,context),main,gloss};}
-let x=launch();assert.equal(x.run('pool().length'),10);assert.equal(x.run('new Set(pool().map(q=>q.kind)).size'),4);
+let x=launch();x.run('state.guidedHighlights=false;save()');assert.equal(x.run('pool().length'),10);assert.equal(x.run('new Set(pool().map(q=>q.kind)).size'),4);
 for(let d=1;d<=5;d++){x.run(`start('domain',${d})`);assert(x.run('state.session.ids.every(id=>FREE_IDS.includes(id))'));}
 x.run("start('all')");assert.equal(x.run('state.session.ids.length'),10);
 x.run('hint();selected=Array.isArray(currentQuestion().answer)?currentQuestion().answer.slice():currentQuestion().answer;check()');assert.equal(x.run('state.missed.length'),1);x.run('check()');assert.equal(x.run('state.attempts.length'),1);
@@ -22,5 +22,14 @@ let updated=launch();assert.equal(updated.run('state.attempts.length'),1);assert
 updated.run("state.session={ids:[1],index:0,answers:[],assisted:[],title:'Revised question'};selected=currentQuestion().answer;check();save()");
 let resumed=launch();assert.equal(resumed.run('state.session.answers[0].contentRevision'),2);assert.equal(resumed.run('state.attempts.length'),2);assert.equal(resumed.run('state.historicalAttempts.length'),1);resumed.run("go('progress')");assert(resumed.main.innerHTML.includes('earlier answer is'));
 resumed.run("tab='quiz';quiz()");assert(resumed.main.innerHTML.includes('AWS objective 1.2'));assert(resumed.main.innerHTML.includes('Try the idea elsewhere'));
+// Highlights teach before answering, survive reload as assistance, and can be
+// turned off for a genuinely unaided later attempt. Hiding them is not a reset.
+data.clear();let guided=launch();assert.equal(guided.run('state.guidedHighlights'),true);
+guided.run("state.session={ids:[59],index:0,answers:[],assisted:[],title:'Guided learning'};tab='quiz';quiz()");
+assert(guided.main.innerHTML.includes('<mark>very few examples</mark>'));assert(guided.main.innerHTML.includes('<mark>TWO</mark>'));assert.equal(guided.run('state.session.guided.includes(59)'),true);
+guided.run('toggleHighlights()');assert(!guided.main.innerHTML.includes('<mark>'));
+let guidedRestored=launch();assert.equal(guidedRestored.run('state.guidedHighlights'),false);assert.equal(guidedRestored.run('state.session.guided.includes(59)'),true);
+guidedRestored.run('selected=currentQuestion().answer.slice();check()');assert.equal(guidedRestored.run('state.attempts[0].assisted'),true);assert.equal(guidedRestored.run('state.attempts[0].guided'),true);assert.equal(guidedRestored.run('state.missed.includes(59)'),true);assert(guidedRestored.main.innerHTML.includes('Highlights used'));
+guidedRestored.run('reviewOne(59);selected=currentQuestion().answer.slice();check()');assert.equal(guidedRestored.run('state.attempts[1].assisted'),false);assert.equal(guidedRestored.run('state.missed.includes(59)'),false);
 const bank=JSON.parse(fs.readFileSync(root+'/questions.json','utf8'));assert.equal(bank.length,65);assert.equal(new Set(bank.map(q=>q.id)).size,65);assert.deepEqual([1,2,3,4,5].map(d=>bank.filter(q=>q.domain===d).length),[13,16,18,9,9]);assert.deepEqual(['single','multi','order','match'].map(k=>bank.filter(q=>q.kind===k).length),[57,4,2,2]);
 console.log('PASS: all 65 questions and four formats; all-or-nothing scoring; free10/demo65; hints; review; progress restore/migration; blocked storage; content integrity.');

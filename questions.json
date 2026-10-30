@@ -35,7 +35,11 @@
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
     "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "keyPoints": [
+      "revenue in rand",
+      "later label"
+    ]
   },
   {
     "id": 2,
@@ -198,7 +202,11 @@
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
     "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "keyPoints": [
+      "priced per input token",
+      "word counts are equal"
+    ]
   },
   {
     "id": 7,
@@ -342,7 +350,11 @@
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
     "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "keyPoints": [
+      "most direct concept",
+      "Use each option once"
+    ]
   },
   {
     "id": 11,
@@ -384,7 +396,12 @@
     "transfer": "For a changing product catalogue, refresh retrieval data and check grounding; retraining alone does not supply current source passages.",
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "keyPoints": [
+      "changes daily",
+      "supporting passages",
+      "existing foundation model"
+    ]
   },
   {
     "id": 12,
@@ -452,7 +469,11 @@
     "transfer": "For repeated extraction tasks, lower temperature may improve consistency, but schema validation and factual checks remain necessary.",
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "keyPoints": [
+      "less sampling randomness",
+      "retaining room for a complete summary"
+    ]
   },
   {
     "id": 14,
@@ -554,7 +575,12 @@
     "transfer": "A service can score well overall while working poorly for a language or region with little evaluation data.",
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "keyPoints": [
+      "mistaken rejections",
+      "few members",
+      "first investigation"
+    ]
   },
   {
     "id": 17,
@@ -957,7 +983,11 @@
     "transfer": "If you repeatedly change a prompt after reading its test results, reserve a fresh assessment set before claiming general performance.",
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "keyPoints": [
+      "final test data does not influence model selection",
+      "Use each stage once"
+    ]
   },
   {
     "id": 30,
@@ -1465,7 +1495,13 @@
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
     "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "keyPoints": [
+      "changing product manual",
+      "demonstrated response format",
+      "existing model weights",
+      "cannot fit the entire manual"
+    ]
   },
   {
     "id": 46,
@@ -1909,7 +1945,13 @@
     "transfer": "Adding more English examples does not establish reliable performance for a language missing from the test set.",
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "keyPoints": [
+      "very few examples",
+      "training and evaluation data",
+      "comparable regional performance",
+      "TWO"
+    ]
   },
   {
     "id": 60,
@@ -2102,6 +2144,12 @@
     "transfer": "A reporting assistant needs read-only access to accounting data even if its prompt says never to edit records.",
     "contentRevision": 2,
     "reviewStatus": "AWS-source-checked; independent expert review pending",
-    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html"
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "keyPoints": [
+      "must not issue refunds",
+      "Even if an injected instruction",
+      "TWO",
+      "restrict what can execute"
+    ]
   }
 ]

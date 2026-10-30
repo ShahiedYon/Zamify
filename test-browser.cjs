@@ -6,6 +6,7 @@ assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)
 await page.screenshot({path:require('path').join(__dirname,'test-output','mobile-home.png'),fullPage:true,animations:"disabled"});
 await page.locator('.nav [data-tab=about]').click();await page.getByText('Developer preview tools',{exact:true}).click();await page.locator('[data-action=demo]').click();
 assert.equal(await page.evaluate(()=>pool().length),65);
+await page.evaluate(()=>{state.guidedHighlights=false;save()});
 const bank=await page.evaluate(()=>BANK);
 for(const q of bank){await page.evaluate(id=>{state.session={ids:[id],index:0,answers:[],assisted:[],title:'QA'};tab='quiz';selected=null;save();quiz()},q.id);
  if(q.kind==='single')await page.locator(`[data-choice="${q.answer}"]`).click();
@@ -36,7 +37,7 @@ for(const width of [320,390,600]){
  await page.locator('[data-choice="1"]').click();await page.locator('[data-action=check]').click();
  assert.equal(await page.locator('.clue-card').count(),1);
  await page.getByText('How to analyse this question',{exact:true}).click();
- assert(await page.locator('.coach details').first().getAttribute('open')!==null);
+ assert(await page.getByText('How to analyse this question',{exact:true}).evaluate(el=>el.parentElement.open));
  await page.getByText('Why the other answers don’t fit',{exact:true}).click();
  assert(await page.locator('.rationale').first().isVisible());
  assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),'Feedback overflow '+width);
