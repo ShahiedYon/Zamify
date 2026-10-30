@@ -41,6 +41,19 @@ The logic checks passed during import for all 65 questions, scoring, free/demo b
 
 Browser tests require Playwright and Chromium. Use `EXAM_SPRINT_CHROME` to select a compatible browser when needed. Tests include `test-browser.cjs`, `test-zamify.cjs`, `test-catalogue.cjs` and `test-welcome.cjs`. Browser tests and Android builds were not rerun during this source import; physical-device verification remains necessary.
 
+## Free starter question revision — 30 October 2026
+
+The ten free questions now use stronger scenarios and closer alternatives,
+with AWS objective tags, direct source links and short transfer examples in
+the post-answer feedback. The other 55 items retain their earlier wording.
+See [CONTENT_REVIEW_FREE.md](CONTENT_REVIEW_FREE.md) for the review matrix.
+Source review is AI-assisted; independent expert review is still pending.
+
+Progress records question revisions. Earlier-wording answers are retained as
+local history and excluded from current progress. Sessions involving changed
+wording restart; current-version sessions and unchanged-question results remain
+compatible. The original ten free IDs and 65-question total are preserved.
+
 ## Development limitations
 
 The app includes 10 free practice questions and a 65-question developer demonstration. Checkout and production purchase entitlements are not implemented. Content is practice material, not official exam content or a guarantee of certification. Progress is stored locally.

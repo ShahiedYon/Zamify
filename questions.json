@@ -2,32 +2,40 @@
   {
     "id": 1,
     "domain": 1,
-    "q": "A shop predicts next month’s sales amount. Which technique fits?",
+    "q": "A retailer needs to predict next week’s revenue in rand for each store using historical sales and promotions. Managers will later label each prediction as above or below target. Which technique should produce the revenue estimate?",
     "options": [
-      "Classification",
-      "Regression",
-      "Clustering",
-      "Translation"
+      "Classification into revenue bands",
+      "Regression on historical sales and promotions",
+      "Clustering stores by sales patterns",
+      "Anomaly detection on weekly revenue"
     ],
     "answer": 1,
-    "why": "Regression predicts a numeric value. Classification predicts categories; clustering groups similar records.",
+    "why": "Regression predicts the numeric revenue amount. The later above/below-target label is a separate calculation using that prediction.",
     "clues": [
       {
-        "text": "sales amount",
-        "why": "The output is a number, rather than a category."
+        "text": "revenue in rand",
+        "why": "The model must estimate an amount, not a group or label."
       }
     ],
-    "hint": "Name the type of output before choosing a technique.",
-    "analysis": "The task is forecasting a numeric sales value. Select a numeric prediction technique; the business being a shop is background.",
-    "trap": "Do not choose classification merely because sales records contain categories.",
+    "hint": "Identify the output required before the manager applies the target rule.",
+    "analysis": "Separate the prediction from the later report. Revenue in rand is a numeric target; a threshold label does not turn the underlying amount prediction into classification.",
+    "trap": "Choosing a technique for the downstream label instead of the requested prediction.",
     "reasons": [
-      "Classification predicts a class, such as high or low sales, rather than the requested amount.",
-      "Regression predicts a continuous numeric target, such as sales revenue.",
-      "Clustering discovers groups; it does not directly predict a future sales amount.",
-      "Translation converts languages and does not solve numeric forecasting."
+      "Classification predicts a category or band, rather than the requested revenue amount.",
+      "Regression learns a relationship between input features and a numeric target such as revenue.",
+      "Clustering groups similar stores without directly learning the requested revenue target.",
+      "Anomaly detection identifies unusual observations rather than predicting the expected revenue amount."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-30",
+    "objective": "1.2",
+    "concept": "Regression versus classification",
+    "difficulty": "Foundation",
+    "transfer": "Predicting a lease payment amount is regression; predicting whether a lease will default is classification.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html"
   },
   {
     "id": 2,
@@ -157,32 +165,40 @@
   {
     "id": 6,
     "domain": 2,
-    "q": "What is a token in a language model?",
+    "q": "A team uses a model priced per input token. Two prompts ask the same question with different wording. Their word counts are equal, but their quoted input costs differ. Which measurement best explains the difference?",
     "options": [
-      "A unit of text processed by the model",
-      "Exactly one complete word in every case",
-      "Exactly one character in every case",
-      "The entire prompt treated as one indivisible item"
+      "The number of user requests submitted",
+      "The number of complete words supplied",
+      "The number of tokens produced by the model’s tokenizer",
+      "The number of characters displayed to the user"
     ],
-    "answer": 0,
-    "why": "A token is a model-processing unit; a tokenizer can represent words, word fragments or other text units.",
+    "answer": 2,
+    "why": "Token-based input pricing uses the token count for the selected model. Equal word counts do not guarantee equal token counts.",
     "clues": [
       {
-        "text": "token",
-        "why": "The question asks about model text processing, not account security."
+        "text": "priced per input token",
+        "why": "The measurement must match the stated pricing unit."
       }
     ],
-    "hint": "Think about the pieces into which model input is split.",
-    "analysis": "Interpret token in the language-model context. It refers to text units; the same word can mean credentials in other contexts.",
-    "trap": "A familiar security meaning of token is a distractor here.",
+    "hint": "Use the provider’s stated billing unit rather than a convenient text-length estimate.",
+    "analysis": "The scenario specifies input-token pricing. Compare tokenized inputs using the same model and price; total inference cost can also include output tokens.",
+    "trap": "Treating one word as exactly one token, or confusing input cost with the total bill.",
     "reasons": [
-      "A token is a model-processing unit; a tokenizer can represent words, word fragments or other text units.",
-      "One word can use multiple tokens; the correspondence is not always one token per word.",
-      "Tokens are not necessarily single characters, although some may represent a character.",
-      "A prompt typically consists of many tokens, not one indivisible unit."
+      "Both prompts are single requests; request count does not explain different input-token charges.",
+      "A word may be represented by one or several tokens, so equal word counts can have different costs.",
+      "The tokenizer determines the model’s input units, which are used for the stated pricing model.",
+      "Character counts can be a rough proxy but are not the billing unit in this scenario."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-30",
+    "objective": "2.1",
+    "concept": "Tokens and input cost",
+    "difficulty": "Foundation",
+    "transfer": "Changing languages or including code can change token counts even when the request means the same thing.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html"
   },
   {
     "id": 7,
@@ -278,12 +294,12 @@
     "id": 10,
     "domain": 2,
     "kind": "match",
-    "q": "Match each AI application concept to its primary role.",
+    "q": "An internal assistant must connect to tools, respect access limits, use changing policies and adopt a response style. Match each requirement to the most direct concept. Use each option once.",
     "options": [
       "IAM authorization",
       "Fine-tuning",
-      "MCP",
-      "RAG"
+      "Model Context Protocol (MCP)",
+      "Retrieval-Augmented Generation (RAG)"
     ],
     "answer": [
       2,
@@ -292,58 +308,83 @@
       1
     ],
     "reasons": [
-      "IAM determines what an identity may access or do.",
-      "Fine-tuning adapts model weights using training examples.",
-      "MCP standardizes connections to external tools and context.",
-      "RAG retrieves source material to supply as generation context."
+      "IAM policies control permitted actions on AWS resources; a tool connection does not grant those permissions.",
+      "Fine-tuning adapts weights using training examples; it is different from inserting documents into a prompt.",
+      "MCP standardizes connections to external tools and context; authorization is still needed.",
+      "RAG retrieves relevant source material for the current request without retraining the foundation model."
     ],
-    "why": "MCP connects; IAM authorizes; RAG retrieves grounding material; fine-tuning updates weights.",
+    "why": "MCP connects tools, IAM authorizes access, RAG supplies retrieved context and fine-tuning adapts model weights. These capabilities can complement one another.",
     "clues": [
       {
-        "text": "primary role",
-        "why": "These capabilities solve different parts of the application."
+        "text": "most direct concept",
+        "why": "Match each responsibility rather than choosing an entire architecture."
       }
     ],
-    "hint": "Separate connecting, authorizing, retrieving and training.",
-    "analysis": "Match each capability to its specific job; do not assume a tool-connection protocol provides permission enforcement.",
-    "trap": "A connected tool still requires authorization, and retrieved content is not itself model training.",
+    "hint": "Distinguish connection, permission, runtime information and training.",
+    "analysis": "Match the verb in each requirement to the capability. An application may use all four, but each requirement asks for one primary role.",
+    "trap": "Assuming that connecting a tool authorizes it, or that retrieving a document trains the model.",
     "prompts": [
-      "Standardize connection to external tools and context",
-      "Limit an identity to approved actions and resources",
-      "Supply current document passages at answer time",
-      "Adapt model weights using curated training examples"
+      "Standardize discovery and calls to supported external tools",
+      "Decide which AWS resources its identity may access",
+      "Supply current policy passages at request time",
+      "Adapt model weights using approved response examples"
     ],
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-30",
+    "objective": "2.1",
+    "relatedObjectives": [
+      "3.1",
+      "3.3",
+      "5.1"
+    ],
+    "concept": "Connection, authorization, retrieval and training",
+    "difficulty": "Applied",
+    "transfer": "A connected expense tool still needs access checks; retrieving its latest policy does not change the model’s weights.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html"
   },
   {
     "id": 11,
     "domain": 3,
-    "q": "A chatbot needs this week’s internal policies without retraining. Choose an approach.",
+    "q": "An employee assistant must answer from a large policy library that changes daily and show supporting passages. The team will keep its existing foundation model. Which design best meets both requirements?",
     "options": [
-      "Retrieve current policies with RAG",
-      "Fine-tune only on last month’s policies",
-      "Pre-train a new foundation model",
-      "Distill a smaller model from the current model"
+      "Retrieve relevant passages from a synchronized policy index and attach source references",
+      "Fine-tune weekly on the policies and ask the model to name its sources",
+      "Cache generated policy answers and refresh them after users report changes",
+      "Add a link to the policy website in the system prompt without retrieving its content"
     ],
     "answer": 0,
-    "why": "RAG can retrieve current policy passages and supply them as runtime context without changing model weights.",
+    "why": "RAG can supply current, relevant policy passages and their source references at answer time. The source-to-index synchronization must also stay current.",
     "clues": [
       {
-        "text": "this week’s internal policies",
-        "why": "The knowledge is changing and must be supplied at answer time."
+        "text": "changes daily",
+        "why": "The information pipeline must reflect updates."
+      },
+      {
+        "text": "supporting passages",
+        "why": "The answer needs retrieved evidence, not just a source name."
       }
     ],
-    "hint": "Separate fresh knowledge from changing the model’s behavior.",
-    "analysis": "The task requires current internal information with no retraining. Retrieval can supply updated documents as context; verify retrieval freshness and access rights too.",
-    "trap": "No retraining alone is not a universal RAG rule; it fits here because fresh document knowledge is required.",
+    "hint": "Check how each approach obtains updated evidence and makes it traceable.",
+    "analysis": "Both daily changes and supporting passages matter. Choose current retrieval with source metadata, then check that answers are supported by the retrieved text.",
+    "trap": "Assuming that a generated citation or a current-looking URL proves the answer is grounded.",
     "reasons": [
-      "RAG can retrieve current policy passages and supply them as runtime context without changing model weights.",
-      "Fine-tuning updates weights and last month’s examples do not supply this week’s changes.",
-      "Pre-training changes weights and is unnecessary for retrieving frequently changing documents.",
-      "Distillation transfers model behavior; it does not itself fetch this week’s private documents."
+      "Retrieval from an updated index supplies both current evidence and traceable passages.",
+      "Weekly training can lag daily changes, and naming a source is not evidence that its passage was retrieved.",
+      "Cached answers can remain stale until a user notices; they do not meet the requirement for current supporting passages.",
+      "A URL alone does not give the model access to the page or retrieve supporting text."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-30",
+    "objective": "3.1",
+    "concept": "RAG for current, traceable knowledge",
+    "difficulty": "Applied",
+    "source": "https://docs.aws.amazon.com/prescriptive-guidance/latest/retrieval-augmented-generation-options/rag-vs-fine-tuning.html",
+    "transfer": "For a changing product catalogue, refresh retrieval data and check grounding; retraining alone does not supply current source passages.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html"
   },
   {
     "id": 12,
@@ -378,32 +419,40 @@
   {
     "id": 13,
     "domain": 3,
-    "q": "Which change generally makes model responses less random?",
+    "q": "Repeated runs of the same summarization prompt produce too much variation. The model exposes temperature and a maximum-output-token setting. The team wants less sampling randomness while retaining room for a complete summary. Which change best fits?",
     "options": [
-      "Increase the maximum output tokens",
-      "Lower the temperature",
-      "Increase top K to admit more candidates",
-      "Increase the context-window limit"
+      "Lower temperature while keeping the output-token budget unchanged",
+      "Lower the output-token budget while keeping temperature unchanged",
+      "Add stop sequences while keeping temperature unchanged",
+      "Cache the first summary and reuse it for every later document"
     ],
-    "answer": 1,
-    "why": "Lower temperature generally favors higher-probability tokens and reduces randomness; factual correctness is still not guaranteed.",
+    "answer": 0,
+    "why": "Lower temperature generally favors higher-probability next tokens, reducing sampling variation without directly shortening the output allowance.",
     "clues": [
       {
-        "text": "less random",
-        "why": "The requested change is about sampling variation."
+        "text": "less sampling randomness",
+        "why": "The requested behavior is controlled by a sampling parameter."
       }
     ],
-    "hint": "Match the parameter to the behavior it controls.",
-    "analysis": "Choose the control for randomness. Lower temperature generally concentrates sampling, but output correctness still requires evaluation.",
-    "trap": "Less random does not mean more factual in every case.",
+    "hint": "Distinguish a sampling control from a length control or response reuse.",
+    "analysis": "The requested change concerns variability, with output space preserved. Evaluate lower temperature on representative summaries and check factual accuracy separately.",
+    "trap": "Assuming less randomness guarantees truth, or reducing length when the problem is variability.",
     "reasons": [
-      "An output-token cap controls length rather than directly reducing sampling variation.",
-      "Lower temperature generally favors higher-probability tokens and reduces randomness; factual correctness is still not guaranteed.",
-      "A higher top K admits more candidate tokens and is not the requested reduction in sampling variation.",
-      "Context capacity limits the information that can fit, rather than directly setting sampling randomness."
+      "This adjusts sampling randomness while preserving room for the summary; it does not guarantee identical or factual responses.",
+      "The token budget limits length and may truncate a summary, rather than directly controlling sampling randomness.",
+      "Stop sequences terminate generation at specified text; they do not directly adjust the sampling distribution.",
+      "Reusing one answer for different documents can return the wrong summary and does not tune generation."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-30",
+    "objective": "3.1",
+    "concept": "Temperature versus output length",
+    "difficulty": "Applied",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/inference-parameters.html",
+    "transfer": "For repeated extraction tasks, lower temperature may improve consistency, but schema validation and factual checks remain necessary.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html"
   },
   {
     "id": 14,
@@ -468,32 +517,44 @@
   {
     "id": 16,
     "domain": 4,
-    "q": "A hiring model performs poorly for one demographic. What should the team examine?",
+    "q": "A hiring model has high overall accuracy. One demographic group reports more mistaken rejections, but few members of that group appear in the evaluation data. What is the best first investigation?",
     "options": [
-      "Rely on the aggregate accuracy alone",
-      "Increase inference capacity before evaluating errors",
-      "Compare subgroup outcomes and training-data representation",
-      "Use only a random sample dominated by the largest group"
+      "Compare average model confidence across all applicants",
+      "Compare subgroup false-rejection rates and whether each sample supports a reliable conclusion",
+      "Remove demographic labels from the evaluation data and repeat the aggregate score",
+      "Apply the same decision threshold to every group and report the original accuracy"
     ],
-    "answer": 2,
-    "why": "Subgroup evaluation and representation checks help investigate whether the system serves different populations adequately.",
+    "answer": 1,
+    "why": "Subgroup error rates investigate the reported harm, while sample adequacy determines how confidently those rates can be compared.",
     "clues": [
       {
-        "text": "one demographic",
-        "why": "Overall metrics may conceal subgroup differences."
+        "text": "mistaken rejections",
+        "why": "Investigate the relevant error, not confidence alone."
+      },
+      {
+        "text": "few members",
+        "why": "A small sample can make comparisons unreliable."
       }
     ],
-    "hint": "Look beyond the average score to who experiences errors.",
-    "analysis": "The concern is uneven performance across groups. Examine subgroup outcomes and representation before deciding what corrective action is justified.",
-    "trap": "Bias is not ruled out by high aggregate accuracy.",
+    "hint": "Measure the reported harm for the affected group, then check the strength of the evidence.",
+    "analysis": "A high average does not answer a subgroup question. Investigate error rates and representation before selecting a mitigation; handle demographic data with suitable privacy controls.",
+    "trap": "Treating equal thresholds, confidence or aggregate accuracy as proof of fairness.",
     "reasons": [
-      "An overall score can conceal a much higher error rate for a subgroup.",
-      "Capacity affects throughput and latency; it does not diagnose demographic prediction disparities.",
-      "Subgroup evaluation and representation checks help investigate whether the system serves different populations adequately.",
-      "A majority-dominated sample may repeat the blind spot affecting the underrepresented group."
+      "Overall confidence can conceal subgroup errors and is not a measure of the reported false rejections.",
+      "This directly investigates the reported error and the strength of the supporting evidence.",
+      "Removing labels prevents the proposed subgroup comparison; it does not establish fairness.",
+      "A common threshold alone does not establish comparable error rates or fix an inadequate evaluation sample."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-30",
+    "objective": "4.1",
+    "concept": "Fairness and subgroup evaluation",
+    "difficulty": "Applied",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/raidp03-bp02.html",
+    "transfer": "A service can score well overall while working poorly for a language or region with little evaluation data.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html"
   },
   {
     "id": 17,
@@ -859,12 +920,12 @@
     "id": 29,
     "domain": 1,
     "kind": "order",
-    "q": "Arrange this simplified ML workflow after the business problem is defined.",
+    "q": "A team has defined a churn-prediction goal and collected historical records. Order the remaining stages so the final test data does not influence model selection. Use each stage once.",
     "options": [
-      "Train the model on the training split",
-      "Deploy the evaluated model and monitor it",
-      "Prepare the data and create appropriate dataset splits",
-      "Evaluate the trained model on held-out data"
+      "Train candidates and select settings using the training and validation sets",
+      "Deploy the accepted model and monitor real-world outcomes",
+      "Prepare suitable training, validation and untouched test sets",
+      "Evaluate the selected model on the untouched test set against acceptance criteria"
     ],
     "answer": [
       2,
@@ -873,22 +934,30 @@
       1
     ],
     "reasons": [
-      "Training uses the prepared training data.",
-      "Deploy only after suitable evaluation, and keep monitoring.",
-      "Prepare data and separate evaluation data before training.",
-      "Held-out evaluation assesses generalization before deployment."
+      "Training fits candidates; validation supports model selection without using final test results.",
+      "Deployment follows an acceptable evaluation, and monitoring checks real-world behavior.",
+      "Establish the splits before fitting; learn preprocessing parameters from training data and apply them to held-out data.",
+      "Use the untouched test set for final assessment after model selection, rather than repeatedly tuning to its results."
     ],
-    "why": "Prepare and split → train → evaluate on held-out data → deploy and monitor.",
+    "why": "Separate the data first, train and select using development data, evaluate on the untouched test set, then deploy only if acceptance criteria are met.",
     "clues": [
       {
-        "text": "simplified ML workflow",
-        "why": "Use the dependencies between stages, not a claim that all projects are strictly linear."
+        "text": "final test data does not influence model selection",
+        "why": "Keep the test set separate from training and validation."
       }
     ],
-    "hint": "Ask what must exist before training and before deployment.",
-    "analysis": "Prepared splits precede training; evaluate the resulting model before deploying it. Real development revisits these stages when results are inadequate.",
-    "trap": "Tuning repeatedly against the final test set contaminates the final estimate of generalization.",
-    "reviewedOn": "2026-10-24"
+    "hint": "Identify when data must be reserved and which evidence should support the release decision.",
+    "analysis": "The split must precede fitting and model selection. Test results should support a release decision rather than become another tuning signal; monitor after deployment.",
+    "trap": "Selecting settings using the final test set, which makes the reported final assessment overly optimistic.",
+    "reviewedOn": "2026-10-30",
+    "objective": "1.3",
+    "concept": "ML lifecycle and data leakage",
+    "difficulty": "Applied",
+    "source": "https://docs.aws.amazon.com/prescriptive-guidance/latest/ml-operations-planning/splits-leakage.html",
+    "transfer": "If you repeatedly change a prompt after reading its test results, reserve a fresh assessment set before claiming general performance.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html"
   },
   {
     "id": 30,
@@ -1352,36 +1421,51 @@
     "id": 45,
     "domain": 3,
     "kind": "multi",
-    "q": "Which TWO approaches can supply task guidance or current document information without changing model weights?",
+    "q": "A support assistant must use a changing product manual and follow a demonstrated response format. The team will keep the existing model weights and cannot fit the entire manual in one prompt. Which TWO approaches jointly meet the requirements?",
     "options": [
-      "Retrieve relevant source passages with RAG",
-      "Fine-tune the model on domain examples",
-      "Include a few demonstrations in the prompt",
-      "Pre-train a new foundation model",
-      "Train a student model by distillation"
+      "Retrieve relevant manual passages for each request",
+      "Fine-tune on pairs of customer questions and approved replies",
+      "Include a few demonstrations of the required format in the prompt",
+      "Continue pre-training on the complete manual",
+      "Cache a successful response and reuse it for similar requests"
     ],
     "answer": [
       0,
       2
     ],
     "reasons": [
-      "RAG supplies runtime source context without itself changing model weights.",
-      "Fine-tuning updates model parameters.",
-      "Few-shot demonstrations guide the inference call through prompt context.",
-      "Pre-training learns model parameters from data.",
-      "Distillation trains a student and changes the student model’s parameters."
+      "Retrieval selects relevant passages from the manual within the available context; its index must be kept current.",
+      "Fine-tuning can adapt responses but updates model weights, violating the stated constraint.",
+      "Few-shot demonstrations guide the requested format at inference time without training.",
+      "Continued pre-training changes model weights and does not meet the no-training constraint.",
+      "Reused responses can contain stale or mismatched facts and do not jointly provide current evidence and format demonstrations."
     ],
-    "why": "RAG and few-shot prompting can modify runtime context without training the model.",
+    "why": "Retrieval supplies relevant manual evidence at request time, while few-shot examples demonstrate the format. Neither approach changes the model’s weights.",
     "clues": [
       {
-        "text": "without changing model weights",
-        "why": "Separate runtime context from training-based parameter changes."
+        "text": "existing model weights",
+        "why": "Eliminate training-based changes."
+      },
+      {
+        "text": "changing product manual",
+        "why": "The facts must come from updated request-time context."
       }
     ],
-    "hint": "Choose exactly two options that act through the model’s input context.",
-    "analysis": "Retrieval and prompt demonstrations modify the information provided at inference time. Training, fine-tuning and distillation learn parameters.",
-    "trap": "Both RAG and prompting avoid weight updates, but they meet different information needs.",
-    "reviewedOn": "2026-10-24"
+    "hint": "One approach must supply relevant facts; the other must demonstrate the format without training.",
+    "analysis": "Check both requirements together. Prompt examples show how to respond, while retrieval supplies what the current answer should be based on.",
+    "trap": "Choosing two methods that address style but do not provide fresh product facts.",
+    "reviewedOn": "2026-10-30",
+    "objective": "3.1",
+    "relatedObjectives": [
+      "3.2"
+    ],
+    "concept": "RAG plus few-shot prompting",
+    "difficulty": "Applied",
+    "transfer": "A lease assistant can retrieve the relevant contract section and use a few examples to produce a consistent summary format.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html"
   },
   {
     "id": 46,
@@ -1788,36 +1872,44 @@
     "id": 59,
     "domain": 4,
     "kind": "multi",
-    "q": "A region is almost absent from training data but is part of the intended user population. Which TWO actions best investigate this risk?",
+    "q": "A model will serve three regions. One region has very few examples in both training and evaluation data. Before claiming comparable regional performance, which TWO actions most directly address this evidence gap?",
     "options": [
-      "Evaluate results separately for users from that region",
-      "Assume the overall accuracy establishes regional fairness",
-      "Collect or curate suitable examples representing that population",
-      "Increase hosting capacity instead of evaluating the regional data",
-      "Exclude regional failures from the evaluation report"
+      "Evaluate each region with an adequately sized, suitable held-out sample",
+      "Increase the size of the existing majority-region evaluation sample",
+      "Curate appropriately sourced examples for the underrepresented region and reassess after model changes",
+      "Apply the same confidence threshold across regions without collecting additional evidence",
+      "Report a population-weighted average of the existing regional scores"
     ],
     "answer": [
       0,
       2
     ],
     "reasons": [
-      "Subgroup evaluation helps identify failures hidden by aggregate results.",
-      "Overall accuracy can hide poor regional performance.",
-      "Appropriate representative examples can address the identified data coverage gap.",
-      "Capacity addresses throughput, not representation or regional prediction quality.",
-      "Omitting failures hides risk rather than investigating it."
+      "Adequate, suitable regional samples support meaningful comparisons without using training outcomes as proof.",
+      "More examples from the already well-represented region do not fill the missing region’s evidence gap.",
+      "Relevant representative data can address the coverage gap; separate evaluation must test the resulting model.",
+      "A shared threshold does not supply missing data or establish comparable performance.",
+      "A weighted average can hide poor performance in a small region and leaves the evidence gap unresolved."
     ],
-    "why": "Assess regional outcomes and improve suitable representation rather than relying on the aggregate score.",
+    "why": "Suitable held-out evaluation measures regional outcomes, and representative data addresses the coverage gap. Reassess all regions after changes.",
     "clues": [
       {
-        "text": "almost absent from training data",
-        "why": "The data may not represent an intended population."
+        "text": "both training and evaluation data",
+        "why": "The gap affects learning and the evidence used to assess it."
       }
     ],
-    "hint": "Choose one action that examines outcomes and one that addresses data coverage.",
-    "analysis": "Evaluate the regional outcomes and inspect or improve the relevant data representation. More overall examples are insufficient if the missing region remains absent.",
-    "trap": "A dataset can be large and still omit important users.",
-    "reviewedOn": "2026-10-24"
+    "hint": "Choose a measurement step and a representation step that address the missing region.",
+    "analysis": "Both training coverage and evaluation evidence are limited. Improve representation where appropriate, keep evaluation independent and check for new disparities after changes.",
+    "trap": "Treating a large total dataset or a strong weighted average as proof of regional performance.",
+    "reviewedOn": "2026-10-30",
+    "objective": "4.1",
+    "concept": "Representative data and reliable evaluation",
+    "difficulty": "Applied",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/raidp03-bp02.html",
+    "transfer": "Adding more English examples does not establish reliable performance for a language missing from the test set.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html"
   },
   {
     "id": 60,
@@ -1973,35 +2065,43 @@
     "id": 65,
     "domain": 5,
     "kind": "multi",
-    "q": "An agent may read order status but must never issue refunds. Which TWO controls directly enforce this action boundary?",
+    "q": "An order assistant may read order status but must not issue refunds. Even if an injected instruction makes the model request a refund, which TWO controls independently restrict what can execute?",
     "options": [
-      "Grant the agent identity only the required order-read permissions",
-      "Tell the model in its system prompt that refunds are forbidden",
-      "Expose only approved read-only tools and reject unauthorized actions at execution",
-      "Hide the refund button while keeping a broad refund-capable API credential",
-      "Lower the model temperature to zero"
+      "Use a runtime identity whose downstream permissions allow only order lookup",
+      "Put the no-refund rule in the system prompt and inspect its wording during testing",
+      "Authorize each tool call at the execution boundary against an approved read-only action set",
+      "Record refund attempts in an audit log and review them after execution",
+      "Require a high model-confidence score before executing a refund request"
     ],
     "answer": [
       0,
       2
     ],
     "reasons": [
-      "Scoped identity permissions limit the operations the agent can actually perform.",
-      "A prompt supports behavior but is not an authorization boundary.",
-      "Execution-time tool restrictions can block actions outside the approved capability set.",
-      "Hiding a UI element does not revoke the underlying credential’s capabilities.",
-      "Sampling settings do not enforce authorization."
+      "The actual credential must lack refund capability; hiding a tool while retaining broad credentials is insufficient.",
+      "Prompt instructions guide behavior but cannot serve as the permission boundary if the model requests a forbidden action.",
+      "The execution layer rejects operations outside the approved read-only set before any side effect occurs.",
+      "Logging helps detection and investigation but does not prevent the prohibited refund.",
+      "A confident unsafe request is still unsafe; a confidence threshold does not authorize an action."
     ],
-    "why": "Identity permissions and execution-time tool restrictions enforce the action boundary; prompts and temperature do not.",
+    "why": "Least-privilege downstream permissions and execution-time authorization enforce the action boundary even when the model generates an unsafe request.",
     "clues": [
       {
-        "text": "directly enforce",
-        "why": "The control must block the prohibited action outside model-generated instructions."
+        "text": "restrict what can execute",
+        "why": "The controls must block the action outside the model’s text decision."
       }
     ],
-    "hint": "Select the controls enforced by identity and tool execution, not wording or sampling.",
-    "analysis": "Use least-privilege authorization and an approved tool-execution boundary together. Prompt instructions can complement these controls but cannot replace them.",
-    "trap": "A tool hidden from the interface may remain callable through an overprivileged credential.",
-    "reviewedOn": "2026-10-24"
+    "hint": "Distinguish prevention before a side effect from model guidance and after-the-fact detection.",
+    "analysis": "Trace the request through to the credential and API that would perform it. Both identity permissions and tool authorization must restrict the actual action path.",
+    "trap": "Confusing an instruction, an audit record or model confidence with an enforceable permission.",
+    "reviewedOn": "2026-10-30",
+    "objective": "5.1",
+    "concept": "Least privilege and agent action boundaries",
+    "difficulty": "Applied",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-permissions.html",
+    "transfer": "A reporting assistant needs read-only access to accounting data even if its prompt says never to edit records.",
+    "contentRevision": 2,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html"
   }
 ]
