@@ -65,11 +65,27 @@ def bounds(node):
     x1, y1, x2, y2 = map(int, match.groups())
     return (x1, y1, x2, y2) if x2 > x1 and y2 > y1 else None
 
+def visible_nodes(node, clip=None):
+    box=bounds(node)
+    visible=box
+    if box and clip:
+        visible=(max(box[0],clip[0]),max(box[1],clip[1]),min(box[2],clip[2]),min(box[3],clip[3]))
+        if visible[2]<=visible[0] or visible[3]<=visible[1]:visible=None
+    if visible:yield node,visible
+    # WebView accessibility bounds can extend under a fixed footer even when
+    # the DOM scroll pane clips them. Respect the UI-tree scroll ancestor.
+    if node.get('scrollable')=='true':
+        if visible is None:return
+        clip=visible
+    for child in node:yield from visible_nodes(child,clip)
+
 def find(root, text):
-    matches = [n for n in root.iter('node') if text in label(n) and bounds(n)]
-    if not matches:
-        return None
-    return min(matches, key=lambda n: (label(n) != text, n.get('clickable') != 'true', len(label(n))))
+    matches=[(n,b) for n,b in visible_nodes(root) if text.casefold() in label(n).casefold() and
+             (n.get('clickable')!='true' or b[3]-b[1]>=48)]
+    if not matches:return None
+    node,box=min(matches,key=lambda pair:(pair[0].get('clickable')!='true',label(pair[0]).casefold()!=text.casefold(),len(label(pair[0]))))
+    node.set('bounds',f'[{box[0]},{box[1]}][{box[2]},{box[3]}]')
+    return node
 
 def wait(text, timeout=35):
     until = time.monotonic() + timeout
