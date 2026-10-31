@@ -69,7 +69,10 @@
       "Pre-training describes a training stage, not the best description of these labeled examples."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 3,
@@ -99,7 +102,10 @@
       "F1 balances precision and recall; the stated priority specifically emphasizes missed fraud and therefore recall."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 4,
@@ -129,7 +135,10 @@
       "Transcribe converts speech recordings into text."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 5,
@@ -164,7 +173,10 @@
     "hint": "Look for exact outcomes, and select exactly two tasks.",
     "analysis": "Distinguish uncertain prediction from actions that must follow exact rules. Both the calculation and the authorization condition need deterministic enforcement.",
     "trap": "A model may help describe a rule, but it should not replace the calculation or authorization control.",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 6,
@@ -236,7 +248,10 @@
       "A vector embedding does not prove an answer is correct or supply a calibrated factual confidence score."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 8,
@@ -266,7 +281,10 @@
       "Distillation trains a smaller model from a teacher and is not the name for fabricated content."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 9,
@@ -296,7 +314,10 @@
       "Bedrock offers managed access to foundation models from different providers."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 10,
@@ -431,7 +452,10 @@
       "Pre-training learns model parameters from a broad training corpus."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 13,
@@ -503,37 +527,51 @@
       "Distillation trains a smaller student to learn from a larger teacher model."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 15,
     "domain": 3,
-    "q": "Which outcome best measures a support agent’s business usefulness?",
+    "q": "A support agent answers questions fluently but customers still abandon cases when the agent cannot complete a required handoff. Which evaluation best measures whether the application meets the business goal?",
     "options": [
-      "Task completion with acceptable cost",
-      "Longest generated answer",
-      "Largest parameter count",
-      "Most stored vectors"
+      "Measure completed cases, successful handoffs, user satisfaction and cost on representative cases",
+      "Measure response helpfulness alone on a generic benchmark",
+      "Measure the agent’s retrieval accuracy without checking the handoff",
+      "Measure the foundation model’s raw token speed without task outcomes"
     ],
     "answer": 0,
-    "why": "Measure task completion against cost and quality goals, rather than model size alone.",
+    "why": "Evaluate the full workflow against business outcomes and cost, not only a component’s output quality.",
     "clues": [
       {
-        "text": "business usefulness",
-        "why": "The measure must reflect a real user outcome."
+        "text": "cannot complete a required handoff",
+        "why": "The failure occurs after a plausible answer, at the workflow boundary."
       }
     ],
-    "hint": "Ask what success means to the business.",
-    "analysis": "The task is evaluating a support agent as a product. Successful task completion balanced with cost and quality is more meaningful than size or verbosity.",
-    "trap": "A larger model or longer answer is not automatically more useful.",
+    "hint": "Identify what a successful case requires beyond a good response.",
+    "analysis": "Evaluate representative end-to-end tasks, including action outcomes and user experience. Component metrics help diagnose failures after the business result is measured.",
+    "trap": "Treating a fluent response or good retrieval result as completed customer work.",
     "reasons": [
-      "Task completion with acceptable cost connects performance to a business objective.",
-      "Long answers may be irrelevant or costly; length alone is not success.",
-      "Parameter count is a model characteristic, not a direct business result.",
-      "Vector count indicates stored representations, not customer outcomes."
+      "End-to-end cases and handoffs, with quality and cost, reflect the actual objective.",
+      "Helpfulness on unrelated prompts can miss failure in the business workflow.",
+      "Retrieval quality matters, but a correct document does not prove the handoff completes.",
+      "Tokens per second can affect latency but cannot establish task completion."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-31",
+    "objective": "3.4",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "transfer": "A travel agent is useful when the booking completes correctly, not merely when its itinerary sounds helpful.",
+    "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "concept": "End-to-end agent evaluation",
+    "difficulty": "Applied",
+    "contentRevision": 2,
+    "keyPoints": [
+      "cannot complete a required handoff"
+    ]
   },
   {
     "id": 16,
@@ -610,7 +648,10 @@
       "An explanation is not a guarantee that a prediction is correct or fair."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "4.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 18,
@@ -640,7 +681,10 @@
       "Macie discovers sensitive data in S3; it is not the Bedrock response content-filter feature."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "4.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 19,
@@ -670,7 +714,10 @@
       "Usage rights and IP risks should be assessed for the intended use."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "4.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 20,
@@ -700,7 +747,10 @@
       "Model scale does not remove error, bias or accountability concerns."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "4.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 21,
@@ -730,7 +780,10 @@
       "Administrator credentials exceed the required scope and weaken accountability when shared."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "5.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 22,
@@ -760,7 +813,10 @@
       "Artifact provides compliance documents rather than recording your account’s API calls."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "5.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 23,
@@ -790,7 +846,10 @@
       "IAM controls access permissions rather than discovering sensitive content."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "5.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 24,
@@ -820,7 +879,10 @@
       "Prompt injection attempts to redirect an AI system through untrusted instructions, such as retrieved text."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "5.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 25,
@@ -850,7 +912,10 @@
       "Latency measures response time, not dataset provenance."
     ],
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "5.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 26,
@@ -880,7 +945,10 @@
     "analysis": "The desired output is customer groups, and no labels exist. This combines a grouping goal with unsupervised learning.",
     "trap": "Unlabeled does not automatically mean clustering; the grouping objective is also essential.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 27,
@@ -910,7 +978,10 @@
     "analysis": "The question conditions on emails predicted as spam. Precision evaluates the correctness of that positive-prediction group.",
     "trap": "Precision and recall differ in their denominator, even when both discuss correct positives.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 28,
@@ -940,7 +1011,10 @@
     "analysis": "A large training-versus-unseen performance gap suggests overfitting. Diagnose the gap rather than celebrating the training score.",
     "trap": "More training accuracy alone can worsen the actual problem.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 29,
@@ -1017,7 +1091,10 @@
     "analysis": "The checkout request needs an immediate prediction. Real-time inference matches this latency condition.",
     "trap": "A prediction workload is not necessarily a training workload.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 31,
@@ -1047,7 +1124,10 @@
     "analysis": "The workload is large and delay is acceptable. A bulk prediction pattern fits better than a per-user interactive pattern.",
     "trap": "Large volume alone is not enough; the relaxed latency requirement matters too.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 32,
@@ -1077,7 +1157,10 @@
     "analysis": "The task is text-to-speech synthesis. No transcription or language conversion is requested.",
     "trap": "Do not choose a speech-related service without checking the conversion direction.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 33,
@@ -1107,7 +1190,10 @@
     "analysis": "Actions, environment feedback and rewards characterize reinforcement learning. The fact that it is a game is only supporting context.",
     "trap": "Not every game AI uses reinforcement learning; the described feedback mechanism determines the answer.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "1.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 34,
@@ -1137,7 +1223,10 @@
     "analysis": "The required capability spans image interpretation and language. Select support for both modalities.",
     "trap": "A model that generates images is not necessarily a model that understands image inputs.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 35,
@@ -1167,7 +1256,10 @@
     "analysis": "This question explicitly states a token-based price. Trim irrelevant input and unnecessary output, then verify the answer still satisfies the task.",
     "trap": "The shortest answer is not automatically best if it loses necessary information.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 36,
@@ -1197,7 +1289,10 @@
     "analysis": "The defining property is broad training followed by reuse across tasks. A task-specific classifier alone would not imply this scope.",
     "trap": "General-purpose does not mean accurate for every business task without evaluation.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 37,
@@ -1235,7 +1330,10 @@
     "hint": "Trace the dependencies from source data to a deployed model.",
     "analysis": "The simplified sequence starts with data, produces a base model, optionally adapts it, evaluates suitability, then deploys with feedback.",
     "trap": "The ordered exercise is a simplified dependency chain; real projects can iterate and evaluate at multiple points.",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 38,
@@ -1265,7 +1363,10 @@
     "analysis": "The assistant uses observations to guide further actions. That is the agentic part of the description.",
     "trap": "A chatbot is not automatically an agent just because it sounds conversational.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 39,
@@ -1295,7 +1396,10 @@
     "analysis": "The benefit is reduced server operations. Managed service does not remove evaluation, cost or all customer responsibilities.",
     "trap": "Beware options claiming a managed service eliminates every responsibility.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 40,
@@ -1325,97 +1429,133 @@
     "analysis": "Relevant context and tool information are prepared before inference. This is a runtime design task, not necessarily training.",
     "trap": "A long prompt is not automatically well-engineered context.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 41,
     "domain": 2,
-    "q": "A product needs an open-source framework for building model-driven agents on AWS. Which option is designed for agent development?",
+    "q": "A team has a model and tools and wants an open-source SDK to build the agent’s reasoning loop. Hosting will be chosen separately. Which option best fits?",
     "options": [
-      "AWS Artifact",
-      "Amazon Macie",
+      "Amazon Bedrock AgentCore Runtime",
+      "Amazon Bedrock Knowledge Bases",
       "Strands Agents",
-      "AWS Config"
+      "Amazon Bedrock Prompt Management"
     ],
     "answer": 2,
-    "why": "Strands Agents is an open-source SDK for building model-driven agents.",
+    "why": "Strands is the agent development SDK; runtime hosting, retrieval and prompt storage solve different needs.",
     "reasons": [
-      "Artifact provides access to compliance documents and agreements.",
-      "Macie helps discover sensitive data in S3.",
-      "Strands Agents is an open-source SDK for building model-driven agents.",
-      "Config tracks resource configuration and rule compliance."
+      "Runtime hosts agent code but is not the requested open-source development SDK.",
+      "Knowledge Bases retrieves information; it does not provide the agent loop SDK.",
+      "Strands Agents is an open-source SDK for constructing model-driven agents with tools.",
+      "Prompt Management stores and versions prompts, a different part of the application."
     ],
     "clues": [
       {
-        "text": "framework for building model-driven agents",
-        "why": "The requirement is development tooling for agents."
+        "text": "open-source SDK",
+        "why": "The question asks for a development framework, not a deployed service."
       }
     ],
-    "hint": "Match the requested development role, not simply a service that mentions AI security.",
-    "analysis": "An agent-building SDK fits the development requirement. Compliance and data-discovery tools support other concerns.",
-    "trap": "Services in the same ecosystem do not all perform the same job.",
+    "hint": "Separate building the agent loop from hosting, retrieval and prompt versioning.",
+    "analysis": "Strands can define the model/tool loop; AgentCore Runtime can host code built with Strands or another framework.",
+    "trap": "Confusing a framework used to build an agent with managed infrastructure that operates it.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-31",
+    "objective": "2.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "transfer": "A team can build in Strands locally, then choose a compatible runtime for deployment.",
+    "source": "https://strandsagents.com/docs/",
+    "concept": "Agent framework versus hosting",
+    "difficulty": "Applied",
+    "contentRevision": 2,
+    "keyPoints": [
+      "open-source SDK"
+    ]
   },
   {
     "id": 42,
     "domain": 2,
-    "q": "A team wants managed runtime and supporting services for operating agents at scale. Which AWS offering is designed for this?",
+    "q": "An agent already works in its chosen framework. The team needs a managed, framework-agnostic environment to host and run that agent without rebuilding its reasoning loop. Which AWS capability is the closest fit?",
     "options": [
-      "Amazon Polly",
-      "Amazon Bedrock AgentCore",
-      "AWS Artifact",
-      "Amazon Translate"
+      "Strands Agents SDK",
+      "Amazon Bedrock AgentCore Runtime",
+      "Amazon Bedrock Knowledge Bases",
+      "Amazon Bedrock Prompt Management"
     ],
     "answer": 1,
-    "why": "Bedrock AgentCore provides services for deploying and operating agents.",
+    "why": "AgentCore Runtime is the managed hosting layer for the existing agent code.",
     "reasons": [
-      "Polly synthesizes speech rather than operating general-purpose agent workloads.",
-      "Bedrock AgentCore provides services for deploying and operating agents.",
-      "Artifact provides compliance documents, not an agent runtime.",
-      "Translate converts text between languages rather than hosting agents."
+      "Strands is a development SDK, not the managed runtime requested.",
+      "AgentCore Runtime hosts and runs agents built with various frameworks.",
+      "Knowledge Bases supports retrieval over data sources, not general agent hosting.",
+      "Prompt Management stores prompts, not the running agent process."
     ],
     "clues": [
       {
-        "text": "operating agents at scale",
-        "why": "The requirement is operational support, not only writing agent code."
+        "text": "already works in its chosen framework",
+        "why": "The team wants to operate existing code, not adopt a new framework."
       }
     ],
-    "hint": "Distinguish an agent-development framework from managed runtime services.",
-    "analysis": "Focus on deployment and operations for agents. AgentCore is designed for that role, whereas specialized language services are not a general runtime.",
-    "trap": "Writing an agent and operating it reliably are different requirements.",
+    "hint": "Find the component that hosts the agent while preserving its chosen framework.",
+    "analysis": "AgentCore includes other capabilities, but Runtime specifically addresses hosting. Development frameworks and retrieval services may complement it.",
+    "trap": "Choosing a tool used by the agent rather than the environment that runs the agent.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-31",
+    "objective": "2.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "transfer": "A customer-support agent built in a third-party framework can run in AgentCore Runtime while using a separate knowledge base.",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html",
+    "concept": "AgentCore Runtime versus agent SDK",
+    "difficulty": "Applied",
+    "contentRevision": 2,
+    "keyPoints": [
+      "already works in its chosen framework"
+    ]
   },
   {
     "id": 43,
     "domain": 2,
-    "q": "A company wants an assistant that helps develop software from specifications. Which AWS tool best fits?",
+    "q": "A product team wants an AI development environment that turns a feature request into reviewable requirements, design and implementation tasks before coding. Which tool is the most direct fit?",
     "options": [
-      "Amazon Transcribe",
-      "Amazon Macie",
-      "Amazon Polly",
+      "Amazon Bedrock Prompt Management",
+      "Strands Agents",
+      "Amazon Bedrock AgentCore Runtime",
       "Kiro"
     ],
     "answer": 3,
-    "why": "Kiro is an AI development tool supporting specification-driven software development.",
+    "why": "Kiro’s spec workflow addresses the requested development process.",
     "reasons": [
-      "Transcribe converts speech recordings to text.",
-      "Macie discovers sensitive data in S3.",
-      "Polly converts text into speech.",
-      "Kiro is an AI development tool supporting specification-driven software development."
+      "Prompt Management versions model prompts; it does not create a software feature specification workflow.",
+      "Strands builds agents, not the requested software development environment.",
+      "AgentCore Runtime operates agents rather than turning a feature request into a development plan.",
+      "Kiro supports specification-driven software development with requirements, design and tasks."
     ],
     "clues": [
       {
-        "text": "develop software from specifications",
-        "why": "The application is software development, not speech processing."
+        "text": "reviewable requirements, design and implementation tasks",
+        "why": "These are software specification artifacts rather than agent runtime components."
       }
     ],
-    "hint": "Identify the business workflow before selecting the tool.",
-    "analysis": "The request concerns moving specifications into software development work. Choose the development tool rather than a specialized text/audio service.",
-    "trap": "AI-related names alone do not establish a match to the workflow.",
+    "hint": "Match the requested development workflow, not merely any AI-related AWS tool.",
+    "analysis": "A spec-driven workflow structures what will be built and reviewed; it does not remove the need to test the resulting software.",
+    "trap": "Assuming an agent hosting service is also an IDE or spec planning tool.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-31",
+    "objective": "2.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "transfer": "A team can use Kiro to plan a billing feature, then review the generated design and test its implementation.",
+    "source": "https://kiro.dev/docs/web/setup/",
+    "concept": "Specification-driven development",
+    "difficulty": "Applied",
+    "contentRevision": 2,
+    "keyPoints": [
+      "reviewable requirements, design and implementation tasks"
+    ]
   },
   {
     "id": 44,
@@ -1445,7 +1585,10 @@
     "analysis": "Both candidates pass the quality threshold. Compare cost and responsiveness under realistic conditions before choosing.",
     "trap": "The largest or most famous model is not automatically the best business fit.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "2.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 45,
@@ -1531,7 +1674,10 @@
     "analysis": "The task and output can be specified in detail while still being zero-shot if no demonstrations are supplied.",
     "trap": "Zero-shot does not mean the prompt contains no guidance.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 47,
@@ -1561,7 +1707,10 @@
     "analysis": "Meaning-based retrieval commonly compares query and content embeddings. Retrieval quality still depends on the model and indexing strategy.",
     "trap": "Semantic similarity is useful evidence of relevance, not a guarantee of factual accuracy.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 48,
@@ -1591,7 +1740,10 @@
     "analysis": "Chunking creates units suitable for retrieval and context assembly. Chunk size should preserve enough surrounding meaning for the task.",
     "trap": "Smaller chunks are not always better; too little context can break meaning.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 49,
@@ -1621,7 +1773,10 @@
     "analysis": "The visible failure is stale grounding material. Check source versions, refresh processes and retrieval results before changing the model.",
     "trap": "A citation proves a source was referenced, not that the source is current.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 50,
@@ -1651,7 +1806,10 @@
     "analysis": "Specify fields, constraints and an example. Validate the response programmatically because prompting alone does not guarantee valid JSON.",
     "trap": "A well-written format instruction still needs output validation in production.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 51,
@@ -1681,7 +1839,10 @@
     "analysis": "The requirement is a length cap. Use the output-token limit and check that the resulting answer is complete enough.",
     "trap": "Truncating an answer is not the same as teaching the model to be concise.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 52,
@@ -1722,7 +1883,10 @@
       "Comparison using contextual token embeddings",
       "A language model scores answers against a rubric"
     ],
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.4",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 53,
@@ -1752,37 +1916,51 @@
     "analysis": "The requirement is summary overlap, which points to ROUGE. Add checks for factuality because overlap alone does not establish truth.",
     "trap": "A summary can share many words with a reference and still contain factual errors.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.4",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 54,
     "domain": 3,
-    "q": "A company uses another language model to score generated answers. What is an important evaluation risk?",
+    "q": "An LLM judge rates a new answer style higher than the old one, but human reviewers repeatedly find unsupported claims in the new answers. What is the strongest next evaluation step?",
     "options": [
-      "The judge can have its own biases and errors",
-      "The judge guarantees objective truth",
-      "Human review becomes impossible",
-      "The candidate model no longer needs prompts"
+      "Calibrate the judge and rubric against representative human-reviewed examples, including unsupported claims",
+      "Treat the judge score as ground truth because it is numerical",
+      "Remove the human-reviewed examples from the evaluation set",
+      "Increase the candidate model’s output length until the judge score improves"
     ],
     "answer": 0,
-    "why": "Model judges can be biased or mistaken; calibrate them against suitable criteria and human judgments.",
+    "why": "A judge model is another fallible evaluator; calibrate it against suitable human evidence and a clear rubric.",
     "reasons": [
-      "Model judges can be biased or mistaken; calibrate them against suitable criteria and human judgments.",
-      "A second model is not an infallible source of truth.",
-      "Human review remains possible and can help validate the evaluation.",
-      "A judge does not eliminate the candidate model’s input requirements."
+      "Calibration tests whether the judge’s scoring tracks the quality criterion that matters.",
+      "A numeric judge score can still reflect model error or rubric bias.",
+      "Removing contradictory evidence would hide the problem, not resolve it.",
+      "Longer answers can add more unsupported claims and do not validate the judge."
     ],
     "clues": [
       {
-        "text": "another language model to score",
-        "why": "The evaluator is itself a fallible model."
+        "text": "human reviewers repeatedly find unsupported claims",
+        "why": "The automated score conflicts with a relevant quality signal."
       }
     ],
-    "hint": "Apply the same skepticism to the evaluator as to the system being evaluated.",
-    "analysis": "LLM-as-a-judge can scale assessment but requires validation. Compare judgments against trusted examples and inspect disagreement.",
-    "trap": "Automating an evaluation does not remove subjectivity or error.",
+    "hint": "Ask how to check whether the evaluator rewards the right behavior.",
+    "analysis": "Compare judge decisions with human-reviewed examples and refine the criteria; retain separate checks for factual support.",
+    "trap": "Treating the judge’s score as objective truth because the scoring process is automated.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-31",
+    "objective": "3.4",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "transfer": "A summarization judge should be checked against human-reviewed cases with subtle omissions and fabricated details.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html",
+    "concept": "LLM judge calibration",
+    "difficulty": "Applied",
+    "contentRevision": 2,
+    "keyPoints": [
+      "human reviewers repeatedly find unsupported claims"
+    ]
   },
   {
     "id": 55,
@@ -1812,7 +1990,10 @@
     "analysis": "Correct retrieval is necessary but insufficient for a tool-using agent. Assess completion, failures and safe handling of actions.",
     "trap": "A component score can be high while the user experience still fails.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.4",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 56,
@@ -1842,7 +2023,10 @@
     "analysis": "Record prompt versions and run comparable evaluations for each change. Otherwise multiple changes can obscure the cause.",
     "trap": "More prompt experimentation is not helpful if changes and results are not tracked.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 57,
@@ -1872,7 +2056,10 @@
     "analysis": "Use document retrieval and grounding rather than a speech service. Document access controls and source freshness still require attention.",
     "trap": "Do not confuse AWS compliance reports with a knowledge base over your own business documents.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "3.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 58,
@@ -1902,7 +2089,10 @@
     "analysis": "The question asks for a model-information record. Documentation improves transparency but does not itself prove the model is fair or safe.",
     "trap": "A model card is evidence of documentation, not a certification of correctness.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "4.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 59,
@@ -1981,7 +2171,10 @@
     "analysis": "The task does not need the largest model. Evaluate a smaller suitable model rather than assuming more computation is always better.",
     "trap": "Sustainability should not be claimed from size alone; measure the relevant workload.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "4.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 61,
@@ -2011,7 +2204,10 @@
     "analysis": "An accountable system gives understandable information and a path to review. The design should reflect the impact of the decision.",
     "trap": "A technical explanation alone may be insufficient if no correction process exists.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "4.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 62,
@@ -2041,7 +2237,10 @@
     "analysis": "The focus is whether configured resources comply with rules. CloudTrail would address account API activity, a related but different question.",
     "trap": "Audit and compliance tools overlap in purpose but capture different evidence.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "5.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 63,
@@ -2071,37 +2270,51 @@
     "analysis": "The required evidence is AWS compliance documentation, which differs from monitoring a customer’s resources.",
     "trap": "Accessing a compliance report does not automatically make your application compliant.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-24",
+    "objective": "5.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "reviewStatus": "Objective mapped; answer source and editorial review pending"
   },
   {
     "id": 64,
     "domain": 5,
-    "q": "A model accesses customer data through a managed AWS service. Which statement best reflects shared responsibility?",
+    "q": "A team uses a managed AWS AI service to process customer records. AWS operates the underlying infrastructure. Who must still decide and enforce which employees may send those records to the service?",
     "options": [
-      "AWS handles every customer data decision",
-      "The customer still controls appropriate permissions and data handling",
-      "Managed services never require encryption",
-      "The customer must own all AWS physical servers"
+      "AWS alone, because the infrastructure is managed",
+      "The customer, through its data-handling rules and appropriately scoped access controls",
+      "The foundation model, based on its confidence in each employee",
+      "The external browser used to view the application"
     ],
     "answer": 1,
-    "why": "Customer responsibilities include appropriate data handling and access controls; exact duties vary by service.",
+    "why": "Managed service use retains customer responsibility for data and access choices; exact duties depend on the service.",
     "reasons": [
-      "The customer retains responsibilities for its data and access choices.",
-      "Customer responsibilities include appropriate data handling and access controls; exact duties vary by service.",
-      "Encryption remains relevant for managed services.",
-      "AWS operates its physical infrastructure; customer ownership of it is not required."
+      "Managed infrastructure does not transfer every customer data and identity decision to AWS.",
+      "The customer retains decisions about permitted data use and who can access its resources.",
+      "Model confidence is not an authorization control.",
+      "A browser does not define the organization’s AWS permissions."
     ],
     "clues": [
       {
-        "text": "managed AWS service",
-        "why": "Management shifts some duties but does not eliminate customer obligations."
+        "text": "which employees may send those records",
+        "why": "This is an authorization and customer-data governance decision."
       }
     ],
-    "hint": "Reject both extremes: no customer responsibility and all infrastructure responsibility.",
-    "analysis": "Apply the service-specific shared responsibility model. Data and access decisions do not disappear just because a service is managed.",
-    "trap": "The division of duties varies by service and configuration.",
+    "hint": "Separate infrastructure operation from the customer’s identities, permissions and data policy.",
+    "analysis": "Apply service-specific shared responsibility: AWS secures its infrastructure, while the customer configures appropriate access and data handling for its workload.",
+    "trap": "Assuming managed means all data and access decisions are handled by AWS.",
     "kind": "single",
-    "reviewedOn": "2026-10-24"
+    "reviewedOn": "2026-10-31",
+    "objective": "5.1",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "transfer": "A company using managed document analysis still decides who may upload payroll files.",
+    "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/security.html",
+    "concept": "Shared responsibility for customer data",
+    "difficulty": "Applied",
+    "contentRevision": 2,
+    "keyPoints": [
+      "which employees may send those records"
+    ]
   },
   {
     "id": 65,
@@ -2150,6 +2363,426 @@
       "Even if an injected instruction",
       "TWO",
       "restrict what can execute"
+    ]
+  },
+  {
+    "id": 66,
+    "domain": 1,
+    "objective": "1.1",
+    "q": "A team has labeled customer-churn rows in a table and a folder of untagged product photos. Which description of these inputs is accurate?",
+    "options": [
+      "Both sets are labeled, structured data because they are stored digitally",
+      "The rows are labeled, structured data; the photos are unstructured and currently unlabeled",
+      "The photos are structured data because each file has a name",
+      "Neither set can be used in AI until converted to text"
+    ],
+    "answer": 1,
+    "why": "The table has a schema and target labels. The photos are image content without target labels in the scenario.",
+    "reasons": [
+      "Digital storage does not make content tabular or supply a target label.",
+      "The rows have fields and churn targets; the images lack supplied class labels.",
+      "File metadata does not make the image pixels a structured table for this task.",
+      "Image models can use photos; converting them to text is not inherently required."
+    ],
+    "clues": [
+      {
+        "text": "labeled customer-churn rows",
+        "why": "The rows have known target answers; the photos do not."
+      }
+    ],
+    "hint": "Separate data shape from whether the desired target is supplied.",
+    "analysis": "Structure and labeling are different properties. A photo file can have metadata while its visual content remains unstructured for this decision.",
+    "trap": "Assuming a filename labels the image for the intended prediction.",
+    "transfer": "A spreadsheet of tagged support tickets is structured and labeled; a folder of untagged voice notes is unstructured and unlabeled.",
+    "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "concept": "Structured versus unstructured and labeled data",
+    "difficulty": "Applied",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "labeled customer-churn rows"
+    ]
+  },
+  {
+    "id": 67,
+    "domain": 1,
+    "objective": "1.3",
+    "q": "A deployed fraud model was evaluated well at launch. Months later, the transaction mix changes and confirmed fraud is missed more often. What should the team do first?",
+    "options": [
+      "Keep the launch score as proof the model still performs well",
+      "Monitor current inputs and outcomes against a baseline, investigate drift, then decide whether to update the model",
+      "Increase the model endpoint size without evaluating predictions",
+      "Retrain automatically on every new transaction without labels or validation"
+    ],
+    "answer": 1,
+    "why": "Production monitoring can reveal changed inputs or quality. Investigate the cause before retraining and validate any update.",
+    "reasons": [
+      "A historical evaluation does not describe current behavior after the data changes.",
+      "Monitoring input and outcome changes provides evidence for a corrective decision.",
+      "More compute capacity does not directly fix deteriorating fraud detection.",
+      "Unvalidated retraining on new traffic can amplify error and lacks the confirmed targets needed for evaluation."
+    ],
+    "clues": [
+      {
+        "text": "Months later, the transaction mix changes",
+        "why": "A launch evaluation may no longer represent production data."
+      }
+    ],
+    "hint": "Look for evidence about current data and outcomes before choosing a remedy.",
+    "analysis": "Compare recent data and confirmed labels with a suitable baseline. Drift is a signal to investigate, not automatic proof that retraining will help.",
+    "trap": "Treating a good launch score as permanent model quality.",
+    "transfer": "A seasonal demand forecast needs renewed monitoring when customer behavior changes after a major promotion.",
+    "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works-model-monitor.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+    "concept": "Production model monitoring",
+    "difficulty": "Applied",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "Months later, the transaction mix changes"
+    ]
+  },
+  {
+    "id": 68,
+    "domain": 2,
+    "objective": "2.1",
+    "q": "An assistant needs to remember a customer’s approved preferences across separate conversations. The team already has a protocol for calling external tools. Which capability addresses the new need most directly?",
+    "options": [
+      "A memory store with controlled retrieval of relevant prior context",
+      "Adding another tool protocol without persisting conversation state",
+      "Increasing the output token limit on each request",
+      "Using a content filter to reject unsafe words"
+    ],
+    "answer": 0,
+    "why": "Memory stores and retrieves relevant context across sessions. Tool connectivity alone does not preserve preferences.",
+    "reasons": [
+      "Persistent memory can supply approved prior context on a later request.",
+      "A tool protocol defines connection and calls, but does not itself save the needed customer context.",
+      "Output length does not recall prior sessions.",
+      "Filtering content addresses a different safety requirement."
+    ],
+    "clues": [
+      {
+        "text": "across separate conversations",
+        "why": "The information must survive the end of one request or session."
+      }
+    ],
+    "hint": "Ask where the approved preference will be stored and how a later request retrieves it.",
+    "analysis": "A model call does not automatically remember earlier sessions. Retain only appropriate context and apply access and retention controls.",
+    "trap": "Confusing a connection protocol with persistent agent memory.",
+    "transfer": "A travel assistant may retrieve a saved accessibility preference after a new session begins.",
+    "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory-get-started.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "concept": "Agent memory versus tool connectivity",
+    "difficulty": "Applied",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "across separate conversations"
+    ]
+  },
+  {
+    "id": 69,
+    "domain": 2,
+    "objective": "2.2",
+    "q": "A company wants an AI assistant to draft customer replies, but policy wording must be exact and approved. What is the most suitable design?",
+    "options": [
+      "Let the model invent policy language and rely on its confident tone",
+      "Use the model for a draft grounded in approved policy and validate or review the final wording",
+      "Assume the same prompt always produces identical, policy-compliant wording",
+      "Replace the policy source with a larger model and skip checking responses"
+    ],
+    "answer": 1,
+    "why": "Generation can help draft, while approved evidence and validation or review address exact policy requirements.",
+    "reasons": [
+      "Fluency is not evidence of accurate or approved policy language.",
+      "Grounding and a check against the approved source address the stated exactness constraint.",
+      "Generative output is not guaranteed deterministic or compliant just because the prompt is repeated.",
+      "Model size cannot replace checking the policy requirement."
+    ],
+    "clues": [
+      {
+        "text": "policy wording must be exact and approved",
+        "why": "A fluent draft is insufficient if it changes required language."
+      }
+    ],
+    "hint": "Separate where generation adds value from how an exact requirement is enforced.",
+    "analysis": "Use generated text as a draft, retrieve the current approved source where helpful and check the final output against the policy.",
+    "trap": "Treating a persuasive answer as a verified policy statement.",
+    "transfer": "An insurance response can be drafted by a model but still requires a check against the current approved terms.",
+    "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+    "concept": "GenAI limitations and exact business requirements",
+    "difficulty": "Applied",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "policy wording must be exact and approved"
+    ]
+  },
+  {
+    "id": 70,
+    "domain": 3,
+    "objective": "3.1",
+    "q": "A team stores embeddings for millions of internal passages and needs similarity search to retrieve relevant passages for a RAG app. Which component most directly serves that retrieval step?",
+    "options": [
+      "A vector-capable search store such as Amazon OpenSearch Serverless",
+      "AWS CloudTrail event history without an embedding index",
+      "A Bedrock Guardrail content policy without a passage store",
+      "A prompt template containing the name of every document"
+    ],
+    "answer": 0,
+    "why": "A vector-capable store can search embeddings for related passages. The other components do not perform the stated retrieval.",
+    "reasons": [
+      "A vector index can retrieve semantically related passages from the stored embeddings.",
+      "CloudTrail is for activity records, not similarity search over passage embeddings.",
+      "Guardrails evaluate content; they do not replace document storage and retrieval.",
+      "Names in a prompt do not retrieve the documents’ relevant content."
+    ],
+    "clues": [
+      {
+        "text": "similarity search",
+        "why": "The retrieval component must compare embedding representations."
+      }
+    ],
+    "hint": "Identify which component stores and searches passage vectors.",
+    "analysis": "Retrieval also needs permissions, source freshness and checks that the generated answer is grounded in the returned passages.",
+    "trap": "Confusing the generator or safety layer with the retrieval index.",
+    "transfer": "A product catalogue assistant can search item embeddings before composing an answer from current item records.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "concept": "Vector search for RAG",
+    "difficulty": "Applied",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "similarity search"
+    ]
+  },
+  {
+    "id": 71,
+    "domain": 3,
+    "objective": "3.3",
+    "q": "A team plans to fine-tune a foundation model on internal support examples. Which TWO preparations most directly improve the evidence that the customized model will work for the intended users?",
+    "options": [
+      "Curate representative, permitted examples and check labels for the target task",
+      "Put identical examples in training and final evaluation so scores rise",
+      "Keep suitable validation examples separate from training for evaluation",
+      "Include private customer records without checking their permitted use",
+      "Choose examples only from the easiest customer group"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "why": "Representative, appropriately governed training data and a separate validation set support useful customization and honest evaluation.",
+    "reasons": [
+      "Quality, representation and permitted use matter for the target task.",
+      "Overlapping evaluation examples leak training material into the quality estimate.",
+      "A separate suitable validation set tests behavior outside the training examples.",
+      "Data governance must be checked before using customer records.",
+      "Easy-only examples can hide failures for the broader population."
+    ],
+    "clues": [
+      {
+        "text": "fine-tune a foundation model",
+        "why": "Training examples and independent evaluation evidence are both needed."
+      }
+    ],
+    "hint": "Select one data-quality/governance step and one evaluation-design step.",
+    "analysis": "Fine-tuning changes weights; the data should reflect the intended population, while evaluation must avoid leakage from training.",
+    "trap": "Assuming a high score on reused training examples proves generalization.",
+    "transfer": "For a multilingual help desk, include permitted examples from supported languages and hold out suitable cases for validation.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-prepare.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "concept": "Fine-tuning data preparation",
+    "difficulty": "Applied",
+    "kind": "multi",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "fine-tune a foundation model"
+    ]
+  },
+  {
+    "id": 72,
+    "domain": 3,
+    "objective": "3.2",
+    "q": "A team tests two prompt templates for the same assistant. The new template improves tone but increases incorrect answers on a fixed evaluation set. What should the team do?",
+    "options": [
+      "Promote it because the responses sound friendlier",
+      "Compare the versioned prompts against the same quality criteria and revise before release",
+      "Remove the evaluation set because it disagrees with the new prompt",
+      "Raise temperature until outputs vary enough to hide the regression"
+    ],
+    "answer": 1,
+    "why": "Versioned prompts and comparable evaluation make the quality regression visible; tone alone is insufficient.",
+    "reasons": [
+      "Tone is only one requirement and does not excuse worse factual accuracy.",
+      "A controlled comparison can isolate and correct the change before promotion.",
+      "Discarding contradictory evidence does not improve the assistant.",
+      "More variation is not a fix for incorrect answers."
+    ],
+    "clues": [
+      {
+        "text": "increases incorrect answers",
+        "why": "The new template fails an important measured requirement."
+      }
+    ],
+    "hint": "Choose a decision that preserves the evidence and checks the whole task.",
+    "analysis": "Keep prompt versions and representative evaluation results linked, then review whether the claimed tone gain justifies any tradeoff.",
+    "trap": "Promoting a prompt from style alone while ignoring task accuracy.",
+    "transfer": "A summarizer’s new template should be checked for factual omissions as well as readability.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+    "concept": "Prompt version evaluation",
+    "difficulty": "Applied",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "increases incorrect answers"
+    ]
+  },
+  {
+    "id": 73,
+    "domain": 4,
+    "objective": "4.2",
+    "q": "A credit decision model has strong overall accuracy, but affected applicants need understandable reasons and a way to contest mistakes. What should the team prioritize?",
+    "options": [
+      "Publish all private training records to make the model transparent",
+      "Measure whether the explanations are useful and protect sensitive details while enabling human review",
+      "Provide only a confidence score and treat it as the final decision",
+      "Hide every reason because accuracy is already high"
+    ],
+    "answer": 1,
+    "why": "Useful explanations and a review path support affected people; transparency must be balanced with privacy.",
+    "reasons": [
+      "Exposing private training data would create a separate privacy harm.",
+      "Measure explanation usefulness and provide protected, meaningful review.",
+      "Confidence alone does not explain or correct an individual decision.",
+      "Overall accuracy does not answer the applicant’s need for reasons or correction."
+    ],
+    "clues": [
+      {
+        "text": "understandable reasons and a way to contest mistakes",
+        "why": "The outcome affects a person who needs an actionable explanation."
+      }
+    ],
+    "hint": "Consider both the person’s review needs and the data that must stay protected.",
+    "analysis": "Test what an affected user can understand and challenge; protect personal data while evaluating the model and explanation tradeoffs.",
+    "trap": "Equating a high aggregate score with accountability for individual decisions.",
+    "transfer": "An AI-assisted benefits decision should give understandable grounds and a human correction route without disclosing another applicant’s data.",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/rairc04-bp02.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+    "concept": "Explainability, privacy and human review",
+    "difficulty": "Applied",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "understandable reasons and a way to contest mistakes"
+    ]
+  },
+  {
+    "id": 74,
+    "domain": 5,
+    "objective": "5.1",
+    "q": "A team handles sensitive training files in S3 and calls a managed AI service. Which TWO controls address data protection in transit and at rest most directly?",
+    "options": [
+      "Use TLS for supported connections between components",
+      "Give every user administrator permissions to avoid access errors",
+      "Use appropriate server-side encryption for stored files and manage key access",
+      "Rely on a system prompt that tells the model to keep data secret",
+      "Store the same data in a public bucket to simplify retrieval"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "why": "TLS protects supported traffic in transit, while at-rest encryption and key controls protect stored data.",
+    "reasons": [
+      "TLS addresses interception of supported network traffic.",
+      "Broad permissions increase exposure rather than protecting the data.",
+      "Encryption at rest and controlled key access address stored-data protection.",
+      "A prompt is not a substitute for storage or transport security.",
+      "Public access conflicts with sensitive-data protection."
+    ],
+    "clues": [
+      {
+        "text": "in transit and at rest",
+        "why": "Two separate protection states are named."
+      }
+    ],
+    "hint": "Choose one transport control and one storage control.",
+    "analysis": "Also apply least privilege and verify each service’s actual encryption configuration; encryption is not a permission system.",
+    "trap": "Thinking a model instruction can enforce infrastructure security.",
+    "transfer": "A medical-document workflow needs protected transport and encrypted storage plus access policies for the right staff.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/data-encryption.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "concept": "Encryption in transit and at rest",
+    "difficulty": "Applied",
+    "kind": "multi",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "in transit and at rest"
+    ]
+  },
+  {
+    "id": 75,
+    "domain": 5,
+    "objective": "5.2",
+    "q": "A company must keep AI interaction logs for a defined period and keep regulated data in an approved Region. Which governance plan best addresses both requirements?",
+    "options": [
+      "Pick a model with a large context window and leave logging defaults unchanged",
+      "Document the retention rule and approved Region, configure the relevant services, and review evidence regularly",
+      "Ask the model to remember the retention policy without configuring storage",
+      "Keep all logs indefinitely in any Region because longer retention is always safer"
+    ],
+    "answer": 1,
+    "why": "Governance needs explicit retention and residency requirements, service configuration and recurring verification.",
+    "reasons": [
+      "Context length does not set log retention or data location.",
+      "The policy, configuration and review process address both stated constraints.",
+      "A prompt cannot enforce the storage lifecycle or Region.",
+      "Unlimited retention and arbitrary residency may violate the stated requirements."
+    ],
+    "clues": [
+      {
+        "text": "defined period",
+        "why": "The control must implement a specific lifecycle rather than merely collecting logs."
+      }
+    ],
+    "hint": "Identify both where data is kept and how long it remains, then how compliance is checked.",
+    "analysis": "Service choices and configurations must reflect the organization’s actual legal and contractual obligations; document the review cadence.",
+    "trap": "Treating a written policy or a model instruction as an implemented governance control.",
+    "transfer": "A support workflow can set a documented log expiry and verify that its storage stays in an approved jurisdiction.",
+    "source": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+    "concept": "Retention and data residency governance",
+    "difficulty": "Applied",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 1,
+    "reviewStatus": "AWS-source-checked; independent expert review pending",
+    "keyPoints": [
+      "defined period"
     ]
   }
 ]

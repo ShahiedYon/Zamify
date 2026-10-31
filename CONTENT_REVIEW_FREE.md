@@ -23,8 +23,8 @@ a clue tied to its scenario, a common confusion and a transfer example.
 The example appears in a disclosure after answering, keeping the question
 screen focused. Exact source URLs are stored with each item in questions.json.
 
-The ten original free IDs and all four answer formats remain. The total bank
-remains 65; the other 55 items have not been rewritten in this revision.
+The ten original free IDs and all four answer formats remain. The current draft bank
+remains 65 (ten free and 55 paid candidates). The agreed paid expansion requires ten more original questions, for 75 unique items total. The 55 existing paid candidates have not been rewritten in this revision.
 
 ## Progress compatibility
 
@@ -53,6 +53,12 @@ reset action still clears local history.
 Before calling the pack comprehensive exam preparation, review the remaining
 55 items and map coverage to individual objectives. Independent expert review
 and real-device testing remain required before a paid release.
+
+31 October update: the offer is **ten free plus 65 new paid questions**, or 75
+unique items. Ten original paid questions (IDs 66–75) were added to the draft
+bank; six of the earlier paid candidates were rewritten. The primary task map
+and remaining editorial status are in `CONTENT_COVERAGE_75.md`. This earlier
+ten-question review record remains a record of the free-item pass.
 
 ## Guided highlights — 30 October 2026
 

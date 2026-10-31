@@ -7,9 +7,9 @@ x.run("start('all')");assert.equal(x.run('state.session.ids.length'),10);
 x.run('hint();selected=Array.isArray(currentQuestion().answer)?currentQuestion().answer.slice():currentQuestion().answer;check()');assert.equal(x.run('state.missed.length'),1);x.run('check()');assert.equal(x.run('state.attempts.length'),1);
 let restored=launch();restored.run("tab='quiz';quiz()");assert(restored.main.innerHTML.includes('Hint used'));
 restored.run("start('review');selected=Array.isArray(currentQuestion().answer)?currentQuestion().answer.slice():currentQuestion().answer;check();next()");assert.equal(restored.run('state.missed.length'),0);
-restored.run("saveTier(true);start('all')");assert.equal(restored.run('state.session.ids.length'),65);
-for(let i=0;i<65;i++){restored.run('selected=Array.isArray(currentQuestion().answer)?currentQuestion().answer.slice():currentQuestion().answer;check()');assert.equal(restored.run('state.session.answers[state.session.index].correct'),true);assert(restored.main.innerHTML.includes('Key insight · spot the clue'));restored.run('next()');}
-assert(restored.main.innerHTML.includes('SESSION COMPLETE'));assert.equal(restored.run('visited()'),65);
+restored.run("saveTier(true);start('all')");assert.equal(restored.run('state.session.ids.length'),75);
+for(let i=0;i<75;i++){restored.run('selected=Array.isArray(currentQuestion().answer)?currentQuestion().answer.slice():currentQuestion().answer;check()');assert.equal(restored.run('state.session.answers[state.session.index].correct'),true);assert(restored.main.innerHTML.includes('Key insight · spot the clue'));restored.run('next()');}
+assert(restored.main.innerHTML.includes('SESSION COMPLETE'));assert.equal(restored.run('visited()'),75);
 for(const id of [5,10,29]){restored.run(`state.session={ids:[${id}],index:0,answers:[],assisted:[],title:'QA'};selected=currentQuestion().answer.slice();[selected[0],selected[1]]=[selected[1],selected[0]];if(currentQuestion().kind==='multi')selected=[0,1];check()`);assert.equal(restored.run('state.session.answers[0].correct'),false);}
 assert.equal(restored.run("validChoice(BANK.find(q=>q.id===10),[0,0,2,3])"),false);assert.equal(restored.run("validChoice(BANK.find(q=>q.id===5),[1,3,4])"),false);
 restored.run('saveTier(false)');assert.equal(restored.run('pool().length'),10);assert.equal(restored.run('state.session'),null);
@@ -31,10 +31,14 @@ guided.run('toggleHighlights()');assert(!guided.main.innerHTML.includes('<mark>'
 let guidedRestored=launch();assert.equal(guidedRestored.run('state.guidedHighlights'),false);assert.equal(guidedRestored.run('state.session.guided.includes(59)'),true);
 guidedRestored.run('selected=currentQuestion().answer.slice();check()');assert.equal(guidedRestored.run('state.attempts[0].assisted'),true);assert.equal(guidedRestored.run('state.attempts[0].guided'),true);assert.equal(guidedRestored.run('state.missed.includes(59)'),true);assert(guidedRestored.main.innerHTML.includes('Highlights used'));
 guidedRestored.run('reviewOne(59);selected=currentQuestion().answer.slice();check()');assert.equal(guidedRestored.run('state.attempts[1].assisted'),false);assert.equal(guidedRestored.run('state.missed.includes(59)'),false);
-const bank=JSON.parse(fs.readFileSync(root+'/questions.json','utf8'));assert.equal(bank.length,65);assert.equal(new Set(bank.map(q=>q.id)).size,65);assert.deepEqual([1,2,3,4,5].map(d=>bank.filter(q=>q.domain===d).length),[13,16,18,9,9]);assert.deepEqual(['single','multi','order','match'].map(k=>bank.filter(q=>q.kind===k).length),[57,4,2,2]);
+const bank=JSON.parse(fs.readFileSync(root+'/questions.json','utf8'));assert.equal(bank.length,75);assert.equal(new Set(bank.map(q=>q.id)).size,75);assert.deepEqual([1,2,3,4,5].map(d=>bank.filter(q=>q.domain===d).length),[15,18,21,10,11]);assert.deepEqual(['single','multi','order','match'].map(k=>bank.filter(q=>q.kind===k).length),[65,6,2,2]);
+assert.equal(bank.filter(q=>![1,29,6,10,11,13,45,16,59,65].includes(q.id)).length,65);
+assert.equal(new Set(bank.map(q=>q.objective)).size,14);
+for(const q of bank){assert(/^\d\.\d$/.test(q.objective));assert(q.objectiveSource?.startsWith('https://docs.aws.amazon.com/aws-certification/'))}
+for(const q of bank.filter(q=>q.id>=66)){assert(q.source&&q.transfer&&q.concept&&q.reviewStatus&&q.reasons.length===q.options.length)}
 data.clear();let terms=launch();terms.run("go('learn');filterGloss('AWS S3')");assert(terms.main.innerHTML.includes('Fresh facts, format or trained behavior?'));assert(terms.gloss.innerHTML.includes('Amazon S3'));
 terms.run("state.guidedHighlights=false;state.session={ids:[45],index:0,answers:[],assisted:[],title:'Term practice'};tab='quiz';quiz()");assert(terms.main.innerHTML.includes('Need a term explained?'));
 terms.run("openTermHelp('Fine-tuning')");let termReload=launch();assert.equal(termReload.run("state.session.terms[45]"),'Fine-tuning');
 termReload.run("tab='quiz';quiz();selected=currentQuestion().answer.slice();check()");assert.equal(termReload.run('state.attempts[0].assisted'),true);assert.equal(termReload.run('state.attempts[0].termUsed'),true);assert(termReload.main.innerHTML.includes('Term help used'));
-console.log('PASS: all 65 questions and four formats; free10/demo65; hints, term help and assisted scoring; review; progress restore/migration; blocked storage; content integrity.');
+console.log('PASS: all 75 questions and four formats; free10/demo75; hints, term help and assisted scoring; review; progress restore/migration; blocked storage; content integrity.');
 

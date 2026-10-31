@@ -1,11 +1,11 @@
 # Zamify: build to Google Play
 
-Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-and-welcome`); merge only after the release gates are met. The first certification is AWS Certified AI Practitioner (AIF-C01). The product model is ten free questions and a one-time paid 65-question pack (65 total, not 65 extra). Future certifications should be separate data/content packs using the same study engine.
+Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-and-welcome`); merge only after the release gates are met. The first certification is AWS Certified AI Practitioner (AIF-C01). The product model is ten free questions plus 65 new paid questions: 75 unique questions in all. The paid expansion adds to the free starter; it does not reuse the free ten in its advertised count. Future certifications should be separate data/content packs using the same study engine.
 
 ## Current position
 
 - [x] Android project targets API 36 and builds a debug APK and unsigned release AAB in CI.
-- [x] Release AAB contains only the ten free questions and no developer-demo unlock.
+- [x] Release AAB contains only the ten free questions and no developer-demo unlock. The development bank now has 75 unique items (ten free, 55 existing paid candidates and ten newly drafted paid items); the content review and purchase flow are incomplete.
 - [x] Ten free questions received an AWS-source-checked editorial pass; source review is AI-assisted, not independent expert approval.
 - [x] Guided highlights, hints, feedback, review, searchable Terms & Services, a linked lesson and local progress work in the draft build.
 - [x] Browser checks, Android build, release lint and release-asset inspection passed on commit `6e6456e` (Actions run `41227391880`).
@@ -14,13 +14,15 @@ Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-an
 
 ## 1. Finish the learning content and study loop
 
-- [ ] Review the other 55 questions against the current AWS exam guide and primary AWS product documentation. Record objective, source, date, answer rationale for every option, realistic near-miss alternative, hint, common trap and transfer example. Fix or replace weak items.
-- [ ] Map the whole 65-question bank to individual AIF-C01 objectives; identify thin topics and avoid claiming complete exam coverage without evidence.
+- [ ] Review the 55 existing paid candidates against the current AWS exam guide and primary AWS product documentation. Six have been rewritten and source-checked in the draft; 49 remain for answer-source and full editorial review. Record objective, source, date, rationale for every option, near-miss alternative, hint, common trap and transfer example. Fix or replace weak items.
+- [x] Draft ten additional original paid questions (IDs 66–75), with supported keys, realistic alternatives and review metadata. The bank now has 75 distinct IDs: ten free plus 65 paid candidates. Independent expert review remains pending.
+- [x] Assign all 75 questions to the 14 primary AIF-C01 task statements; see `CONTENT_COVERAGE_75.md`.
+- [ ] Map individual skills beneath those tasks, strengthen thin areas and avoid claiming complete exam coverage without evidence.
 - [ ] Add delayed recall: an assisted or incorrect answer returns later; a correct unaided answer clears it. Show due reviews and progress without equating practice accuracy with exam readiness. Preserve existing local progress across migrations.
 - [ ] Extend the terms reference to the concepts and AWS services actually used by this pack. Keep each entry short: meaning, example, what it is often confused with, and a primary reference. Let future exam packs supply their own terms.
 - [ ] Obtain an independent subject-matter review of the release content. Resolve findings and record the reviewer/date and changes without implying AWS endorsement.
 
-**Gate:** All 65 items are reviewed, objective coverage is documented, and a learner can read, practise, review later, and explain the correct choice. Free users still see only ten questions.
+**Gate:** All 75 items are reviewed (the ten free, 55 revised candidates and ten new paid), objective coverage is documented, and a learner can read, practise, review later, and explain the correct choice. Free users still see only ten questions.
 
 ## 2. Build the paid pack safely
 
@@ -30,7 +32,7 @@ Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-an
 - [ ] Make offline use and purchase restoration understandable to users. Update privacy policy and Data safety answers for any new network, payment or account data flows.
 - [ ] Remove development-only full-pack controls from production. Test failed purchase, refund, revoked purchase, no connectivity and app update cases.
 
-**Gate:** A free install cannot unlock the 55 extra questions, a valid purchase can, and a legitimate purchase can be restored. The purchase flow follows the current Google Play payments policy.
+**Gate:** A free install cannot unlock the 65 new paid questions, a valid purchase can, and a legitimate purchase can be restored. The purchase flow follows the current Google Play payments policy.
 
 ## 3. Security and privacy release review
 
@@ -69,7 +71,7 @@ Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-an
 
 ## Immediate next action
 
-Start phase 1 with the remaining 55-question editorial and objective-coverage pass. Keep the Play submission work behind the content, purchase and signed-build gates. `PLAY_RELEASE_READINESS.md` holds the technical release notes; `CONTENT_REVIEW_FREE.md` records the ten free-item revision.
+Continue phase 1 with answer-source and editorial review of the 49 pending paid candidates, a second review of the ten new items, and individual-skill coverage. Keep the Play submission work behind the content, purchase and signed-build gates. `PLAY_RELEASE_READINESS.md` holds the technical release notes; `CONTENT_REVIEW_FREE.md` records the ten free-item revision.
 
 ## Official references
 
