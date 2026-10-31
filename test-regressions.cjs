@@ -24,6 +24,12 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),path
   assert.equal(await p.evaluate(()=>state.session.draft),undefined,'Submission clears draft');
   await p.evaluate(()=>{state=fresh();state.previewFullPack=true;save()});
  }
+ // A lesson opened from a scrolled Learn page must reveal the quiz heading/exit.
+ await p.evaluate(()=>{state=fresh();save();go('learn')});
+ await p.locator('[data-action=lesson]').click();
+ const exit=await p.locator('[data-action=exit]').boundingBox();
+ const pane=await p.locator('.shell').boundingBox();
+ assert(exit&&pane&&exit.y>=pane.y&&exit.y+exit.height<=pane.y+pane.height,'Lesson retained Learn scroll offset');
  // A corrupted draft is ignored, and a stale/missing active question cannot crash rendering.
  await p.evaluate(()=>{state.session={ids:[1],index:0,answers:[],assisted:[],title:'Bad draft',revisions:{1:revision(BANK.find(q=>q.id===1))},draft:{id:1,choice:900}};save()});
  await p.reload();await p.locator('[data-action=resume]').click();assert.equal(await p.evaluate(()=>selected),null);

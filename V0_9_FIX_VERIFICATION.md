@@ -48,3 +48,5 @@ python3 test-android.py --apk test-build/Zamify_Release_Test.apk --release
 The optimized release contains only ten plaintext questions. The debug/direct SDK test APK contains the labelled developer preview. Do not confuse a test-signed APK with a Play-signed production build. Bundled encryption cannot prevent extraction by an APK owner.
 
 Initial emulator harness findings: API-26 shell Wi-Fi control needed an emulator-only root session; initial UI-tree dumps needed startup retries and the `/dev/tty` transport. These failed runs were not counted as passes. Added debug-only WebView console/startup diagnostics and a read-only CDP diagnostic capture for the app's debuggable WebView; release debugging remains disabled.
+
+A subsequent native UI run exposed a real navigation defect: opening the connected lesson from a scrolled Learn page retained the old scroll offset, hiding the quiz header. The lesson action now resets the content scroll; a browser regression checks that Save & exit is visible immediately. Emulator log clearing is best-effort because old system images cannot clear all buffers; app crash checks and log capture remain required.

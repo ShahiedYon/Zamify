@@ -27,7 +27,9 @@ out.mkdir(parents=True, exist_ok=True)
 step = 0
 
 def command(*cmd, check=True, binary=False, timeout=40):
-    result = subprocess.run(adb + list(cmd), capture_output=True, timeout=timeout, check=check)
+    result = subprocess.run(adb + list(cmd), capture_output=True, timeout=timeout)
+    if check and result.returncode:
+        raise RuntimeError('ADB '+ ' '.join(cmd)+': '+result.stderr.decode('utf-8',errors='replace')+' '+result.stdout.decode('utf-8',errors='replace'))
     return result.stdout if binary else result.stdout.decode('utf-8', errors='replace')
 
 def shell(*cmd, **kw):
@@ -133,7 +135,8 @@ try:
     shell('settings', 'put', 'system', 'user_rotation', '0')
     shell('svc', 'wifi', 'disable')
     shell('svc', 'data', 'disable')
-    command('logcat', '-c')
+    command('logcat', '-c', check=False)  # Some old images cannot clear every log buffer.
+    print('Launching '+mode+' APK',flush=True)
     launch()
     time.sleep(3)  # Allow the first WebView renderer/Accessibility provider to start.
     # Old API-26 images have an obsolete WebView. Test the explicit recovery UI
@@ -152,6 +155,7 @@ try:
         wait('Start my free practice')
         screenshot('offline-home')
         # Deterministic Q11 through the real public lesson flow.
+        print('Home rendered; opening real lesson',flush=True)
         tap('Learn')
         tap('Try two connected questions')
         wait('Save & exit')
@@ -161,6 +165,7 @@ try:
         _, check = locate('Check answer')
         assert check.get('enabled') != 'false'
         tap('Save & exit', down=False)
+        print('Checking cold resume',flush=True)
         shell('am', 'force-stop', pkg)
         launch()
         wait('Continue practising')
@@ -178,6 +183,7 @@ try:
         tap('Check answer')
         wait('Correct — check the insight.')
         screenshot('feedback')
+        print('Checking cold resume',flush=True)
         shell('am', 'force-stop', pkg)
         launch()
         wait('Continue practising')
@@ -195,7 +201,10 @@ try:
         print('PASS',mode,': offline launch, real lesson, draft/cold resume, rotation, Back, grading, answered resume, privacy and release isolation',flush=True)
 finally:
     if not args.release:
-        subprocess.run(['node','diagnose-android.cjs',adb_bin,args.serial or '',str(out/'webview.json')],check=False,timeout=30)
+        try:
+            subprocess.run(['node','diagnose-android.cjs',adb_bin,args.serial or '',str(out/'webview.json')],check=False,timeout=30)
+        except subprocess.TimeoutExpired:
+            print('Optional WebView diagnostic timed out',flush=True)
     (out/'logcat.txt').write_text(command('logcat', '-d', check=False))
     screenshot('final')
     shell('settings', 'put', 'system', 'user_rotation', '0', check=False)
