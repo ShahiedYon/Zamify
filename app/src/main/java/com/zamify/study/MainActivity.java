@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebSettings;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.content.Intent;
@@ -39,7 +40,7 @@ public class MainActivity extends Activity {
         if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) == 0) {
             WebView.setWebContentsDebuggingEnabled(false);
         }
-        web.getSettings().setMixedContentMode(0);
+        web.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         web.setWebViewClient(new WebViewClient() {
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest req) {
                 if ("https".equals(req.getUrl().getScheme()) && "app.zamify.local".equals(req.getUrl().getHost()) && "/index.html".equals(req.getUrl().getPath())) {
