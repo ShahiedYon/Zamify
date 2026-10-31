@@ -16,7 +16,7 @@ The draft bank now contains **75 unique questions: ten free IDs and 65 paid cand
 | 3.2 Prompting | 12, 46, 50, 56, 72 | 5 | Prompt versioning and limits. |
 | 3.3 Training and fine-tuning | 14, 71 | 2 | Thin task; current items do not cover every customization method. |
 | 3.4 Evaluation | 15, 52, 53, 54, 55 | 5 | End-to-end and judge calibration. |
-| 4.1 Responsible AI | 16, 18, 19, 20, 59, 60 | 6 | Strengthen weak alternatives in 19 and 60. |
+| 4.1 Responsible AI | 16, 18, 19, 20, 59, 60 | 6 | Review the revised commercial-rights and sustainability cases. |
 | 4.2 Transparency | 17, 58, 61, 73 | 4 | Explanation/privacy tradeoff and human review. |
 | 5.1 Security | 21, 23, 24, 25, 64, 65, 74 | 7 | Distinguish safeguards from enforced controls. |
 | 5.2 Governance | 22, 62, 63, 75 | 4 | Retention/residency beyond service recognition. |
@@ -27,12 +27,12 @@ Domain counts are **15 / 18 / 21 / 10 / 11**, close to the guide's weights for a
 
 - The original ten free questions have the separate source/editorial revision in `CONTENT_REVIEW_FREE.md`.
 - New paid IDs 66–75 were drafted with an item source, objective source, option rationales, hint, clue, misconception and transfer example. Source checks were performed against the linked primary material; independent subject review is pending.
-- Paid IDs 15, 41, 42, 43, 54 and 64 were rewritten to replace remote choices with nearby alternatives and clearer decision constraints. They carry content revision 2 and primary references. Earlier attempts on these IDs become historical rather than scoring against changed wording.
-- The other 49 earlier paid candidates have primary task tags and objective-guide links but **answer-source verification and the full editorial pass are pending**. Their `reviewStatus` says so. Do not sell or describe the 65 paid candidates as independently reviewed yet.
+- Paid IDs 15, 19, 39, 41, 42, 43, 44, 54, 60, 61 and 64 were rewritten to replace remote choices with nearby alternatives and clearer decision constraints. They carry content revision 2 and primary references. Earlier attempts on these IDs become historical rather than scoring against changed wording.
+- The other 44 earlier paid candidates have primary task tags and objective-guide links but **answer-source verification and the full editorial pass are pending**. Their `reviewStatus` says so. Do not sell or describe the 65 paid candidates as independently reviewed yet.
 
 ## Next pass
 
-1. Check all 49 pending items against primary answer sources, then revise weak options and ambiguous stems. Prioritize 19, 39, 44, 60 and 61, plus every answer where a competing option could satisfy the scenario.
+1. Check all 44 pending items against primary answer sources, then revise weak options and ambiguous stems. Prioritize every answer where a competing option could satisfy the scenario.
 2. Add transfer examples and specific concept labels; record direct sources, dates, content revisions and candid review status for each item.
 3. Review individual objective skills, not only the 14 task statements. Replace duplicated elementary recall with higher-value application questions where the 75-item limit permits it.
 4. Obtain independent subject review, learner comprehension checks and installed-device QA before selling the paid pack.

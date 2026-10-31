@@ -14,7 +14,7 @@ Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-an
 
 ## 1. Finish the learning content and study loop
 
-- [ ] Review the 55 existing paid candidates against the current AWS exam guide and primary AWS product documentation. Six have been rewritten and source-checked in the draft; 49 remain for answer-source and full editorial review. Record objective, source, date, rationale for every option, near-miss alternative, hint, common trap and transfer example. Fix or replace weak items.
+- [ ] Review the 55 existing paid candidates against the current AWS exam guide and primary AWS product documentation. Eleven have been rewritten and source-checked in the draft; 44 remain for answer-source and full editorial review. Record objective, source, date, rationale for every option, near-miss alternative, hint, common trap and transfer example. Fix or replace weak items.
 - [x] Draft ten additional original paid questions (IDs 66–75), with supported keys, realistic alternatives and review metadata. The bank now has 75 distinct IDs: ten free plus 65 paid candidates. Independent expert review remains pending.
 - [x] Assign all 75 questions to the 14 primary AIF-C01 task statements; see `CONTENT_COVERAGE_75.md`.
 - [ ] Map individual skills beneath those tasks, strengthen thin areas and avoid claiming complete exam coverage without evidence.
@@ -71,7 +71,7 @@ Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-an
 
 ## Immediate next action
 
-Continue phase 1 with answer-source and editorial review of the 49 pending paid candidates, a second review of the ten new items, and individual-skill coverage. Keep the Play submission work behind the content, purchase and signed-build gates. `PLAY_RELEASE_READINESS.md` holds the technical release notes; `CONTENT_REVIEW_FREE.md` records the ten free-item revision.
+Continue phase 1 with answer-source and editorial review of the 44 pending paid candidates, a second review of the ten new items, and individual-skill coverage. Keep the Play submission work behind the content, purchase and signed-build gates. `PLAY_RELEASE_READINESS.md` holds the technical release notes; `CONTENT_REVIEW_FREE.md` records the ten free-item revision.
 
 ## Official references
 
