@@ -112,7 +112,7 @@ function pool(){return state.previewFullPack?BANK:BANK.filter(q=>FREE_IDS.includ
 function eligibleMisses(){return state.missed.filter(id=>pool().some(q=>q.id===id))}
 function dueReviews(now=Date.now()){return eligibleMisses().filter(id=>Number.isFinite(state.reviewDue[id])&&state.reviewDue[id]<=now)}
 function nextReview(){return Math.min(...eligibleMisses().map(id=>state.reviewDue[id]).filter(t=>Number.isFinite(t)&&t>Date.now()))}
-function reviewTiming(){const next=nextReview();if(!Number.isFinite(next))return 'Nothing scheduled yet.';const hours=Math.ceil((next-Date.now())/3600000);return `Next review in ${hours<24?hours+' hour'+(hours===1?'':'s'):Math.ceil(hours/24)+' day'+(hours<=24?'':'s')}.`}
+function reviewTiming(){if(dueReviews().length)return 'Ready to review now.';const next=nextReview();if(!Number.isFinite(next))return 'Nothing scheduled yet.';const hours=Math.ceil((next-Date.now())/3600000);return `Next review in ${hours<24?hours+' hour'+(hours===1?'':'s'):Math.ceil(hours/24)+' day'+(hours<=24?'':'s')}.`}
 function domainCount(d){return pool().filter(q=>q.domain===d).length}
 function saveTier(full){state.previewFullPack=full;state.session=null;selected=null;save();go('home')}
 function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
