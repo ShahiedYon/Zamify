@@ -204,7 +204,7 @@ try:
         launch()
         wait('Continue practising')
         tap('Continue practising')
-        wait('Correct — check the insight.')
+        locate('Correct — check the insight.')  # Restored answered questions open at the stem; feedback is below.
         shell('input', 'keyevent', '4')
         tap('About')
         root,_ = wait('Study simply.')

@@ -52,3 +52,5 @@ Initial emulator harness findings: API-26 shell Wi-Fi control needed an emulator
 A subsequent native UI run exposed a real navigation defect: opening the connected lesson from a scrolled Learn page retained the old scroll offset, hiding the quiz header. The lesson action now resets the content scroll; a browser regression checks that Save & exit is visible immediately. Emulator log clearing is best-effort because old system images cannot clear all buffers; app crash checks and log capture remain required.
 
 Native selector corrections: Android uppercases some native button labels, so text matching now ignores case. WebView reports some offscreen DOM-node bounds below their scroll container; test taps now intersect bounds with the UI-tree scroll ancestor to avoid hitting the footer instead. Assertions and crash checks remain enabled.
+
+Device evidence on API 33/36 verified draft cold resume, rotation, Back, grading and stored answered-session content. The cold-resume feedback assertion now scrolls to the already-saved feedback below the question; it does not change or weaken the correct-answer check.
