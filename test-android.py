@@ -36,10 +36,22 @@ def shell(*cmd, **kw):
 def dump():
     global step
     step += 1
-    shell('uiautomator', 'dump', '/sdcard/zamify-ui.xml', timeout=35)
-    xml = shell('cat', '/sdcard/zamify-ui.xml')
-    (out / f'{step:03d}.xml').write_text(xml)
-    return ET.fromstring(xml)
+    errors=[]
+    for attempt in range(5):
+        # /dev/tty avoids external-storage permission/version differences.
+        result=subprocess.run(adb+['exec-out','uiautomator','dump','/dev/tty'],capture_output=True,timeout=35)
+        text=result.stdout.decode('utf-8',errors='replace')
+        start=text.find('<?xml')
+        if start<0:start=text.find('<hierarchy')
+        end=text.find('</hierarchy>')
+        if start>=0 and end>=0:
+            xml=text[start:end+len('</hierarchy>')]
+            (out/f'{step:03d}.xml').write_text(xml)
+            return ET.fromstring(xml)
+        errors.append(text+'\n'+result.stderr.decode('utf-8',errors='replace'))
+        time.sleep(2)
+    (out/f'{step:03d}-dump-errors.txt').write_text('\n'.join(errors))
+    raise AssertionError('Could not obtain UI tree: '+' | '.join(errors)[-1500:])
 
 def label(node):
     return re.sub(r'\s+', ' ', node.get('text', '') or node.get('content-desc', '')).strip()
@@ -112,6 +124,8 @@ try:
         assert time.monotonic() < boot_deadline, 'Emulator did not boot'
         time.sleep(2)
     assert shell('getprop', 'ro.kernel.qemu').strip() == '1', 'This script clears test data and must run on an emulator'
+    command('root',check=False)
+    command('wait-for-device')
     command('uninstall', pkg, check=False)  # Debug and release-test variants use separate test signing keys.
     command('install', '-r', str(args.apk.resolve()), timeout=90)
     shell('pm', 'clear', pkg)
@@ -121,6 +135,7 @@ try:
     shell('svc', 'data', 'disable')
     command('logcat', '-c')
     launch()
+    time.sleep(3)  # Allow the first WebView renderer/Accessibility provider to start.
     # Old API-26 images have an obsolete WebView. Test the explicit recovery UI
     # instead of accepting a blank screen or calling it a full study-flow pass.
     root = dump()
@@ -179,6 +194,8 @@ try:
         crash_check()
         print('PASS',mode,': offline launch, real lesson, draft/cold resume, rotation, Back, grading, answered resume, privacy and release isolation',flush=True)
 finally:
+    if not args.release:
+        subprocess.run(['node','diagnose-android.cjs',adb_bin,args.serial or '',str(out/'webview.json')],check=False,timeout=30)
     (out/'logcat.txt').write_text(command('logcat', '-d', check=False))
     screenshot('final')
     shell('settings', 'put', 'system', 'user_rotation', '0', check=False)

@@ -94,7 +94,8 @@ jobs:
           arch: x86_64
           profile: pixel_2
           disable-animations: true
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -camera-back none
+          ram-size: 2048M
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -camera-back none -no-metrics
           script: |
             python3 test-android.py --apk test-input/app/build/outputs/apk/debug/app-debug.apk
             python3 test-android.py --apk test-input/test-build/Zamify_Release_Test.apk --release

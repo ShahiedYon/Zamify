@@ -23,6 +23,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebChromeClient;
+import android.webkit.ConsoleMessage;
+import android.webkit.WebResourceError;
+import android.util.Log;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -76,13 +80,19 @@ public class MainActivity extends Activity {
         settings.setSafeBrowsingEnabled(true);
         settings.setBlockNetworkLoads(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
-        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) == 0) {
-            WebView.setWebContentsDebuggingEnabled(false);
-        }
+        final boolean debug = (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        WebView.setWebContentsDebuggingEnabled(debug);
+        if (debug) web.setWebChromeClient(new WebChromeClient() {
+            @Override public boolean onConsoleMessage(ConsoleMessage message) {
+                Log.d("ZamifyQA", message.messageLevel() + " line " + message.lineNumber() + ": " + message.message());
+                return true;
+            }
+        });
         web.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest req) {
                 Uri u = req.getUrl();
+                if (debug && req.isForMainFrame()) Log.d("ZamifyQA", "Intercept: " + u);
                 if ("https".equals(u.getScheme()) && "app.zamify.local".equals(u.getHost()) && u.getPort() == -1 && "/index.html".equals(u.getPath())) {
                     try {
                         return new WebResourceResponse("text/html", "UTF-8", getAssets().open("index.html"));
@@ -91,6 +101,15 @@ public class MainActivity extends Activity {
                     }
                 }
                 return notFoundResponse();
+            }
+            @Override public void onPageStarted(WebView view, String url, android.graphics.Bitmap icon) {
+                if (debug) Log.d("ZamifyQA", "Page started: " + url);
+            }
+            @Override public void onPageFinished(WebView view, String url) {
+                if (debug) Log.d("ZamifyQA", "Page finished: " + url + " size=" + view.getWidth() + "x" + view.getHeight());
+            }
+            @Override public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError error) {
+                if (debug && req.isForMainFrame()) Log.e("ZamifyQA", "Page error: " + error.getErrorCode() + " " + error.getDescription());
             }
             @Override
             public void onPageCommitVisible(WebView view, String url) {
