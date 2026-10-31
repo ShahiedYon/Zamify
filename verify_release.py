@@ -4,6 +4,8 @@ These checks do not certify Google Play policy compliance or purchase security.
 from pathlib import Path
 from zipfile import ZipFile
 import json
+import os
+import xml.etree.ElementTree as ET
 import re
 import subprocess
 import tempfile
@@ -31,7 +33,10 @@ def verify_assets(page, enc_bytes, names):
     assert 'Preview full pack — no payment' not in page
     assert 'data-action="demo"' not in page and "case'demo':" not in page
     assert 'previewFullPack?BANK' not in page
-    assert 's.previewFullPack=false;' in page
+    assert 's.previewFullPack=paidAuthorized===true;' in page
+    assert 's.previewFullPack=raw.previewFullPack===true;' not in page
+    assert 'getSharedPreferences(' not in native
+    assert 'android:dataExtractionRules="@xml/data_extraction_rules"' in manifest
     assert '<summary>Privacy policy</summary>' in page and 'info@zamify.com' in page
     assert len(enc_bytes) > 1024
     full = json.loads((root / 'questions.json').read_text())
@@ -63,4 +68,24 @@ if __name__ == '__main__':
         assert names.count('base/assets/paid_pack.enc') == 1
         assert not any(n.endswith('.so') for n in names), 'Review native library page-size compatibility'
         verify_assets(archive.read('base/assets/index.html').decode('utf-8'), archive.read('base/assets/paid_pack.enc'), names)
-    print('Verified AAB: 10 free, 73 encrypted; round-trip and GCM tamper rejection pass; billing pending')
+    rules = ET.parse(root / 'app/src/main/res/xml/data_extraction_rules.xml').getroot()
+    domains = {'root','file','database','sharedpref','external','device_root','device_file','device_database','device_sharedpref'}
+    for section in ['cloud-backup','device-transfer']:
+        assert {(x.attrib['domain'],x.attrib['path']) for x in rules.find(section)} == {(d,'.') for d in domains}
+    sdk = os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
+    apk = root / 'app/build/outputs/apk/release/app-release-unsigned.apk'
+    if sdk and apk.exists():
+        aapt = Path(sdk) / 'build-tools/35.0.0/aapt2'
+        badging = subprocess.run([str(aapt),'dump','badging',str(apk)],check=True,capture_output=True,text=True).stdout
+        assert "name='com.zamify.study'" in badging
+        assert "versionCode='9'" in badging and "versionName='0.9.0'" in badging
+        assert re.search(r"(?:minSdkVersion|sdkVersion):'26'",badging) and "targetSdkVersion:'36'" in badging
+        assert 'uses-permission:' not in badging
+        compiled_manifest=subprocess.run([str(aapt),'dump','xmltree',str(apk),'--file','AndroidManifest.xml'],check=True,capture_output=True,text=True).stdout
+        for attr in ['allowBackup','fullBackupContent','usesCleartextTraffic']:
+            assert re.search(attr+r'\([^)]*\)=false',compiled_manifest),attr
+        assert 'dataExtractionRules(' in compiled_manifest
+        assert not re.search(r'debuggable\([^)]*\)=true',compiled_manifest)
+        with ZipFile(apk) as archive:
+            verify_assets(archive.read('assets/index.html').decode('utf-8'),archive.read('assets/paid_pack.enc'),archive.namelist())
+    print('Verified release: 10 free, 73 encrypted; round-trip/tamper rejection, backup exclusions and compiled APK metadata pass; billing pending')

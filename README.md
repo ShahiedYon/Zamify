@@ -76,3 +76,5 @@ The native WebView now signals when content is ready to draw before starting the
 ## v0.9.0 release candidate
 
 The expanded offer is 10 free plus 73 new paid candidates (83 total). Release packaging includes the 73 candidates as AES-256-GCM ciphertext, with only ten questions in HTML. The bundled key is recoverable; this is extraction deterrence, not secure purchase verification. No Google Play Billing integration exists and checkout remains disabled. See `ZAMIFY_BUILD_TO_PLAY_PLAN.md`, `CONTENT_COVERAGE_83.md` and `V0_9_VERIFICATION.md`.
+
+Follow-up fixes and Android emulator QA are documented in `V0_9_FIX_VERIFICATION.md`. `test-regressions.cjs` covers draft retention/highlights, and `test-android.py` uses ADB with UI-tree coordinates to test debug and optimized release APKs. `sign-test-release.py` prepares the release test APK with a development key; it never configures production signing.

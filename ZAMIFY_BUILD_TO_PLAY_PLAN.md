@@ -28,7 +28,7 @@ Updated 31 October 2026. Status: **engineering candidate; purchases unavailable;
 - [ ] Resolve the handoff's platform-only/no-dependency/no-permission constraints before billing integration. The supported Google integration uses the Play Billing Library; a SharedPreferences flag is not a Play entitlement.
 - [ ] Complete a paid-content threat review. The embedded SHA-256-derived AES key is recoverable from the app. Encryption prevents plaintext packaging and detects ciphertext tampering; it does **not** provide DRM, secure purchase verification or resistance to a modified app. R8 does not change this boundary.
 
-No code in this version grants or writes a purchase entitlement. Unlock/restore routes only consult an existing local preference. Checkout stays disabled. Do not claim purchase/restore support in the privacy policy or listing, or sell this candidate as a working paid pack.
+No code in this version grants or writes a purchase entitlement. The unsafe local-preference shortcut was removed; unlock/restore routes only report that purchases are unavailable. Checkout stays disabled. Do not claim purchase/restore support in the privacy policy or listing, or sell this candidate as a working paid pack.
 
 ## 4. Verification
 
@@ -47,7 +47,7 @@ python3 verify_release.py
 python3 build-test-apk.py
 ```
 
-`build-test-apk.py` accepts `--sdk`, `ANDROID_HOME` or `ANDROID_SDK_ROOT`. Additional generated-release browser test: `python3 prepare_release.py` then `node test-release.cjs`. CI also checks generated files for drift. See `V0_9_VERIFICATION.md` for actual results; source changes alone are not evidence of passing checks.
+`build-test-apk.py` accepts `--sdk`, `ANDROID_HOME` or `ANDROID_SDK_ROOT`. Additional generated-release browser test: `python3 prepare_release.py` then `node test-release.cjs`. CI also checks generated files for drift. See `V0_9_VERIFICATION.md` and `V0_9_FIX_VERIFICATION.md` for actual results; source changes alone are not evidence of passing checks.
 
 ## 5. Signing, policy and Play Console
 
@@ -67,3 +67,5 @@ python3 build-test-apk.py
 - Android 16 changes: https://developer.android.com/about/versions/16/behavior-changes-16
 
 This plan is an engineering checklist, not a cybersecurity certification or a guarantee of Google Play acceptance.
+
+Follow-up app QA: the workflow now installs both debug and test-signed optimized release APKs on API 26, 33 and 36 emulators. See `V0_9_FIX_VERIFICATION.md`; obsolete-WebView recovery is recorded separately from full study-flow testing.

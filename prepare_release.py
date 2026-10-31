@@ -26,7 +26,8 @@ def replace_once(old, new):
     assert source.count(old) == 1, old
     source = source.replace(old, new)
 
-replace_once('s.previewFullPack=raw.previewFullPack===true;', 's.previewFullPack=false;')
+replace_once('function normalize(raw){', 'function normalize(raw,paidAuthorized=false){')
+replace_once('s.previewFullPack=raw.previewFullPack===true;', 's.previewFullPack=paidAuthorized===true;')
 replace_once('function pool(){return state.previewFullPack?BANK:BANK.filter(q=>FREE_IDS.includes(q.id))}', 'function pool(){return BANK.filter(q=>state.previewFullPack||FREE_IDS.includes(q.id))}')
 replace_once("case'demo':return saveTier(true);", '')
 replace_once('<details><summary>Developer preview tools</summary><p class="small muted">Test access only. This does not represent a purchase or a production content lock.</p><button class="btn secondary" data-action="demo">Preview full pack — no payment</button></details>', '')
@@ -36,16 +37,53 @@ source = source.replace('Zamify · 0.9 preview', 'Zamify · 0.9 free edition')
 # Do not describe a future native entitlement as developer demo access.
 source = source.replace('FULL-PACK DEMO · No purchase has been made.', 'Full study pack')
 source = source.replace('Draft-bank demo', 'Full study pack')
-unlock_hook = '''
-// Native scaffold only. This callback is not a purchase-verification boundary.
-window.onZamifyPaidPackUnlocked = function(paidItems) {
-  if (!Array.isArray(paidItems) || paidItems.length !== 73) return;
-  const ids = new Set(BANK.map(q => q.id));
-  if (new Set(paidItems.map(q => q.id)).size !== 73 ||
-      paidItems.some(q => !Number.isInteger(q.id) || ids.has(q.id))) return;
-  paidItems.forEach(q => BANK.push(q));
-  state.previewFullPack = true;
-  render();
+# Public integrity metadata is not an entitlement or a secret. It prevents a
+# malformed/different payload from corrupting the running question bank.
+paid_json = json.dumps(paid, ensure_ascii=False, separators=(',', ':'))
+paid_hash = hashlib.sha256(paid_json.encode('utf-8')).hexdigest()
+replace_once("const KEY='exam-sprint-aif-v1';", "const PAID_IDS=" + json.dumps([q['id'] for q in paid]) + ";\nconst PAID_HASH='" + paid_hash + "';\nconst KEY='exam-sprint-aif-v1';")
+replace_once("state=normalize(JSON.parse(localStorage.getItem(KEY)||'null'))", "state=normalizeReleaseProgress(JSON.parse(localStorage.getItem(KEY)||'null'))")
+unlock_hook = r'''
+// Preserve locked progress across free-edition launches without treating it as access.
+function normalizeReleaseProgress(raw) {
+  const result=normalize(raw),archived=raw?.lockedProgress||{};
+  const isPaid=id=>PAID_IDS.includes(id);
+  const records=(items)=>Array.isArray(items)?items.filter(a=>a&&isPaid(a.id)&&typeof a.correct==='boolean'&&(Number.isInteger(a.choice)||Array.isArray(a.choice))):[];
+  const ids=items=>Array.isArray(items)?items.filter(isPaid):[];
+  const missed=[...new Set([...ids(raw?.missed),...ids(archived.missed)])];
+  const due={...archived.reviewDue,...raw?.reviewDue};
+  const session=raw?.session?.ids?.some?.(isPaid)?raw.session:archived.session||null;
+  result.lockedProgress={
+    attempts:[...records(archived.attempts),...records(raw?.attempts)],
+    historicalAttempts:[...records(archived.historicalAttempts),...records(raw?.historicalAttempts)],
+    missed,reviewDue:missed.reduce((out,id)=>{out[id]=Number.isFinite(due[id])?due[id]:Date.now();return out},{}),session
+  };
+  return result;
+}
+// This callback validates content integrity only; native purchase verification is
+// still required before it may be called by a future billing integration.
+window.onZamifyPaidPackUnlocked = async function(paidItems) {
+  if(!Array.isArray(paidItems)||paidItems.length!==PAID_IDS.length||
+     paidItems.some(q=>!q||typeof q!=='object'||!PAID_IDS.includes(q.id))||
+     new Set(paidItems.map(q=>q.id)).size!==PAID_IDS.length)return false;
+  if(!window.crypto?.subtle||typeof TextEncoder==='undefined')return false;
+  try {
+    const bytes=new TextEncoder().encode(JSON.stringify(paidItems));
+    const digest=await window.crypto.subtle.digest('SHA-256',bytes);
+    if(Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('')!==PAID_HASH)return false;
+    const existing=new Set(BANK.map(q=>q.id));
+    paidItems.forEach(q=>{if(!existing.has(q.id))BANK.push(q)});
+    if(state.previewFullPack)return true;
+    const locked=state.lockedProgress||{};
+    state=normalize({...state,
+      attempts:[...state.attempts,...(locked.attempts||[])],
+      historicalAttempts:[...state.historicalAttempts,...(locked.historicalAttempts||[])],
+      missed:[...new Set([...state.missed,...(locked.missed||[])])],
+      reviewDue:{...locked.reviewDue,...state.reviewDue},
+      session:state.session||locked.session||null
+    },true);
+    selected=null;save();render();return true;
+  } catch(e) {return false}
 };
 </script>'''
 replace_once('</script>', unlock_hook)
@@ -63,7 +101,7 @@ fs.writeFileSync(process.argv[4], enc);
 '''
 with tempfile.TemporaryDirectory(prefix='zamify-pack-') as tmp:
     plain = Path(tmp) / 'paid.json'
-    plain.write_bytes(json.dumps(paid, ensure_ascii=False).encode('utf-8'))
+    plain.write_bytes(paid_json.encode('utf-8'))
     subprocess.run(['node', '-e', node_script, key.hex(), iv.hex(), str(plain), str(out_dir / 'paid_pack.enc')], check=True)
 (out_dir / 'index.html').write_text(source, encoding='utf-8')
 assert 'Developer preview tools' not in source

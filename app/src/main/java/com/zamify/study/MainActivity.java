@@ -2,10 +2,15 @@ package com.zamify.study;
 
 import android.app.Activity;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.view.Gravity;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Button;
 import android.graphics.Insets;
 import android.net.Uri;
 import android.os.Build;
@@ -38,11 +43,10 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends Activity {
     private WebView web;
-    private OnBackInvokedCallback backCallback;
+    private Object backCallback;
+    private static final int MIN_WEBVIEW_MAJOR = 80;
     private static final String HOST = "https://app.zamify.local/";
     private static final String PRODUCT_ID = "zamify_aif_c01_full_pack";
-    private static final String PREFS_NAME = "zamify_entitlement_prefs";
-    private static final String KEY_UNLOCKED = "full_pack_unlocked";
 
     @Override
     @SuppressWarnings("deprecation")
@@ -53,6 +57,11 @@ public class MainActivity extends Activity {
         window.setStatusBarColor(chrome);
         window.setNavigationBarColor(chrome);
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        PackageInfo provider = WebView.getCurrentWebViewPackage();
+        if (!supportedWebView(provider)) {
+            showWebViewUpdate();
+            return;
+        }
         web = new WebView(this);
         web.setBackgroundColor(chrome);
         WebSettings settings = web.getSettings();
@@ -88,8 +97,8 @@ public class MainActivity extends Activity {
                 view.postVisualStateCallback(0, new WebView.VisualStateCallback() {
                     @Override
                     public void onComplete(long requestId) {
+                        if (web != view || isFinishing() || isDestroyed()) return;
                         view.evaluateJavascript("window.zamifyNativeVisible=true;window.startZamifyWelcome && window.startZamifyWelcome()", null);
-                        restoreLocalEntitlementIfPresent();
                     }
                 });
             }
@@ -99,8 +108,8 @@ public class MainActivity extends Activity {
                 if (!req.isForMainFrame()) return true;
                 if ("https".equals(uri.getScheme()) && "app.zamify.local".equals(uri.getHost())) {
                     if ("/billing/unlock".equals(uri.getPath()) || "/billing/restore".equals(uri.getPath())) {
-                        // Scaffold only: no Google Play purchase, verification or acknowledgement exists yet.
-                        restoreLocalEntitlementIfPresent();
+                        // Never grant content based on a URL or a locally editable flag.
+                        Toast.makeText(MainActivity.this, "Purchases are not available in this version.", Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 }
@@ -118,26 +127,8 @@ public class MainActivity extends Activity {
         root.setBackgroundColor(chrome);
         root.addView(web, new FrameLayout.LayoutParams(-1, -1));
         setContentView(root);
-        if (Build.VERSION.SDK_INT >= 30) {
-            window.setDecorFitsSystemWindows(false);
-            WindowInsetsController controller = window.getInsetsController();
-            if (controller != null) {
-                int lightBars = WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS | WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
-                controller.setSystemBarsAppearance(lightBars, lightBars);
-            }
-            root.setOnApplyWindowInsetsListener((v, insets) -> {
-                int handled = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
-                Insets bars = insets.getInsets(handled);
-                v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
-                // Leave IME insets available to WebView for viewport resizing.
-                return new WindowInsets.Builder(insets).setInsets(handled, Insets.NONE).build();
-            });
-            root.requestApplyInsets();
-        }
-        if (Build.VERSION.SDK_INT >= 33) {
-            backCallback = () -> dispatchBackToWebView();
-            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT, backCallback);
-        }
+        if (Build.VERSION.SDK_INT >= 30) Api30Insets.install(window, root);
+        if (Build.VERSION.SDK_INT >= 33) backCallback = Api33Back.register(this);
         web.loadUrl(HOST + "index.html#android");
     }
     private void dispatchBackToWebView() {
@@ -150,11 +141,75 @@ public class MainActivity extends Activity {
         return new WebResourceResponse("text/plain", "UTF-8", 404, "Not Found",
             Collections.singletonMap("Cache-Control", "no-store"), new ByteArrayInputStream(new byte[0]));
     }
-    private void restoreLocalEntitlementIfPresent() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        // No writer is exposed: this preference is not proof of a Google Play purchase.
-        if (prefs.getBoolean(KEY_UNLOCKED, false)) unlockEncryptedPaidPack();
+    private boolean supportedWebView(PackageInfo provider) {
+        if (provider == null || provider.versionName == null) return false;
+        try {
+            int separator = provider.versionName.indexOf('.');
+            String major = separator < 0 ? provider.versionName : provider.versionName.substring(0, separator);
+            return Integer.parseInt(major) >= MIN_WEBVIEW_MAJOR;
+        } catch (NumberFormatException e) { return false; }
     }
+    private void showWebViewUpdate() {
+        LinearLayout notice = new LinearLayout(this);
+        notice.setOrientation(LinearLayout.VERTICAL);
+        notice.setGravity(Gravity.CENTER_VERTICAL);
+        int padding = (int) (24 * getResources().getDisplayMetrics().density);
+        notice.setPadding(padding, padding, padding, padding);
+        notice.setBackgroundColor(0xffe7dfd0);
+        TextView title = new TextView(this);
+        title.setText(R.string.webview_update_title);
+        title.setTextSize(24);
+        title.setTextColor(0xff242534);
+        notice.addView(title);
+        TextView message = new TextView(this);
+        message.setText(R.string.webview_update_message);
+        message.setTextSize(18);
+        message.setTextColor(0xff242534);
+        notice.addView(message);
+        Button update = new Button(this);
+        update.setText(R.string.webview_update_button);
+        update.setOnClickListener(v -> {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.webview")));
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(this, "Open your app store and update Android System WebView or Chrome.", Toast.LENGTH_LONG).show();
+            }
+        });
+        notice.addView(update);
+        setContentView(notice);
+    }
+    // API-specific types stay inside guarded helpers so API 26–29 can load the Activity.
+    @TargetApi(30)
+    private static class Api30Insets {
+        static void install(Window window, FrameLayout root) {
+            window.setDecorFitsSystemWindows(false);
+            WindowInsetsController controller = window.getInsetsController();
+            if (controller != null) {
+                int lightBars = WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS | WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
+                controller.setSystemBarsAppearance(lightBars, lightBars);
+            }
+            root.setOnApplyWindowInsetsListener((v, insets) -> {
+                int handled = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
+                Insets bars = insets.getInsets(handled);
+                v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+                return new WindowInsets.Builder(insets).setInsets(handled, Insets.NONE).build();
+            });
+            root.requestApplyInsets();
+        }
+    }
+    @TargetApi(33)
+    private static class Api33Back {
+        static Object register(MainActivity activity) {
+            OnBackInvokedCallback callback = activity::dispatchBackToWebView;
+            activity.getOnBackInvokedDispatcher().registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT, callback);
+            return callback;
+        }
+        static void unregister(MainActivity activity, Object callback) {
+            activity.getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback((OnBackInvokedCallback) callback);
+        }
+    }
+    // Reserved for a future verified Play Billing callback. There is deliberately
+    // no caller in this free version and no SharedPreferences entitlement shortcut.
     private void unlockEncryptedPaidPack() {
         try (InputStream in = getAssets().open("paid_pack.enc")) {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -173,7 +228,10 @@ public class MainActivity extends Activity {
             // Escape characters that have special meaning in a JavaScript source string.
             String json = new String(cipher.doFinal(cipherBytes), StandardCharsets.UTF_8)
                 .replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029");
-            runOnUiThread(() -> web.evaluateJavascript("window.onZamifyPaidPackUnlocked && window.onZamifyPaidPackUnlocked(" + json + ")", null));
+            runOnUiThread(() -> {
+                if (web != null && !isFinishing() && !isDestroyed())
+                    web.evaluateJavascript("window.onZamifyPaidPackUnlocked && window.onZamifyPaidPackUnlocked(" + json + ")", null);
+            });
         } catch (Exception e) {
             // Fail closed; never enable paid content on missing assets or failed authentication.
             Toast.makeText(this, "Study pack unavailable. Please continue with the free pack.", Toast.LENGTH_SHORT).show();
@@ -187,7 +245,7 @@ public class MainActivity extends Activity {
     public void onBackPressed() { dispatchBackToWebView(); }
     @Override
     public void onDestroy() {
-        if (Build.VERSION.SDK_INT >= 33 && backCallback != null) getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(backCallback);
+        if (Build.VERSION.SDK_INT >= 33 && backCallback != null) Api33Back.unregister(this, backCallback);
         if (web != null) { web.destroy(); web = null; }
         super.onDestroy();
     }
