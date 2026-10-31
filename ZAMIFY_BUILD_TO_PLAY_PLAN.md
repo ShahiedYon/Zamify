@@ -19,9 +19,10 @@ Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-an
 - [x] Assign all 75 questions to the 14 primary AIF-C01 task statements; see `CONTENT_COVERAGE_75.md`.
 - [x] Record individual-skill gaps beneath the 14 tasks in `CONTENT_COVERAGE_75.md`.
 - [ ] Strengthen thin areas in lessons and future item revisions; avoid claiming complete exam coverage without evidence.
-- [ ] Add delayed recall: an assisted or incorrect answer returns later; a correct unaided answer clears it. Show due reviews and progress without equating practice accuracy with exam readiness. Preserve existing local progress across migrations.
+- [x] Add delayed recall: an assisted or incorrect answer returns after 24 hours; a correct unaided answer clears it. Show due reviews and progress without equating practice accuracy with exam readiness. Preserve existing local progress across migrations. Manual mistake review remains available immediately; the app shows due reviews on opening rather than sending notifications.
 - [ ] Extend the terms reference to the concepts and AWS services actually used by this pack. Keep each entry short: meaning, example, what it is often confused with, and a primary reference. Let future exam packs supply their own terms.
 - [ ] Obtain an independent subject-matter review of the release content. Resolve findings and record the reviewer/date and changes without implying AWS endorsement.
+- [x] Prepare `review_sheet.csv` and `CONTENT_REVIEW_PROTOCOL.md` for an independent reviewer and a small learner pilot. These are blank review materials, not approval.
 
 **Gate:** All 75 items are reviewed (the ten free, 55 revised candidates and ten new paid), objective coverage is documented, and a learner can read, practise, review later, and explain the correct choice. Free users still see only ten questions.
 
@@ -72,7 +73,7 @@ Living checklist, started 31 October 2026. Work on draft PR #1 (`improve-home-an
 
 ## Immediate next action
 
-Continue phase 1 with a lesson plan for thin skills. Then arrange independent subject review and a learner pilot. Keep the Play submission work behind the content, purchase and signed-build gates. `PLAY_RELEASE_READINESS.md` holds the technical release notes; `CONTENT_REVIEW_FREE.md` records the ten free-item revision.
+Continue phase 1 with short lessons for thin skills, then have a qualified independent reviewer complete the 75-row sheet and pilot with learners. The paid pack cannot be sold until review findings, purchase entitlement and signed-build gates close. `PLAY_RELEASE_READINESS.md` holds the technical release notes; `CONTENT_REVIEW_FREE.md` records the ten free-item revision.
 
 ## Official references
 

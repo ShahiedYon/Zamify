@@ -40,5 +40,17 @@ data.clear();let terms=launch();terms.run("go('learn');filterGloss('AWS S3')");a
 terms.run("state.guidedHighlights=false;state.session={ids:[45],index:0,answers:[],assisted:[],title:'Term practice'};tab='quiz';quiz()");assert(terms.main.innerHTML.includes('Need a term explained?'));
 terms.run("openTermHelp('Fine-tuning')");let termReload=launch();assert.equal(termReload.run("state.session.terms[45]"),'Fine-tuning');
 termReload.run("tab='quiz';quiz();selected=currentQuestion().answer.slice();check()");assert.equal(termReload.run('state.attempts[0].assisted'),true);assert.equal(termReload.run('state.attempts[0].termUsed'),true);assert(termReload.main.innerHTML.includes('Term help used'));
+// A missed or assisted item returns after 24 hours; unaided success clears it.
+data.clear();let delayed=launch();delayed.run("state.guidedHighlights=false;state.session={ids:[11],index:0,answers:[],assisted:[],title:'Recall'};selected=1;check()");
+assert.equal(delayed.run('state.missed.includes(11)'),true);
+assert.equal(delayed.run('dueReviews().length'),0);
+assert.equal(delayed.run('dueReviews(Date.now()+REVIEW_DELAY_MS+1).includes(11)'),true);
+let later=launch();assert.equal(later.run('state.reviewDue[11]'),delayed.run('state.reviewDue[11]'));
+later.run('state.reviewDue[11]=Date.now()-1;save();go("home")');assert(later.main.innerHTML.includes('Review due (1)'));
+later.run("start('due');selected=currentQuestion().answer;check()");assert.equal(later.run('state.missed.includes(11)'),false);assert.equal(later.run('state.reviewDue[11]'),undefined);
+later.run("state.session={ids:[11],index:0,answers:[],assisted:[],title:'Assisted'};hint();selected=currentQuestion().answer;check()");assert.equal(later.run('dueReviews().length'),0);
+later.run('state.reviewDue[11]=Date.now()-1;save();saveTier(false)');assert.equal(later.run('dueReviews().length'),1);
+later.run('saveTier(true)');assert.equal(later.run('dueReviews().length'),1);
+data.set('exam-sprint-aif-v1',JSON.stringify({v:4,missed:[11],attempts:[]}));let legacyQueue=launch();assert.equal(legacyQueue.run('dueReviews().includes(11)'),true);
 console.log('PASS: all 75 questions and four formats; free10/demo75; hints, term help and assisted scoring; review; progress restore/migration; blocked storage; content integrity.');
 

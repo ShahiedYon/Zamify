@@ -39,6 +39,8 @@ Domain counts are **15 / 18 / 21 / 10 / 11**, close to the guide's weights for a
 3. Pilot with learners for comprehension, ambiguous wording and a later changed-scenario check. Do not call a score a scaled AWS exam score.
 4. Finish delayed review, paid entitlement, actual-device checks and release gates before selling.
 
+The app now schedules missed or assisted items for recall after 24 hours, keeps immediate manual review, and clears an item after an unaided correct answer. `CONTENT_REVIEW_PROTOCOL.md` and `review_sheet.csv` provide a blank independent review and pilot worksheet. Neither activity has been performed yet.
+
 ## Individual-skill gaps from guide version 1.2
 
 These are the clearest remaining gaps after checking the objectives within each task. “Thin” means the topic is mentioned or appears in one item, not that it is fully taught or assessed.
