@@ -28,7 +28,7 @@ Domain counts are **15 / 18 / 21 / 10 / 11**, close to the guide's weights for a
 - The original ten free questions have the separate source/editorial revision in `CONTENT_REVIEW_FREE.md`.
 - New paid IDs 66–75 were drafted with an item source, objective source, option rationales, hint, clue, misconception and transfer example. Source checks were performed against the linked primary material; independent subject review is pending.
 - Paid IDs 15, 19, 39, 41, 42, 43, 44, 54, 60, 61 and 64 were rewritten to replace remote choices with nearby alternatives and clearer decision constraints. They carry content revision 2 and primary references. Earlier attempts on these IDs become historical rather than scoring against changed wording.
-- The other 44 earlier paid candidates have primary task tags and objective-guide links but **answer-source verification and the full editorial pass are pending**. Their `reviewStatus` says so. Do not sell or describe the 65 paid candidates as independently reviewed yet.
+- The other 44 earlier paid candidates now have primary task tags, concept labels, transfer examples, objective-guide links and specific primary links where identified, but **answer-source verification and the full option/stem editorial pass are pending**. Their `reviewStatus` says so. A linked source is not a completed source check. Do not sell or describe the 65 paid candidates as independently reviewed yet.
 
 ## Next pass
 

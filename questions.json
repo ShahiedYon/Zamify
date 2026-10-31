@@ -72,7 +72,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Supervised learning",
+    "transfer": "A labeled support-ticket set can train a model to predict the ticket category.",
+    "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/algorithms-choose.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 3,
@@ -105,7 +109,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.3",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Recall and missed positives",
+    "transfer": "A cancer-screening model should be checked for the share of actual cases it detects.",
+    "difficulty": "Foundation"
   },
   {
     "id": 4,
@@ -138,7 +145,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Speech to text",
+    "transfer": "Recorded meeting audio needs transcription before it can be searched as text.",
+    "source": "https://docs.aws.amazon.com/transcribe/latest/dg/",
+    "difficulty": "Foundation"
   },
   {
     "id": 5,
@@ -176,7 +187,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Rules versus prediction",
+    "transfer": "A precise payroll formula and an access rule should be enforced rather than estimated.",
+    "difficulty": "Applied"
   },
   {
     "id": 6,
@@ -251,7 +265,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Embeddings",
+    "transfer": "A semantic search system can compare query and document vectors for related meaning.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 8,
@@ -284,7 +302,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Hallucination",
+    "transfer": "A generated legal reference should be verified against the actual source before use.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-contextual-grounding-check.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 9,
@@ -317,7 +339,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.3",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Managed foundation models",
+    "transfer": "A team can call a selected model through Bedrock instead of operating its own inference host.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 10,
@@ -455,7 +481,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Few-shot prompting",
+    "transfer": "Two example replies in a request can demonstrate the desired style without training.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-engineering-guidelines.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 13,
@@ -530,7 +560,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.3",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Model distillation",
+    "transfer": "A smaller student model can be trained using responses from a larger teacher.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-distillation.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 15,
@@ -651,7 +685,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "4.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Explainability",
+    "transfer": "A loan decision needs understandable influential factors as well as an error-review route.",
+    "difficulty": "Foundation"
   },
   {
     "id": 18,
@@ -684,7 +721,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "4.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Content safeguards",
+    "transfer": "A Bedrock application can evaluate both a user prompt and model response with Guardrails.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-how.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 19,
@@ -758,7 +799,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "4.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Human oversight",
+    "transfer": "A high-impact decision can route uncertain cases to a reviewer with authority to correct them.",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/responsible-ai-lens/raiuc04-bp02.html",
+    "difficulty": "Applied"
   },
   {
     "id": 21,
@@ -791,7 +836,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "5.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Least privilege",
+    "transfer": "A document assistant should have read access only to the necessary S3 prefix.",
+    "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+    "difficulty": "Applied"
   },
   {
     "id": 22,
@@ -824,7 +873,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "5.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "API activity audit",
+    "transfer": "A team can inspect CloudTrail events when investigating a changed AWS resource.",
+    "source": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 23,
@@ -857,7 +910,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "5.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Sensitive-data discovery",
+    "transfer": "Macie can help find sensitive records in S3 objects before they feed a model.",
+    "source": "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 24,
@@ -890,7 +947,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "5.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Prompt injection",
+    "transfer": "Instructions embedded in a retrieved web page should not be treated as authorized tool requests.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-injection.html",
+    "difficulty": "Applied"
   },
   {
     "id": 25,
@@ -923,7 +984,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "5.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Data lineage",
+    "transfer": "Keep a record of input sources and transformations when preparing a training set.",
+    "difficulty": "Applied"
   },
   {
     "id": 26,
@@ -956,7 +1020,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Clustering",
+    "transfer": "Group stores with similar sales patterns without supplying target group labels.",
+    "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/algorithms-unsupervised.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 27,
@@ -989,7 +1057,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.3",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Precision and false alarms",
+    "transfer": "Review how many flagged messages are actually spam when false alerts are costly.",
+    "difficulty": "Foundation"
   },
   {
     "id": 28,
@@ -1022,7 +1093,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.3",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Overfitting",
+    "transfer": "A model that memorizes training examples can falter on suitable new cases.",
+    "difficulty": "Foundation"
   },
   {
     "id": 29,
@@ -1102,7 +1176,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Real-time inference",
+    "transfer": "A checkout fraud decision needs a prediction during the transaction.",
+    "difficulty": "Foundation"
   },
   {
     "id": 31,
@@ -1135,7 +1212,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Batch inference",
+    "transfer": "Generate forecasts for all branches overnight when no user waits for a reply.",
+    "difficulty": "Foundation"
   },
   {
     "id": 32,
@@ -1168,7 +1248,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Text to speech",
+    "transfer": "An accessibility feature can speak a prepared article using Polly.",
+    "source": "https://docs.aws.amazon.com/polly/latest/dg/what-is.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 33,
@@ -1201,7 +1285,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "1.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Reinforcement learning",
+    "transfer": "A game agent can improve action choices from observed rewards.",
+    "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/algorithms-choose.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 34,
@@ -1234,7 +1322,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Multimodal models",
+    "transfer": "Answering a question about a chart image requires processing both image and text.",
+    "difficulty": "Foundation"
   },
   {
     "id": 35,
@@ -1267,7 +1358,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Token-priced inference",
+    "transfer": "Trim irrelevant conversation history and test that answer quality remains sufficient.",
+    "difficulty": "Applied"
   },
   {
     "id": 36,
@@ -1300,7 +1394,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Foundation models",
+    "transfer": "A broadly pretrained model may support summarization and classification after task adaptation.",
+    "difficulty": "Foundation"
   },
   {
     "id": 37,
@@ -1341,7 +1438,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Foundation-model lifecycle",
+    "transfer": "Evaluate the adapted model before production use and monitor feedback after deployment.",
+    "difficulty": "Applied"
   },
   {
     "id": 38,
@@ -1374,7 +1474,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Agentic tool use",
+    "transfer": "An agent can look up stock, inspect the result and decide whether to request another tool.",
+    "difficulty": "Foundation"
   },
   {
     "id": 39,
@@ -1448,7 +1551,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "2.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Context engineering",
+    "transfer": "Select the relevant policy passage and tool description for the current request.",
+    "difficulty": "Applied"
   },
   {
     "id": 41,
@@ -1701,7 +1807,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Zero-shot prompting",
+    "transfer": "Ask for sentiment from an instruction alone, without demonstrations.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-engineering-guidelines.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 47,
@@ -1734,7 +1844,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Semantic vector search",
+    "transfer": "Compare an employee query vector with document vectors to find related passages.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 48,
@@ -1767,7 +1881,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Document chunking",
+    "transfer": "Retrieve the relevant section of a long manual rather than inserting the whole manual.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking-parsing.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 49,
@@ -1800,7 +1918,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "RAG source freshness",
+    "transfer": "Refresh the index when a policy document is superseded, then check the cited passage.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html",
+    "difficulty": "Applied"
   },
   {
     "id": 50,
@@ -1833,7 +1955,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Structured output prompting",
+    "transfer": "A schema example guides a JSON reply, while validation checks the actual output.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-engineering-guidelines.html",
+    "difficulty": "Applied"
   },
   {
     "id": 51,
@@ -1866,7 +1992,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Output length limit",
+    "transfer": "Set a maximum generated-token budget and check that answers are not cut off.",
+    "difficulty": "Foundation"
   },
   {
     "id": 52,
@@ -1910,7 +2039,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.4",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Evaluation method fit",
+    "transfer": "Use human review for nuanced usefulness, and task-specific metrics where suitable.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html",
+    "difficulty": "Applied"
   },
   {
     "id": 53,
@@ -1943,7 +2076,10 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.4",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "ROUGE and reference overlap",
+    "transfer": "Compare a generated summary with references using overlap, then inspect factual support separately.",
+    "difficulty": "Foundation"
   },
   {
     "id": 54,
@@ -2017,7 +2153,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.4",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Agent task evaluation",
+    "transfer": "Measure whether the authorized refund workflow actually completes, beyond retrieval quality.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation.html",
+    "difficulty": "Applied"
   },
   {
     "id": 56,
@@ -2050,7 +2190,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Prompt versioning",
+    "transfer": "Link a prompt version to a comparable evaluation run before promoting it.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html",
+    "difficulty": "Applied"
   },
   {
     "id": 57,
@@ -2083,7 +2227,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "3.1",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Bedrock Knowledge Bases",
+    "transfer": "Retrieve private product manuals and return source references with an answer.",
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 58,
@@ -2116,7 +2264,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "4.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "Model cards",
+    "transfer": "Record intended use, limitations and evaluation results for a deployed model.",
+    "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 59,
@@ -2280,7 +2432,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "5.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "AWS Config",
+    "transfer": "Check whether a resource configuration still meets a defined rule after a change.",
+    "source": "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 63,
@@ -2313,7 +2469,11 @@
     "reviewedOn": "2026-10-24",
     "objective": "5.2",
     "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
-    "reviewStatus": "Objective mapped; answer source and editorial review pending"
+    "reviewStatus": "Objective mapped and source linked; answer-source and option review pending",
+    "concept": "AWS Artifact",
+    "transfer": "Download an AWS compliance report for a vendor review.",
+    "source": "https://docs.aws.amazon.com/artifact/latest/ug/what-is-aws-artifact.html",
+    "difficulty": "Foundation"
   },
   {
     "id": 64,
