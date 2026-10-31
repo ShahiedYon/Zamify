@@ -20,13 +20,13 @@ Install Android Studio, JDK 17 and Android SDK 36. Configure your SDK location l
 
 On Windows run `gradlew.bat assembleDebug`. Output: `app/build/outputs/apk/debug/app-debug.apk`. Minimum Android version: Android 8 (API 26).
 
-Alternatively, install SDK Build Tools 35.0.0 and run:
+For a separate, permission-free offline developer preview, install SDK Build Tools 35.0.0 and run:
 
 ```sh
 python3 build-test-apk.py --sdk /path/to/android-sdk
 ```
 
-The helper writes `test-build/Zamify_Test.apk` and generates a local debug key if none exists. Signing keys and APKs are excluded from this repository. A new signing key cannot update an installation signed with a different key; retain any original key privately if update compatibility is needed. Never use debug keys for production.
+The helper writes `test-build/Zamify_Test.apk`, omits Play Billing and its permission, and generates a local debug key if none exists. It is not a substitute for testing the Gradle APKs that contain the SDK. Signing keys and APKs are excluded from this repository. A new signing key cannot update an installation signed with a different key; retain any original key privately if update compatibility is needed. Never use debug keys for production.
 
 ## Content and checks
 
@@ -75,6 +75,6 @@ The native WebView now signals when content is ready to draw before starting the
 
 ## v0.9.0 release candidate
 
-The expanded offer is 10 free plus 73 new paid candidates (83 total). Release packaging includes the 73 candidates as AES-256-GCM ciphertext, with only ten questions in HTML. The bundled key is recoverable; this is extraction deterrence, not secure purchase verification. No Google Play Billing integration exists and checkout remains disabled. See `ZAMIFY_BUILD_TO_PLAY_PLAN.md`, `CONTENT_COVERAGE_83.md` and `V0_9_VERIFICATION.md`.
+The expanded offer is 10 free plus 73 new paid candidates (83 total). Release packaging includes the 73 candidates as AES-256-GCM ciphertext, with only ten questions in HTML. The bundled key is recoverable; this is extraction deterrence, not secure purchase verification. The Gradle builds now bundle the official Google Play Billing 9.1.0 SDK and its support dependencies. No billing connection or purchase flow is initialized, and checkout remains disabled. See `BILLING_SDK_SETUP.md` for the permission boundary and remaining integration work. See `ZAMIFY_BUILD_TO_PLAY_PLAN.md`, `CONTENT_COVERAGE_83.md` and `V0_9_VERIFICATION.md`.
 
 Follow-up fixes and Android emulator QA are documented in `V0_9_FIX_VERIFICATION.md`. `test-regressions.cjs` covers draft retention/highlights, and `test-android.py` uses ADB with UI-tree coordinates to test debug and optimized release APKs. `sign-test-release.py` prepares the release test APK with a development key; it never configures production signing.

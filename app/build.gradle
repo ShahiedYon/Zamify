@@ -1,4 +1,14 @@
 plugins { id 'com.android.application' }
+
+// SDK preparation only. Do not connect BillingClient or enable checkout until
+// product configuration and verified purchase handling have been implemented.
+dependencies {
+    implementation 'com.android.billingclient:billing:9.1.0'
+    // Align the SDK's transitive Kotlin libraries; older jdk7/jdk8 artifacts
+    // duplicate classes that moved into kotlin-stdlib in 1.8.
+    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.22')
+}
+
 android {
     namespace 'com.zamify.study'
     compileSdk 36

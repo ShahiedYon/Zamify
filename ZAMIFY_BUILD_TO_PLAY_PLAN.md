@@ -1,6 +1,6 @@
 # Zamify Build-to-Play Master Plan — v0.9.0
 
-Updated 31 October 2026. Status: **engineering candidate; purchases unavailable; not approved for Play production**.
+Updated 1 November 2026. Status: **engineering candidate; purchases unavailable; not approved for Play production**.
 
 ## 1. Content and learning
 
@@ -13,7 +13,7 @@ Updated 31 October 2026. Status: **engineering candidate; purchases unavailable;
 ## 2. Android and packaging
 
 - [x] Compile and target SDK 36; versionCode 9 / versionName 0.9.0; min SDK 26.
-- [x] Preserve pure Android SDK, no external AAR dependencies, `android.useAndroidX=false`, no requested permissions, and no JavaScript interface bridge.
+- [x] Keep the Activity platform-only and preserve the ban on JavaScript interface bridges. Billing step 1, authorized on 1 November, adds the official Billing 9.1.0 AAR and required AndroidX/Google support dependencies to Gradle builds (`android.useAndroidX=true`). Verify the exact merged/compiled permission set. The direct SDK helper remains a separate permission-free offline preview.
 - [x] Add configuration handling, modern system-bar appearance, IME inset pass-through and API-33 Back callback with earlier-platform fallback.
 - [x] Return explicit local-resource 404 responses with `Cache-Control: no-store`; preserve WebView network/file/content/mixed-content restrictions.
 - [x] Enable R8/resource shrinking; configure optional release signing using environment variables. `ndk.debugSymbolLevel 'FULL'` is configured, but there are no native `.so` libraries to generate symbols for.
@@ -25,7 +25,7 @@ Updated 31 October 2026. Status: **engineering candidate; purchases unavailable;
 
 - [x] Implement native in-memory decryption and an idempotent HTML insertion callback as a scaffold.
 - [ ] Implement supported Google Play Billing, purchase verification, pending/cancelled handling, acknowledgement, restoration and refund/revocation behavior; test with Play license testers.
-- [ ] Resolve the handoff's platform-only/no-dependency/no-permission constraints before billing integration. The supported Google integration uses the Play Billing Library; a SharedPreferences flag is not a Play entitlement.
+- [x] Billing step 1: bundle the supported official SDK and billing permission; update build/security checks for its required support dependencies. See `BILLING_SDK_SETUP.md`. No BillingClient connection or purchase flow is started. A SharedPreferences flag is not a Play entitlement.
 - [ ] Complete a paid-content threat review. The embedded SHA-256-derived AES key is recoverable from the app. Encryption prevents plaintext packaging and detects ciphertext tampering; it does **not** provide DRM, secure purchase verification or resistance to a modified app. R8 does not change this boundary.
 
 No code in this version grants or writes a purchase entitlement. The unsafe local-preference shortcut was removed; unlock/restore routes only report that purchases are unavailable. Checkout stays disabled. Do not claim purchase/restore support in the privacy policy or listing, or sell this candidate as a working paid pack.
@@ -42,7 +42,7 @@ node test-home-welcome.cjs
 node test-browser.cjs
 node test-zamify.cjs
 node test-catalogue.cjs
-./gradlew assembleDebug bundleRelease lintRelease --no-daemon
+./gradlew assembleDebug assembleRelease bundleRelease lintRelease --no-daemon
 python3 verify_release.py
 python3 build-test-apk.py
 ```

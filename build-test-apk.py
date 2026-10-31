@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Build a signed test APK using the official Android SDK tools and JDK 17.
-No Gradle dependencies are required for this platform-only application.
+"""Build the offline developer preview with Android SDK tools and JDK 17.
+This platform-only helper omits Play Billing and is not the Gradle/Play build.
 Run: python3 build-test-apk.py --sdk /path/to/android-sdk
 The key is a local development/test key, never a production publishing key.
 """
@@ -12,7 +12,15 @@ root=Path(__file__).resolve().parent;sdk=Path(args.sdk).resolve();tools=sdk/'bui
 classes=out/'classes';classes.mkdir(exist_ok=True);gen=out/'generated';gen.mkdir(exist_ok=True);dex=out/'dex';dex.mkdir(exist_ok=True)
 def run(*cmd):print('Running',Path(str(cmd[0])).name,flush=True);subprocess.run([str(x) for x in cmd],check=True)
 ns='http://schemas.android.com/apk/res/android';ET.register_namespace('android',ns)
-manifest=ET.parse(root/'app/src/main/AndroidManifest.xml');manifest.getroot().set('package','com.zamify.study');manifest.getroot().find('application').set('{'+ns+'}debuggable','true');manifest.write(out/'AndroidManifest.xml',encoding='utf-8',xml_declaration=True)
+manifest=ET.parse(root/'app/src/main/AndroidManifest.xml')
+# Billing is bundled only by Gradle. Remove that single known permission for
+# this offline preview; fail rather than silently dropping new permissions.
+permissions=manifest.getroot().findall('uses-permission')
+assert [p.get('{'+ns+'}name') for p in permissions]==['com.android.vending.BILLING']
+manifest.getroot().remove(permissions[0])
+manifest.getroot().set('package','com.zamify.study')
+manifest.getroot().find('application').set('{'+ns+'}debuggable','true')
+manifest.write(out/'AndroidManifest.xml',encoding='utf-8',xml_declaration=True)
 run(tools/'aapt2','compile','--dir',root/'app/src/main/res','-o',out/'resources.zip')
 run(tools/'aapt2','link','-I',android,'--manifest',out/'AndroidManifest.xml','--java',gen,'--min-sdk-version','26','--target-sdk-version','36','--version-code','9','--version-name','0.9.0','-o',out/'unsigned.apk',out/'resources.zip')
 sources=list((root/'app/src/main/java').rglob('*.java'))+list(gen.rglob('*.java'))
@@ -32,4 +40,6 @@ if not key.exists():run('keytool','-genkeypair','-keystore',key,'-storepass','an
 run(tools/'apksigner','sign','--v4-signing-enabled','false','--ks',key,'--ks-key-alias','androiddebugkey','--ks-pass','pass:android','--key-pass','pass:android','--out',out/'Zamify_Test.apk',out/'aligned.apk')
 run(tools/'apksigner','verify','--verbose',out/'Zamify_Test.apk')
 with zipfile.ZipFile(out/'Zamify_Test.apk') as z: assert z.testzip() is None
+badging=subprocess.run([str(tools/'aapt2'),'dump','badging',str(out/'Zamify_Test.apk')],check=True,capture_output=True,text=True).stdout
+assert 'uses-permission' not in badging, 'Offline preview must remain permission-free'
 print('Created',out/'Zamify_Test.apk',flush=True)
