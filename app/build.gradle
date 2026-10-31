@@ -1,12 +1,47 @@
 plugins { id 'com.android.application' }
 android {
     namespace 'com.zamify.study'
-    compileSdk 35
+    compileSdk 36
     defaultConfig {
         applicationId 'com.zamify.study'
         minSdk 26
-        targetSdk 35
-        versionCode 7
-        versionName '0.7.0'
+        targetSdk 36
+        versionCode 9
+        versionName '0.9.0'
+        ndk { debugSymbolLevel 'FULL' }
+    }
+    signingConfigs {
+        release {
+            if (System.getenv("ZAMIFY_UPLOAD_STORE_FILE")) {
+                storeFile file(System.getenv("ZAMIFY_UPLOAD_STORE_FILE"))
+                storePassword System.getenv("ZAMIFY_UPLOAD_STORE_PASSWORD")
+                keyAlias System.getenv("ZAMIFY_UPLOAD_KEY_ALIAS")
+                keyPassword System.getenv("ZAMIFY_UPLOAD_KEY_PASSWORD")
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            if (System.getenv("ZAMIFY_UPLOAD_STORE_FILE")) signingConfig signingConfigs.release
+        }
+    }
+    sourceSets {
+        main.assets.srcDirs = []
+        debug.assets.srcDirs = ['src/main/assets']
+        release.assets.srcDirs = [layout.buildDirectory.dir('generated/freeReleaseAssets')]
+    }
+}
+
+tasks.register('prepareFreeReleaseAssets', Exec) {
+    workingDir rootProject.projectDir
+    commandLine 'python3', 'prepare_release.py'
+    inputs.files(rootProject.file('Preview.html'), rootProject.file('questions.json'), rootProject.file('prepare_release.py'))
+    outputs.files(layout.buildDirectory.file('generated/freeReleaseAssets/index.html'), layout.buildDirectory.file('generated/freeReleaseAssets/paid_pack.enc'))
+}
+tasks.configureEach {
+    if (name.contains('Release') && name != 'prepareFreeReleaseAssets') {
+        dependsOn tasks.named('prepareFreeReleaseAssets')
     }
 }

@@ -1,0 +1,5 @@
+<resources>
+    <string name="webview_update_title">Update Android System WebView</string>
+    <string name="webview_update_message">Zamify needs an updated Android System WebView or Chrome to display your study pack. Update it in Google Play, then reopen Zamify. Your saved progress will remain on this device.</string>
+    <string name="webview_update_button">Open Google Play</string>
+</resources>
