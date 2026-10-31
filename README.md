@@ -45,7 +45,7 @@ Browser tests require Playwright and Chromium. Use `EXAM_SPRINT_CHROME` to selec
 
 The ten free questions now use stronger scenarios and closer alternatives,
 with AWS objective tags, direct source links and short transfer examples in
-the post-answer feedback. The 55 earlier paid candidates retain their wording; ten new paid questions have been drafted, with independent expert review pending.
+the post-answer feedback. Of the 55 earlier paid candidates, 26 were rewritten and 29 introductory checks retained with explicit limits. Ten new paid questions were drafted. Independent expert review remains pending.
 See [CONTENT_REVIEW_FREE.md](CONTENT_REVIEW_FREE.md) for the review matrix.
 Source review is AI-assisted; independent expert review is still pending.
 

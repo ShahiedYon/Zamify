@@ -56,7 +56,7 @@ and real-device testing remain required before a paid release.
 
 31 October update: the offer is **ten free plus 65 new paid questions**, or 75
 unique items. Ten original paid questions (IDs 66–75) were added to the draft
-bank; six of the earlier paid candidates were rewritten. The primary task map
+bank; 26 of the earlier paid candidates were rewritten and 29 introductory checks were retained after an AI-assisted source/editorial pass. The primary task map
 and remaining editorial status are in `CONTENT_COVERAGE_75.md`. This earlier
 ten-question review record remains a record of the free-item pass.
 
