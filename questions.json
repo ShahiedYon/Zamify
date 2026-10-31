@@ -3101,5 +3101,381 @@
       "defined period"
     ],
     "reviewNote": "Second internal challenge checked the key, closest competing choice and scenario constraints; independent subject review pending."
+  },
+  {
+    "id": 76,
+    "concept": "Long-context latency scaling and middle-context attention dilution",
+    "q": "A legal team feeds an entire 400-page contract into a single prompt to check for missing clauses, but the model overlooks clauses located in the middle pages and experiences 18-second response latency. Which limitation explains this behavior?",
+    "options": [
+      "Catastrophic forgetting of weights during inference",
+      "Long-context processing latency and reduced recall for middle-positioned information ('lost in the middle')",
+      "Insufficient temperature settings preventing token generation",
+      "Vector database index corruption during token decoding"
+    ],
+    "answer": 1,
+    "why": "Very long prompts increase input processing latency. Some models also retrieve information less reliably from the middle of long contexts. These are inference limitations, not changes to model weights.",
+    "transfer": "When a scenario stuffs an entire multi-hundred-page document into one prompt and sees high latency plus missed middle facts, recognize long-context attention dilution and latency scaling rather than weight corruption.",
+    "clues": [
+      {
+        "text": "entire 400-page contract into a single prompt",
+        "why": "Large inputs increase processing and context-management demands."
+      },
+      {
+        "text": "overlooks clauses located in the middle pages",
+        "why": "This suggests reduced recall for information in the middle of a long context."
+      }
+    ],
+    "hint": "Consider what happens to both inference speed and attention accuracy when you pack hundreds of pages into a single prompt instead of retrieving relevant chunks.",
+    "analysis": "Even within a supported context window, a long input can increase prefill latency and reduce recall. Standard dense self-attention has quadratic attention computation in sequence length; actual latency depends on architecture and implementation. Page count alone does not establish that the context limit was exceeded.",
+    "trap": "Do not confuse inference-time context limitations with training-time catastrophic forgetting.",
+    "reasons": [
+      "Catastrophic forgetting arises during additional training, not read-only inference.",
+      "Long contexts can increase prefill latency and reduce middle-position recall; dense attention has quadratic attention computation, though implementation and model architecture matter.",
+      "Temperature controls output randomness, not input length or prefill work.",
+      "No vector database was used because the entire document was supplied directly."
+    ],
+    "keyPoints": [
+      "Long prompts can increase prefill latency and input token cost.",
+      "Models can show lower recall for details buried in very long prompts.",
+      "Targeted retrieval can narrow context; its quality and document coverage still need evaluation."
+    ],
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-design.html",
+    "domain": 2,
+    "task": "2.2",
+    "taskTitle": "2.2 Capabilities & Limits",
+    "objective": "2.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 2,
+    "reviewStatus": "Agent-authored; human editorial review pending",
+    "reviewNote": "Added for task expansion from execution handoff; qualified architecture/performance claims; human SME review pending.",
+    "difficulty": 2
+  },
+  {
+    "id": 77,
+    "concept": "Model size vs latency, memory footprint, and inference cost",
+    "q": "A logistics firm needs an endpoint running on edge scanners to classify damaged package barcodes in under 150 milliseconds at the lowest possible per-request cost. Why is a compact, task-specific model preferred over a 70-billion-parameter general-purpose foundation model?",
+    "options": [
+      "Larger foundation models cannot process structured or image inputs",
+      "Smaller specialized models require significantly less compute memory and deliver lower inference latency and cost for narrow, repetitive tasks",
+      "70-billion-parameter models only operate in batch mode and cannot serve real-time requests",
+      "Smaller models automatically update their own weights from live internet data"
+    ],
+    "answer": 1,
+    "why": "A compact model generally uses less memory and compute. For a narrow edge task, it is a better candidate for tight latency and cost constraints, provided benchmarking confirms acceptable accuracy and performance.",
+    "transfer": "When a narrow classification task has a strict millisecond SLA and tight unit cost budget, choose a compact task-specific model over a massive frontier model.",
+    "clues": [
+      {
+        "text": "under 150 milliseconds at the lowest possible per-request cost",
+        "why": "Strict latency and cost constraints favor a smaller model footprint."
+      }
+    ],
+    "hint": "Match the complexity of the task and the latency budget to the size of the model.",
+    "analysis": "Model selection balances accuracy, latency, deployment hardware and cost. Parameter count matters, but does not alone guarantee a 150 ms service level.",
+    "trap": "Bigger models are not always better when latency, edge hardware, and unit economics are constrained.",
+    "reasons": [
+      "Some large foundation models support images or structured inputs.",
+      "Compact models generally reduce memory and compute; validate the latency target on the actual scanner.",
+      "Large models can serve real-time requests but may be unsuitable for this edge deployment.",
+      "Deployed models do not automatically retrain on live internet data."
+    ],
+    "keyPoints": [
+      "Parameter count affects memory requirements and inference resources.",
+      "Narrow tasks may not need frontier-scale general reasoning.",
+      "Benchmark accuracy, latency and cost on the target hardware."
+    ],
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-selection.html",
+    "domain": 2,
+    "task": "2.2",
+    "taskTitle": "2.2 Capabilities & Limits",
+    "objective": "2.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 2,
+    "reviewStatus": "Agent-authored; human editorial review pending",
+    "reviewNote": "Added for task expansion from execution handoff; qualified architecture/performance claims; human SME review pending.",
+    "difficulty": 2
+  },
+  {
+    "id": 78,
+    "concept": "Probabilistic token generation vs deterministic arithmetic tool use",
+    "q": "An accounting team asks a standalone text foundation model (with no external tools attached) to calculate the exact compound interest and amortization schedule for 450 loans. Why is relying solely on the foundation model's native token generation risky?",
+    "options": [
+      "Foundation models predict probable next tokens rather than executing deterministic arithmetic, which can introduce rounding or calculation errors",
+      "Foundation models reject prompts containing numeric digits",
+      "Tokenizers strip all decimal points before inference",
+      "Foundation models can only output text in natural paragraphs, not tables"
+    ],
+    "answer": 0,
+    "why": "Language models generate tokens from learned patterns and do not guarantee exact arithmetic. Delegate financial calculations to tested deterministic code with explicit decimal precision and rounding rules.",
+    "transfer": "When a scenario requires exact multi-step arithmetic or amortization schedules, do not rely on raw token prediction; delegate calculation to deterministic code or tool calls.",
+    "clues": [
+      {
+        "text": "standalone text foundation model (with no external tools attached)",
+        "why": "There is no calculator or code tool to execute the formulas."
+      },
+      {
+        "text": "exact compound interest and amortization schedule",
+        "why": "Financial results require validated arithmetic and rounding rules."
+      }
+    ],
+    "hint": "Ask how an autoregressive language model produces numbers compared to a deterministic calculator or Python script.",
+    "analysis": "A model can help orchestrate a calculation tool, but numerical results need validation. Use decimal arithmetic where financial rounding demands it; floating-point code alone does not ensure financial correctness.",
+    "trap": "Accurate simple examples do not guarantee reliable multi-step amortization.",
+    "reasons": [
+      "Token generation alone does not guarantee exact numerical results.",
+      "Models can accept numeric inputs.",
+      "Tokenization does not universally strip decimal points.",
+      "Models can format tables even when their numerical contents are wrong."
+    ],
+    "keyPoints": [
+      "Token generation does not guarantee exact arithmetic.",
+      "Multi-step financial calculations need explicit precision and rounding rules.",
+      "Tool calling can delegate calculations to tested code."
+    ],
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html",
+    "domain": 2,
+    "task": "2.2",
+    "taskTitle": "2.2 Capabilities & Limits",
+    "objective": "2.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 2,
+    "reviewStatus": "Agent-authored; human editorial review pending",
+    "reviewNote": "Added for task expansion from execution handoff; qualified architecture/performance claims; human SME review pending.",
+    "difficulty": 2
+  },
+  {
+    "id": 79,
+    "concept": "Multimodal vision-and-text foundation model capabilities",
+    "difficulty": 1,
+    "q": "A field maintenance app needs technicians to upload photos of wiring diagrams alongside typed symptom notes so a single model can diagnose faults in one call. Which model capability is required?",
+    "options": [
+      "Text-to-embedding unimodal encoding",
+      "Multimodal input processing (vision + text)",
+      "Whisper speech-to-speech synthesis",
+      "K-means unsupervised clustering"
+    ],
+    "answer": 1,
+    "why": "A multimodal foundation model can accept images and text in the same request. Appropriate input support is necessary, but diagnostic accuracy and safety must still be validated.",
+    "transfer": "When a single request combines visual schematics or photos with natural-language notes, select a multimodal foundation model.",
+    "clues": [
+      {
+        "text": "photos of wiring diagrams alongside typed symptom notes",
+        "why": "The request combines visual and textual inputs."
+      }
+    ],
+    "hint": "Look at the number and types of input modalities passed in the same request.",
+    "analysis": "A vision-and-text model can use image content and accompanying notes together. Multimodal input support does not guarantee correct spatial interpretation or a safe diagnosis.",
+    "trap": "A text-only embedding model cannot directly inspect image pixels.",
+    "reasons": [
+      "Text-only embeddings encode text rather than raw diagram pixels.",
+      "Vision-and-text multimodal processing supports both requested input types.",
+      "Whisper is a speech recognition model, not a wiring-diagram reasoning capability.",
+      "K-means clusters numeric vectors rather than interpreting the combined request."
+    ],
+    "keyPoints": [
+      "Multimodal models can accept more than one input type.",
+      "Choose a model explicitly supporting both image and text inputs.",
+      "Validate diagram interpretation before relying on diagnoses."
+    ],
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+    "domain": 2,
+    "task": "2.2",
+    "taskTitle": "2.2 Capabilities & Limits",
+    "objective": "2.2",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 2,
+    "reviewStatus": "Agent-authored; human editorial review pending",
+    "reviewNote": "Added for task expansion from execution handoff; qualified architecture/performance claims; human SME review pending."
+  },
+  {
+    "id": 80,
+    "concept": "Continued pre-training on unlabeled domain corpora",
+    "q": "A biotech company wants a foundation model to deeply learn proprietary genomic terminology and internal research literature from 50 GB of unlabeled scientific articles before any task-specific instruction tuning. Which customization technique fits?",
+    "options": [
+      "Continued pre-training (domain-adaptive pre-training) on unlabeled domain corpora",
+      "Supervised instruction fine-tuning with labeled Q&A pairs",
+      "Zero-shot prompt engineering with stop sequences",
+      "Reinforcement Learning from Human Feedback (RLHF)"
+    ],
+    "answer": 0,
+    "why": "Continued pre-training further trains an existing foundation model on unlabeled domain text to adapt its language patterns and domain familiarity.",
+    "transfer": "When the training dataset is a large unlabeled corpus of domain articles or jargon rather than labeled Q&A pairs, choose continued pre-training.",
+    "clues": [
+      {
+        "text": "50 GB of unlabeled scientific articles",
+        "why": "A large raw domain corpus points to continued pre-training."
+      }
+    ],
+    "hint": "Check whether the dataset consists of labeled instruction-response pairs or raw domain documents.",
+    "analysis": "Continued pre-training uses raw domain text; supervised instruction fine-tuning uses instruction-response examples. Availability and dataset requirements depend on the selected model and service.",
+    "trap": "Do not confuse raw domain adaptation with supervised instruction tuning.",
+    "reasons": [
+      "Continued pre-training adapts an existing model using unlabeled domain text.",
+      "Supervised instruction tuning needs suitable instruction-response examples.",
+      "Prompt engineering does not update model weights from a 50 GB corpus.",
+      "RLHF uses feedback or preferences rather than raw articles alone."
+    ],
+    "keyPoints": [
+      "Continued pre-training adapts models using unlabeled text.",
+      "It can develop domain familiarity before task fine-tuning.",
+      "Instruction fine-tuning uses instruction-response examples."
+    ],
+    "source": "https://docs.aws.amazon.com/nova/latest/userguide/nova-cpt.html",
+    "domain": 3,
+    "task": "3.3",
+    "taskTitle": "3.3 Training & Fine-Tuning",
+    "objective": "3.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 2,
+    "reviewStatus": "Agent-authored; human editorial review pending",
+    "reviewNote": "Added for task expansion from execution handoff; qualified architecture/performance claims; human SME review pending.",
+    "difficulty": 2
+  },
+  {
+    "id": 81,
+    "concept": "Parameter-Efficient Fine-Tuning (PEFT / LoRA)",
+    "q": "An engineering team wants to fine-tune an open-weight 13B model on Amazon SageMaker, but has a tight GPU memory budget and wants to avoid updating all 13 billion base weights. Which technique significantly reduces training compute and storage?",
+    "options": [
+      "Parameter-Efficient Fine-Tuning (PEFT) using Low-Rank Adaptation (LoRA)",
+      "Full-parameter fine-tuning across a 64-node GPU cluster",
+      "Increasing the inference max_tokens limit",
+      "Converting the training dataset from JSONLines to uncompressed CSV"
+    ],
+    "answer": 0,
+    "why": "LoRA is a PEFT technique that freezes base weights and trains small low-rank adapter matrices. It reduces trainable parameters and adapter storage; actual memory and compute savings vary.",
+    "transfer": "When GPU memory and training compute are constrained during fine-tuning, choose PEFT / LoRA to freeze base weights and train small adapter matrices.",
+    "clues": [
+      {
+        "text": "avoid updating all 13 billion base weights",
+        "why": "LoRA keeps the base weights frozen and learns small adapters."
+      }
+    ],
+    "hint": "Select the fine-tuning family that freezes base weights and trains lightweight adapters.",
+    "analysis": "LoRA can reduce optimizer-state memory and checkpoint storage compared with full fine-tuning. The frozen base model still occupies memory; quality and savings require evaluation.",
+    "trap": "Full-parameter fine-tuning requires updating all base weights and their optimizer state.",
+    "reasons": [
+      "LoRA trains small low-rank matrices while keeping base weights frozen.",
+      "A larger full-fine-tuning cluster does not reduce the number of trainable parameters.",
+      "max_tokens controls output length during inference.",
+      "Changing the data file format does not reduce trainable model parameters."
+    ],
+    "keyPoints": [
+      "LoRA is one member of the PEFT family.",
+      "Base weights stay frozen while small adapter matrices are trained.",
+      "Savings and final quality vary by model, task and configuration."
+    ],
+    "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/customizing-models-lora.html",
+    "domain": 3,
+    "task": "3.3",
+    "taskTitle": "3.3 Training & Fine-Tuning",
+    "objective": "3.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 2,
+    "reviewStatus": "Agent-authored; human editorial review pending",
+    "reviewNote": "Added for task expansion from execution handoff; qualified architecture/performance claims; human SME review pending.",
+    "difficulty": 2
+  },
+  {
+    "id": 82,
+    "concept": "Teacher-student knowledge distillation",
+    "q": "A company has a high-performing 70B teacher foundation model that is too slow and expensive for high-volume mobile traffic. How can they transfer its task capability into a fast 3B model?",
+    "options": [
+      "Model distillation (knowledge distillation) using teacher-generated completions to train the smaller student model",
+      "Adding more system prompt instructions to the 70B model",
+      "Enabling Multi-AZ deployment on the 70B endpoint",
+      "Replacing the 70B model with an uncalibrated random forest"
+    ],
+    "answer": 0,
+    "why": "Knowledge distillation trains a smaller student on outputs from a larger teacher for a target use case. The student can reduce inference resources while retaining useful task performance.",
+    "transfer": "When a large teacher model is accurate but too slow or costly for production scale, use Model Distillation to train a smaller student model.",
+    "clues": [
+      {
+        "text": "transfer its task capability into a fast 3B model",
+        "why": "Teacher-to-student knowledge transfer describes distillation."
+      }
+    ],
+    "hint": "Look for the teacher-student training technique supported by Amazon Bedrock Model Distillation.",
+    "analysis": "Amazon Bedrock Model Distillation generates teacher responses and fine-tunes a supported student model. Supported teacher-student pairs are constrained; the example sizes do not promise an available Bedrock pairing.",
+    "trap": "Multi-AZ improves availability without shrinking the model.",
+    "reasons": [
+      "Distillation transfers task behavior through teacher-generated training targets.",
+      "More prompting does not create a compact student model.",
+      "Multi-AZ changes availability rather than parameter count.",
+      "A random forest is not a replacement for a generative language model in this scenario."
+    ],
+    "keyPoints": [
+      "A teacher supplies training targets for a smaller student.",
+      "Evaluate the accuracy, latency and cost trade-offs on the target task.",
+      "Bedrock supports distillation for eligible teacher-student combinations."
+    ],
+    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-distillation.html",
+    "domain": 3,
+    "task": "3.3",
+    "taskTitle": "3.3 Training & Fine-Tuning",
+    "objective": "3.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 2,
+    "reviewStatus": "Agent-authored; human editorial review pending",
+    "reviewNote": "Added for task expansion from execution handoff; qualified architecture/performance claims; human SME review pending.",
+    "difficulty": 2
+  },
+  {
+    "id": 83,
+    "concept": "Preference alignment via RLHF and Direct Preference Optimization (DPO)",
+    "q": "After supervised instruction fine-tuning, a conversational model follows instructions well, but occasionally generates rude or unhelpful phrasing when users are frustrated. Which post-training alignment method uses ranked pairs of preferred vs. rejected responses to align model tone with human values?",
+    "options": [
+      "Reinforcement Learning from Human Feedback (RLHF) or Direct Preference Optimization (DPO)",
+      "Tokenization byte-pair encoding (BPE)",
+      "Principal Component Analysis (PCA)",
+      "Min-max feature scaling"
+    ],
+    "answer": 0,
+    "why": "Preference-based RLHF and DPO use comparisons of preferred and rejected responses to influence model behavior. RLHF commonly learns a reward model; DPO directly optimizes a preference objective.",
+    "transfer": "When a model already follows instructions but needs alignment on helpfulness, safety, or tone using human-ranked preference pairs, choose RLHF or DPO.",
+    "clues": [
+      {
+        "text": "ranked pairs of preferred vs. rejected responses to align model tone",
+        "why": "Preference comparisons are the training signal for these alignment methods."
+      }
+    ],
+    "hint": "Identify the alignment stage that optimizes for human preferences after instruction tuning.",
+    "analysis": "Pre-training, instruction tuning and preference alignment serve different purposes. Preference training can improve helpfulness or tone but does not guarantee safety or correctness.",
+    "trap": "Tokenization, dimensionality reduction and feature scaling are not preference alignment.",
+    "reasons": [
+      "Preference-based RLHF and DPO use response comparisons to shape behavior.",
+      "BPE tokenizes text into subword units.",
+      "PCA reduces numeric feature dimensionality.",
+      "Min-max scaling rescales numeric features."
+    ],
+    "keyPoints": [
+      "Preference alignment uses chosen and rejected responses.",
+      "RLHF and DPO differ in their optimization procedures.",
+      "Evaluate tone, helpfulness and safety after alignment."
+    ],
+    "source": "https://docs.aws.amazon.com/sagemaker/latest/dg/customizing-models-dpo.html",
+    "domain": 3,
+    "task": "3.3",
+    "taskTitle": "3.3 Training & Fine-Tuning",
+    "objective": "3.3",
+    "objectiveSource": "https://docs.aws.amazon.com/aws-certification/latest/examguides/ai-practitioner-01.html",
+    "kind": "single",
+    "reviewedOn": "2026-10-31",
+    "contentRevision": 2,
+    "reviewStatus": "Agent-authored; human editorial review pending",
+    "reviewNote": "Added for task expansion from execution handoff; qualified architecture/performance claims; human SME review pending.",
+    "difficulty": 2
   }
 ]

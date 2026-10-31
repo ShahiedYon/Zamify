@@ -6,14 +6,15 @@ The key is a local development/test key, never a production publishing key.
 """
 from pathlib import Path
 import argparse,subprocess,zipfile,xml.etree.ElementTree as ET,os,shutil
-parser=argparse.ArgumentParser();parser.add_argument('--sdk',required=True);args=parser.parse_args()
-root=Path(__file__).resolve().parent;sdk=Path(args.sdk).resolve();tools=sdk/'build-tools/35.0.0';android=sdk/'platforms/android-35/android.jar';out=root/'test-build';out.mkdir(exist_ok=True)
+parser=argparse.ArgumentParser();parser.add_argument('--sdk',default=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT'));args=parser.parse_args()
+if not args.sdk: parser.error('Pass --sdk or set ANDROID_HOME / ANDROID_SDK_ROOT')
+root=Path(__file__).resolve().parent;sdk=Path(args.sdk).resolve();tools=sdk/'build-tools/35.0.0';android=sdk/'platforms/android-36/android.jar';out=root/'test-build';out.mkdir(exist_ok=True)
 classes=out/'classes';classes.mkdir(exist_ok=True);gen=out/'generated';gen.mkdir(exist_ok=True);dex=out/'dex';dex.mkdir(exist_ok=True)
 def run(*cmd):print('Running',Path(str(cmd[0])).name,flush=True);subprocess.run([str(x) for x in cmd],check=True)
 ns='http://schemas.android.com/apk/res/android';ET.register_namespace('android',ns)
 manifest=ET.parse(root/'app/src/main/AndroidManifest.xml');manifest.getroot().set('package','com.zamify.study');manifest.getroot().find('application').set('{'+ns+'}debuggable','true');manifest.write(out/'AndroidManifest.xml',encoding='utf-8',xml_declaration=True)
 run(tools/'aapt2','compile','--dir',root/'app/src/main/res','-o',out/'resources.zip')
-run(tools/'aapt2','link','-I',android,'--manifest',out/'AndroidManifest.xml','--java',gen,'--min-sdk-version','26','--target-sdk-version','35','--version-code','8','--version-name','0.8.0','-o',out/'unsigned.apk',out/'resources.zip')
+run(tools/'aapt2','link','-I',android,'--manifest',out/'AndroidManifest.xml','--java',gen,'--min-sdk-version','26','--target-sdk-version','36','--version-code','9','--version-name','0.9.0','-o',out/'unsigned.apk',out/'resources.zip')
 sources=list((root/'app/src/main/java').rglob('*.java'))+list(gen.rglob('*.java'))
 compiler=['javac'] if shutil.which('javac') else ['java','-m','jdk.compiler/com.sun.tools.javac.Main']
 run(*compiler,'-encoding','UTF-8','-source','8','-target','8','-classpath',android,'-d',classes,*sources)

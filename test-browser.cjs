@@ -5,7 +5,7 @@ assert.equal(await page.evaluate(()=>pool().length),10);
 assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
 await page.screenshot({path:require('path').join(__dirname,'test-output','mobile-home.png'),fullPage:true,animations:"disabled"});
 await page.locator('.nav [data-tab=about]').click();await page.getByText('Developer preview tools',{exact:true}).click();await page.locator('[data-action=demo]').click();
-assert.equal(await page.evaluate(()=>pool().length),75);
+assert.equal(await page.evaluate(()=>pool().length),83);
 await page.evaluate(()=>{state.guidedHighlights=false;save()});
 const bank=await page.evaluate(()=>BANK);
 for(const q of bank){await page.evaluate(id=>{state.session={ids:[id],index:0,answers:[],assisted:[],title:'QA'};tab='quiz';selected=null;save();quiz()},q.id);
@@ -30,7 +30,8 @@ await page.setViewportSize({width:1440,height:1000});await page.screenshot({path
 for(const width of [320,390,600]){
  await page.setViewportSize({width,height:844});
  await page.evaluate(()=>{state=fresh();state.attempts=[{id:1,choice:0,correct:false,assisted:false,at:Date.now()}];state.missed=[1];save();go('home')});
- assert.equal(await page.locator('.review-panel').count(),1);
+ assert.equal(await page.locator('.review-panel').filter({hasText:'A little extra focus'}).count(),1);
+ assert.equal(await page.locator('.review-panel').filter({hasText:'SPACED RECALL'}).count(),1);
  assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),'Home overflow '+width);
  await page.locator('.quick-card[data-action=review]').click();
  assert.equal(await page.evaluate(()=>state.session.ids[0]),1);
@@ -45,4 +46,4 @@ for(const width of [320,390,600]){
 }
 await page.evaluate(()=>{state=fresh();save();go('home')});await page.setViewportSize({width:390,height:844});
 await page.screenshot({path:require('path').join(__dirname,'test-output','mobile-home.png'),fullPage:true,animations:"disabled"});
-assert.deepEqual(errors,[]);await browser.close();console.log('PASS real Chrome: all 75 questions, all four formats, correct and wrong grading, option feedback, reload/resume, hints, free/full boundaries, search/reset, 390px and 1440px overflow checks. No JS errors.');})().catch(e=>{console.error(e);process.exit(1)});
+assert.deepEqual(errors,[]);await browser.close();console.log('PASS real Chrome: all 83 questions, all four formats, correct and wrong grading, option feedback, reload/resume, hints, free/full boundaries, search/reset, 390px and 1440px overflow checks. No JS errors.');})().catch(e=>{console.error(e);process.exit(1)});

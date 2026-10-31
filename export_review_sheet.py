@@ -20,7 +20,7 @@ def label(i):
 
 
 with (ROOT / "review_sheet.csv").open("w", encoding="utf-8-sig", newline="") as output:
-    writer = csv.DictWriter(output, fieldnames=FIELDS)
+    writer = csv.DictWriter(output, fieldnames=FIELDS, lineterminator="\n")
     writer.writeheader()
     for q in BANK:
         answer = q["answer"]
