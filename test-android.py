@@ -211,7 +211,7 @@ try:
         has_demo = find(root, 'Developer preview tools') is not None
         assert has_demo != args.release, 'Developer tools/release isolation mismatch'
         tap('Privacy policy')
-        locate('info@zamify.com')
+        locate('info@zamify.net')
         screenshot('privacy')
         crash_check()
         print('PASS',mode,': offline launch, real lesson, draft/cold resume, rotation, Back, grading, answered resume, privacy and release isolation',flush=True)
