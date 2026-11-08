@@ -73,7 +73,10 @@ def verify_assets(page, enc_bytes, names):
     assert 's.previewFullPack=raw.previewFullPack===true;' not in page
     assert 'getSharedPreferences(' not in native
     assert 'android:dataExtractionRules="@xml/data_extraction_rules"' in manifest
-    assert '<summary>Privacy policy</summary>' in page and 'info@zamify.com' in page
+    policy_url = re.search(r'PRIVACY_POLICY_URL = "([^"]+)"', native).group(1)
+    assert '<summary>Privacy policy</summary>' in page and 'info@zamify.net' in page
+    assert f'href="{policy_url}"' in page
+    assert 'PRIVACY_POLICY_URL.equals(uri.toString())' in native
     assert len(enc_bytes) > 1024
     full = json.loads((root / 'questions.json').read_text())
     paid = [q for q in full if q['id'] not in free_ids]

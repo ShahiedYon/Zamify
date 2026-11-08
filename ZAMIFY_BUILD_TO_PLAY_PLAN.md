@@ -53,7 +53,8 @@ python3 build-test-apk.py
 
 - [ ] Generate and privately back up an upload keystore. Example: `keytool -genkeypair -v -keystore zamify-upload.jks -keyalg RSA -keysize 4096 -validity 9125 -alias zamify-upload`. Never commit the key or passwords.
 - [ ] Set `ZAMIFY_UPLOAD_STORE_FILE`, `ZAMIFY_UPLOAD_STORE_PASSWORD`, `ZAMIFY_UPLOAD_KEY_ALIAS` and `ZAMIFY_UPLOAD_KEY_PASSWORD` privately, enroll in Play App Signing, build and inspect the signed AAB. Without these variables the AAB is unsigned.
-- [ ] Publish `privacy.html` at a public HTTPS URL, verify `info@zamify.com`, and confirm the final operator/developer identity. The policy accurately describes this free offline version; revisit it before enabling payments.
+- [x] Publish the [privacy policy](https://zamify-study.syon04.chatgpt.site/privacy/) and link to it from the app's offline privacy notice.
+- [ ] Enter the same policy URL in Play Console, verify `info@zamify.net` receives mail, and confirm the final operator/developer identity. Revisit the policy before enabling payments.
 - [ ] Complete Data safety, target audience, content rating, ads and app-access declarations against the exact shipped build.
 - [ ] Install through a Play internal track or Internal App Sharing; run the pre-launch report and resolve findings.
 - [ ] Prepare original store screenshots and title **Zamify: AI Cert Practice** (24 characters). Place the independent-preparation/non-affiliation disclaimer early in the full description. Do not promise a pass or imply AWS endorsement.

@@ -50,6 +50,7 @@ public class MainActivity extends Activity {
     private Object backCallback;
     private static final int MIN_WEBVIEW_MAJOR = 80;
     private static final String HOST = "https://app.zamify.local/";
+    private static final String PRIVACY_POLICY_URL = "https://zamify-study.syon04.chatgpt.site/privacy/";
     private static final String PRODUCT_ID = "zamify_aif_c01_full_pack";
 
     @Override
@@ -132,11 +133,14 @@ public class MainActivity extends Activity {
                         return true;
                     }
                 }
-                if ("https".equals(uri.getScheme()) && "docs.aws.amazon.com".equals(uri.getHost()) && uri.getPort() == -1 && uri.getUserInfo() == null) {
+                boolean isAwsSource = "https".equals(uri.getScheme())
+                        && "docs.aws.amazon.com".equals(uri.getHost())
+                        && uri.getPort() == -1 && uri.getUserInfo() == null;
+                if (isAwsSource || PRIVACY_POLICY_URL.equals(uri.toString())) {
                     try {
                         startActivity(new Intent(Intent.ACTION_VIEW, uri));
                     } catch (ActivityNotFoundException e) {
-                        Toast.makeText(MainActivity.this, "No browser is available to open the source.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "No browser is available to open this link.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 return true;
