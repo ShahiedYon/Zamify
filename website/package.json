@@ -1,0 +1,14 @@
+{
+  "name": "zamify-study",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "db:generate": "drizzle-kit generate",
+    "test": "node scripts/verify.mjs && node scripts/verify-poll.mjs"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.2"
+  }
+}
