@@ -4,7 +4,7 @@ await page.goto(require('url').pathToFileURL(require('path').join(__dirname,'Pre
 assert.equal(await page.evaluate(()=>pool().length),10);
 assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
 await page.screenshot({path:require('path').join(__dirname,'test-output','mobile-home.png'),fullPage:true,animations:"disabled"});
-await page.locator('.nav [data-tab=about]').click();await page.getByText('Developer preview tools',{exact:true}).click();await page.locator('[data-action=demo]').click();
+await page.evaluate(()=>legacyGo('about'));await page.getByText('Developer preview tools',{exact:true}).click();await page.locator('[data-action=demo]').click();
 assert.equal(await page.evaluate(()=>pool().length),83);
 await page.evaluate(()=>{state.guidedHighlights=false;save()});
 const bank=await page.evaluate(()=>BANK);

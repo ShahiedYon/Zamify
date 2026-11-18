@@ -16,12 +16,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--apk', type=Path, required=True)
 parser.add_argument('--serial')
 parser.add_argument('--release', action='store_true')
+parser.add_argument('--preview', action='store_true',help='Test the separately installed preview package')
 args = parser.parse_args()
 sdk = os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
 adb_bin = shutil.which('adb') or str(Path(sdk or '')/'platform-tools/adb')
 adb = [adb_bin] + (['-s', args.serial] if args.serial else [])
-pkg = 'com.zamify.study'
-mode = 'release' if args.release else 'debug'
+pkg = 'com.zamify.preview' if args.preview else 'com.zamify.study'
+mode = 'preview' if args.preview else 'release' if args.release else 'debug'
 out = Path('test-output/android') / mode
 out.mkdir(parents=True, exist_ok=True)
 step = 0
@@ -128,7 +129,7 @@ def screenshot(name):
     (out / f'{name}.png').write_bytes(command('exec-out', 'screencap', '-p', binary=True))
 
 def launch():
-    shell('am', 'start', '-W', '-n', pkg+'/.MainActivity')
+    shell('am', 'start', '-W', '-n', pkg+'/com.zamify.study.MainActivity')
 
 def crash_check():
     crash = command('logcat', '-b', 'crash', '-d')
@@ -172,6 +173,15 @@ try:
         screenshot('offline-catalogue')
         tap('Open COF-C03 study path')
         wait('COF-C03')
+        tap('Official exam information')
+        root=dump()
+        browser_packages={n.get('package','') for n in root.iter('node')}
+        activity=shell('dumpsys','activity','activities')
+        assert any('chrome' in x or 'browser' in x for x in browser_packages) or 'ResolverActivity' in activity or 'ChooserActivity' in activity, 'Official source did not hand off to browser selection'
+        (out/'source-link-activity.txt').write_text(activity)
+        screenshot('external-source-browser')
+        shell('input','keyevent','4')
+        locate('COF-C03')
         tap('Start 10 free questions')
         wait('LEARN & PRACTICE')
         root=dump();all_text=' '.join(label(n) for n in root.iter('node'))
@@ -195,12 +205,23 @@ try:
         try:locate('Developer preview',attempts=4);has_demo=True
         except AssertionError:has_demo=False
         assert has_demo != args.release,'Developer preview escaped into release'
+        if args.preview:
+            tap('Developer preview')
+            tap('Try full tools')
+            tap('Flashcards')
+            tap('Show answer')
+            tap('Got it')
+            screenshot('preview-flashcards')
+            shell('input','keyevent','4')
+            tap('About');tap('Study');locate('SnowPro Core')
+            tap('Learn');locate('Understand the decision.')
+            screenshot('preview-lessons')
         shell('input','keyevent','4');tap('About');tap('Privacy policy');locate('info@zamify.net');screenshot('privacy')
         crash_check()
         print('PASS',mode,': offline catalogue, SnowPro free question, draft/cold resume, rotation, Back, grading, privacy and release isolation',flush=True)
 
 finally:
-    if not args.release:
+    if not args.release and not args.preview:
         try:
             subprocess.run(['node','diagnose-android.cjs',adb_bin,args.serial or '',str(out/'webview.json')],check=False,timeout=30)
         except subprocess.TimeoutExpired:

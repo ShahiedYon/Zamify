@@ -16,6 +16,7 @@ def embed(html):
             if q['kind']=='single':assert isinstance(a,int) and 0<=a<len(q['options'])
             else:assert isinstance(a,list) and len(set(a))==len(a) and all(0<=i<len(q['options']) for i in a)
     script=(R/'study/hub.js').read_text().replace('__STUDY_PACKS__',json.dumps(packs,ensure_ascii=False).replace('<','\\u003c'))
+    script=script.replace('__PRIVACY_POLICY__',json.dumps((R/'study/privacy.html').read_text(),ensure_ascii=False).replace('<','\\u003c'))
     css=(R/'study/hub.css').read_text()
     html=re.sub(r'\n*/\* HUB_STYLE_START \*/.*?/\* HUB_STYLE_END \*/\n*','',html,flags=re.S)
     html=html.replace('</style>','\n/* HUB_STYLE_START */\n'+css+'/* HUB_STYLE_END */\n</style>')

@@ -130,7 +130,7 @@ if __name__ == '__main__':
         aapt = Path(sdk) / 'build-tools/35.0.0/aapt2'
         badging = subprocess.run([str(aapt),'dump','badging',str(apk)],check=True,capture_output=True,text=True).stdout
         assert "name='com.zamify.study'" in badging
-        assert "versionCode='10'" in badging and "versionName='0.10.0'" in badging
+        assert "versionCode='11'" in badging and "versionName='0.10.1'" in badging
         assert re.search(r"(?:minSdkVersion|sdkVersion):'26'",badging) and "targetSdkVersion:'36'" in badging
         compiled_permissions = set(re.findall(r"^uses-permission[^:]*: name='([^']+)'", badging, re.M))
         assert compiled_permissions == PLAY_PERMISSIONS, compiled_permissions

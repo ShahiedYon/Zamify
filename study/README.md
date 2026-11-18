@@ -1,4 +1,4 @@
-# Zamify shared study hub — v0.10 development build
+# Zamify shared study hub — v0.10.1 development build
 
 Implemented inside the existing hardened offline WebView, retaining the original AWS practice engine and its migration path. `Preview.html` is the self-contained developer preview; `app/src/main/assets/index.html` is the identical debug asset. `hub.js` and `hub.css` are the maintained engine sources.
 
@@ -32,7 +32,7 @@ Run the existing browser/release suites as well. Gradle builds execute release p
 - Practical exercises are offline guided tasks, not live AWS or Snowflake sandboxes. Notes and recall answers are self-assessed.
 - Release HTML includes only 10 questions per pack. Lessons, cards, glossary and maps are stripped; full data is encrypted in `study_packs.enc`, in addition to the original AWS encrypted pack. Encryption is an extraction deterrent, not strong DRM: an APK owner can derive the bundled offline key.
 - Release ignores local developer flags. Native purchase/restore/verification for the multi-pack engine is **not implemented** and checkout is disabled. Metadata names future per-exam products but does not create them in Play Console. No money can be charged by this build.
-- Source links allow only HTTPS on exact official AWS/Snowflake hosts, preserving existing WebView network/file restrictions.
+- Source links allow only HTTPS on exact approved documentation hosts (AWS, Snowflake, Kiro and Strands), preserving existing WebView network/file restrictions.
 
 ## Before paid launch
 
@@ -45,3 +45,5 @@ Local Chrome: all legacy question/format, browser, regression, release and new h
 ## Installing beside an existing signed app
 
 If Android reports a package conflict, build with `python3 build-test-apk.py --sdk /path/to/sdk --side-by-side`. This creates a separately identified `com.zamify.preview` app labeled **Zamify Preview**, under `test-build/side-by-side/`. It keeps the existing installation and its local data untouched. Preview progress starts separately; it is not migrated from the installed production app. This variant omits billing and retains the development-preview tools.
+
+The full v0.10.1 button/link audit and concrete fixes are recorded in `study/BUTTON_LINK_AUDIT.md`. Purchase controls remain intentionally disabled. The audited side-by-side preview is versionCode 11, retaining the `com.zamify.preview` package and development signing identity so it can update the previously installed preview.

@@ -133,13 +133,15 @@ public class MainActivity extends Activity {
                         return true;
                     }
                 }
-                boolean isAwsSource = "https".equals(uri.getScheme())
+                boolean isStudySource = "https".equals(uri.getScheme())
                         && ("docs.aws.amazon.com".equals(uri.getHost())
                             || "aws.amazon.com".equals(uri.getHost())
                             || "docs.snowflake.com".equals(uri.getHost())
-                            || "learn.snowflake.com".equals(uri.getHost()))
+                            || "learn.snowflake.com".equals(uri.getHost())
+                            || "kiro.dev".equals(uri.getHost())
+                            || "strandsagents.com".equals(uri.getHost()))
                         && uri.getPort() == -1 && uri.getUserInfo() == null;
-                if (isAwsSource || PRIVACY_POLICY_URL.equals(uri.toString())) {
+                if (isStudySource || PRIVACY_POLICY_URL.equals(uri.toString())) {
                     try {
                         startActivity(new Intent(Intent.ACTION_VIEW, uri));
                     } catch (ActivityNotFoundException e) {
