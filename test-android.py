@@ -168,7 +168,7 @@ try:
         crash_check()
         print('PASS',mode,': old-WebView recovery UI launches offline and Back exits; full study flow requires a WebView update',flush=True)
     else:
-        wait('Choose your path')
+        wait('YOUR NEXT CHAPTER')
         screenshot('offline-catalogue')
         tap('Open COF-C03 study path')
         wait('COF-C03')
@@ -182,14 +182,14 @@ try:
         screenshot('snowpro-draft')
         tap('Save & return to study path')
         shell('am','force-stop',pkg);launch()
-        wait('Choose your path')
+        wait('YOUR NEXT CHAPTER')
         tap('Open COF-C03 study path')
         tap('Resume saved session')
         shell('settings','put','system','user_rotation','1')
         locate('Check answer');screenshot('landscape-draft')
         shell('settings','put','system','user_rotation','0')
         tap('Check answer');locate('Correct — now explain why.');screenshot('feedback')
-        shell('input','keyevent','4');wait('Your place is saved.')
+        shell('input','keyevent','4');locate('Your place is saved.')
         tap('View full study pack');root,_=locate('Purchases not available')
         # Preview tools may be below the fold, so use rendered label search with scrolling.
         try:locate('Developer preview',attempts=4);has_demo=True

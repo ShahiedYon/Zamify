@@ -33,7 +33,7 @@ replace_once("case'demo':return saveTier(true);", '')
 replace_once('<details><summary>Developer preview tools</summary><p class="small muted">Test access only. This does not represent a purchase or a production content lock.</p><button class="btn secondary" data-action="demo">Preview full pack — no payment</button></details>', '')
 source = source.replace('Payments are not available in this test build.', 'The full pack is not yet available.')
 source = source.replace('This prototype uses clearly labeled demo access, not Google Play Billing.', 'Purchases are not available yet.')
-source = source.replace('Zamify · 0.9 preview', 'Zamify · 0.9 free edition')
+source = source.replace('Zamify · 0.10 preview', 'Zamify · 0.10 free edition')
 # Do not describe a future native entitlement as developer demo access.
 source = source.replace('FULL-PACK DEMO · No purchase has been made.', 'Full study pack')
 source = source.replace('Draft-bank demo', 'Full study pack')

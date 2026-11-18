@@ -17,8 +17,8 @@ def embed(html):
             else:assert isinstance(a,list) and len(set(a))==len(a) and all(0<=i<len(q['options']) for i in a)
     script=(R/'study/hub.js').read_text().replace('__STUDY_PACKS__',json.dumps(packs,ensure_ascii=False).replace('<','\\u003c'))
     css=(R/'study/hub.css').read_text()
-    html=re.sub(r'/\* HUB_STYLE_START \*/.*?/\* HUB_STYLE_END \*/','',html,flags=re.S)
-    html=html.replace('</style>','/* HUB_STYLE_START */\n'+css+'/* HUB_STYLE_END */\n</style>')
+    html=re.sub(r'\n*/\* HUB_STYLE_START \*/.*?/\* HUB_STYLE_END \*/\n*','',html,flags=re.S)
+    html=html.replace('</style>','\n/* HUB_STYLE_START */\n'+css+'/* HUB_STYLE_END */\n</style>')
     html=re.sub(r'// HUB_ENGINE_START\n.*?// HUB_ENGINE_END\n','',html,flags=re.S)
     # Insert before the initial render, retaining one inline script for hardened release packaging.
     marker='render();\nif(typeof location'
