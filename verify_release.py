@@ -77,6 +77,13 @@ def verify_assets(page, enc_bytes, names):
     assert '<summary>Privacy policy</summary>' in page and 'info@zamify.net' in page
     assert f'href="{policy_url}"' in page
     assert 'PRIVACY_POLICY_URL.equals(uri.toString())' in native
+    packs = json.loads(re.search(r'const STUDY_PACKS=(.*?);\nconst HUB_KEY=',page,re.S).group(1))
+    assert len(packs)==3 and all(len(p['questions'])==10 and not p['lessons'] and not p['cards'] for p in packs)
+    assert 'const HUB_PREVIEW=false;' in page
+    full_packs=json.loads((root/'study/packs.json').read_text())
+    for pack in full_packs:
+        for q in pack['questions']:
+            if q['id'] not in pack['freeIds']:assert q['q'] not in page
     assert len(enc_bytes) > 1024
     full = json.loads((root / 'questions.json').read_text())
     paid = [q for q in full if q['id'] not in free_ids]
@@ -123,7 +130,7 @@ if __name__ == '__main__':
         aapt = Path(sdk) / 'build-tools/35.0.0/aapt2'
         badging = subprocess.run([str(aapt),'dump','badging',str(apk)],check=True,capture_output=True,text=True).stdout
         assert "name='com.zamify.study'" in badging
-        assert "versionCode='9'" in badging and "versionName='0.9.0'" in badging
+        assert "versionCode='10'" in badging and "versionName='0.10.0'" in badging
         assert re.search(r"(?:minSdkVersion|sdkVersion):'26'",badging) and "targetSdkVersion:'36'" in badging
         compiled_permissions = set(re.findall(r"^uses-permission[^:]*: name='([^']+)'", badging, re.M))
         assert compiled_permissions == PLAY_PERMISSIONS, compiled_permissions

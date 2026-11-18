@@ -16,8 +16,8 @@ android {
         applicationId 'com.zamify.study'
         minSdk 26
         targetSdk 36
-        versionCode 9
-        versionName '0.9.0'
+        versionCode 10
+        versionName '0.10.0'
         ndk { debugSymbolLevel 'FULL' }
     }
     signingConfigs {
@@ -47,8 +47,8 @@ android {
 tasks.register('prepareFreeReleaseAssets', Exec) {
     workingDir rootProject.projectDir
     commandLine 'python3', 'prepare_release.py'
-    inputs.files(rootProject.file('Preview.html'), rootProject.file('questions.json'), rootProject.file('prepare_release.py'))
-    outputs.files(layout.buildDirectory.file('generated/freeReleaseAssets/index.html'), layout.buildDirectory.file('generated/freeReleaseAssets/paid_pack.enc'))
+    inputs.files(rootProject.file('Preview.html'), rootProject.file('questions.json'), rootProject.file('prepare_release.py'), rootProject.file('study/packs.json'), rootProject.file('study/hub.js'), rootProject.file('study/hub.css'))
+    outputs.files(layout.buildDirectory.file('generated/freeReleaseAssets/index.html'), layout.buildDirectory.file('generated/freeReleaseAssets/paid_pack.enc'), layout.buildDirectory.file('generated/freeReleaseAssets/study_packs.enc'))
 }
 tasks.configureEach {
     if (name.contains('Release') && name != 'prepareFreeReleaseAssets') {

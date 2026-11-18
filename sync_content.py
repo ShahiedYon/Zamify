@@ -15,5 +15,7 @@ for q in bank:
 path=root/'app/src/main/assets/index.html';html=path.read_text()
 replacement='const BANK='+json.dumps(bank,ensure_ascii=False).replace('<','\\u003c')+';\nconst DOMAINS='
 html,count=re.subn(r'const BANK=.*?;\nconst DOMAINS=',lambda m:replacement,html,count=1,flags=re.S);assert count==1
+from study.sync_hub import embed
+html=embed(html)
 path.write_text(html);(root/'Preview.html').write_text(html)
 print('Synced and validated',len(bank),'questions across four formats')

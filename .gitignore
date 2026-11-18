@@ -15,3 +15,5 @@ node_modules/
 __pycache__/
 .DS_Store
 downloads/
+
+node_modules

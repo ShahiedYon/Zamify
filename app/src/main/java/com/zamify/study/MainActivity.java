@@ -134,7 +134,10 @@ public class MainActivity extends Activity {
                     }
                 }
                 boolean isAwsSource = "https".equals(uri.getScheme())
-                        && "docs.aws.amazon.com".equals(uri.getHost())
+                        && ("docs.aws.amazon.com".equals(uri.getHost())
+                            || "aws.amazon.com".equals(uri.getHost())
+                            || "docs.snowflake.com".equals(uri.getHost())
+                            || "learn.snowflake.com".equals(uri.getHost()))
                         && uri.getPort() == -1 && uri.getUserInfo() == null;
                 if (isAwsSource || PRIVACY_POLICY_URL.equals(uri.toString())) {
                     try {

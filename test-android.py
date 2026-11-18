@@ -168,53 +168,37 @@ try:
         crash_check()
         print('PASS',mode,': old-WebView recovery UI launches offline and Back exits; full study flow requires a WebView update',flush=True)
     else:
-        wait('Start my free practice')
-        screenshot('offline-home')
-        # Deterministic Q11 through the real public lesson flow.
-        print('Home rendered; opening real lesson',flush=True)
-        tap('Learn')
-        tap('Try two connected questions')
-        wait('Save & exit')
-        screenshot('question')
-        correct = next(q for q in json.loads(Path('questions.json').read_text()) if q['id']==11)
-        tap(correct['options'][correct['answer']])
-        _, check = locate('Check answer')
-        assert check.get('enabled') != 'false'
-        tap('Save & exit', down=False)
-        print('Checking cold resume',flush=True)
-        shell('am', 'force-stop', pkg)
-        launch()
-        wait('Continue practising')
-        tap('Continue practising')
-        _, check = locate('Check answer')
-        assert check.get('enabled') != 'false', 'Draft choice lost after cold launch'
-        shell('settings', 'put', 'system', 'user_rotation', '1')
-        _, check = locate('Check answer')
-        assert check.get('enabled') != 'false', 'Draft lost on rotation'
-        screenshot('landscape-draft')
-        shell('settings', 'put', 'system', 'user_rotation', '0')
-        shell('input', 'keyevent', '4')
-        wait('Keep going.')
-        tap('Continue learning')
-        tap('Check answer')
-        wait('Correct — check the insight.')
-        screenshot('feedback')
-        print('Checking cold resume',flush=True)
-        shell('am', 'force-stop', pkg)
-        launch()
-        wait('Continue practising')
-        tap('Continue practising')
-        locate('Correct — check the insight.')  # Restored answered questions open at the stem; feedback is below.
-        shell('input', 'keyevent', '4')
-        tap('About')
-        root,_ = wait('Study simply.')
-        has_demo = find(root, 'Developer preview tools') is not None
-        assert has_demo != args.release, 'Developer tools/release isolation mismatch'
-        tap('Privacy policy')
-        locate('info@zamify.net')
-        screenshot('privacy')
+        wait('Choose your path')
+        screenshot('offline-catalogue')
+        tap('Open COF-C03 study path')
+        wait('COF-C03')
+        tap('Start 10 free questions')
+        wait('LEARN & PRACTICE')
+        root=dump();all_text=' '.join(label(n) for n in root.iter('node'))
+        snow=next(p for p in json.loads(Path('study/packs.json').read_text()) if p['id']=='snowpro-core')
+        current=next((q for q in snow['questions'] if q['q'] in all_text),None)
+        assert current,'Could not identify rendered question from UI text'
+        tap(current['options'][current['answer']])
+        screenshot('snowpro-draft')
+        tap('Save & return to study path')
+        shell('am','force-stop',pkg);launch()
+        wait('Choose your path')
+        tap('Open COF-C03 study path')
+        tap('Resume saved session')
+        shell('settings','put','system','user_rotation','1')
+        locate('Check answer');screenshot('landscape-draft')
+        shell('settings','put','system','user_rotation','0')
+        tap('Check answer');locate('Correct — now explain why.');screenshot('feedback')
+        shell('input','keyevent','4');wait('Your place is saved.')
+        tap('View full study pack');root,_=locate('Purchases not available')
+        # Preview tools may be below the fold, so use rendered label search with scrolling.
+        try:locate('Developer preview',attempts=4);has_demo=True
+        except AssertionError:has_demo=False
+        assert has_demo != args.release,'Developer preview escaped into release'
+        shell('input','keyevent','4');tap('About');tap('Privacy policy');locate('info@zamify.net');screenshot('privacy')
         crash_check()
-        print('PASS',mode,': offline launch, real lesson, draft/cold resume, rotation, Back, grading, answered resume, privacy and release isolation',flush=True)
+        print('PASS',mode,': offline catalogue, SnowPro free question, draft/cold resume, rotation, Back, grading, privacy and release isolation',flush=True)
+
 finally:
     if not args.release:
         try:

@@ -22,7 +22,7 @@ manifest.getroot().set('package','com.zamify.study')
 manifest.getroot().find('application').set('{'+ns+'}debuggable','true')
 manifest.write(out/'AndroidManifest.xml',encoding='utf-8',xml_declaration=True)
 run(tools/'aapt2','compile','--dir',root/'app/src/main/res','-o',out/'resources.zip')
-run(tools/'aapt2','link','-I',android,'--manifest',out/'AndroidManifest.xml','--java',gen,'--min-sdk-version','26','--target-sdk-version','36','--version-code','9','--version-name','0.9.0','-o',out/'unsigned.apk',out/'resources.zip')
+run(tools/'aapt2','link','-I',android,'--manifest',out/'AndroidManifest.xml','--java',gen,'--min-sdk-version','26','--target-sdk-version','36','--version-code','10','--version-name','0.10.0','-o',out/'unsigned.apk',out/'resources.zip')
 sources=list((root/'app/src/main/java').rglob('*.java'))+list(gen.rglob('*.java'))
 compiler=['javac'] if shutil.which('javac') else ['java','-m','jdk.compiler/com.sun.tools.javac.Main']
 run(*compiler,'-encoding','UTF-8','-source','8','-target','8','-classpath',android,'-d',classes,*sources)

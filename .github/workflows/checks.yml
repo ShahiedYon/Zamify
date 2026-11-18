@@ -23,6 +23,8 @@ jobs:
       - run: node test-browser.cjs
       - run: node test-zamify.cjs
       - run: node test-catalogue.cjs
+      - run: python3 prepare_release.py
+      - run: node test-study-hub.cjs
       - run: node test-regressions.cjs
       - run: python3 prepare_release.py
       - run: node test-release.cjs
@@ -55,7 +57,7 @@ jobs:
       - run: python3 sign-test-release.py
       - uses: actions/upload-artifact@v4
         with:
-          name: Zamify-0.9-builds
+          name: Zamify-0.10-builds
           path: |
             app/build/outputs/apk/debug/app-debug.apk
             app/build/outputs/bundle/release/app-release.aab
@@ -79,7 +81,7 @@ jobs:
           java-version: '17'
       - uses: actions/download-artifact@v4
         with:
-          name: Zamify-0.9-builds
+          name: Zamify-0.10-builds
           path: test-input
       - name: Enable KVM for the test emulator
         run: |

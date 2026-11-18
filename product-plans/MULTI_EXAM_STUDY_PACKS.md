@@ -137,3 +137,8 @@ Finish MLA-C02's original content with objective mapping and independent review.
 - Existing Zamify_Exam_Pack_Quality_Standard.md and Zamify_Launch_Checklist.md, read 18 November 2026.
 
 The SnowPro starter uses an editorial spread of 3 architecture, 2 governance, 2 loading, 2 performance and 1 collaboration questions. This small sample does not establish complete objective coverage. Every paid bank and learning tool requires its own coverage review.
+
+
+## Implementation update — 18 November 2026
+
+The v0.10 development implementation now lives in `study/` and the synced Android asset. See `study/README.md` for implemented flows, build instructions and remaining launch requirements; `study/MLA_C02_RESEARCH.md` records the official objective and beta-format findings. The bank now contains AWS 83, SnowPro 30 and MLA-C02 40 candidate questions, with 10 free per exam. Billing and independent content review remain incomplete; this supersedes earlier documentation-only status statements.
