@@ -1,0 +1,422 @@
+[
+  {
+    "id": 1,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 1,
+    "objective": "1.4",
+    "concept": "Concurrency versus query capacity",
+    "q": "A retailer runs many short dashboard queries on one warehouse. At the morning peak, queries queue for several minutes but execute quickly once admitted. The account supports multi-cluster warehouses. Which change best targets this bottleneck?",
+    "options": [
+      "Add a clustering key to every dashboard table",
+      "Increase the Time Travel retention period",
+      "Configure multi-cluster auto-scaling with appropriate cluster bounds",
+      "Keep one cluster and clear its local cache every hour"
+    ],
+    "answer": 2,
+    "kind": "single",
+    "why": "Additional clusters can handle concurrent demand when queries individually execute quickly.",
+    "hint": "Distinguish waiting for a compute slot from slow execution after a query has started.",
+    "clues": [
+      {
+        "text": "queries queue for several minutes",
+        "why": "Distinguish waiting for a compute slot from slow execution after a query has started."
+      }
+    ],
+    "keyPoints": [
+      "queries queue for several minutes"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "Clustering can improve scans but does not directly create capacity for concurrent queries.",
+      "Retention changes historical access, which does not address this queue.",
+      "Additional clusters can handle concurrent demand when queries individually execute quickly.",
+      "Clearing local cache removes reusable data without adding concurrency capacity."
+    ],
+    "transfer": "A large standalone join with memory pressure would justify benchmarking a larger warehouse instead.",
+    "source": "https://docs.snowflake.com/en/user-guide/warehouses-considerations",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 2,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 1,
+    "objective": "1.6",
+    "concept": "Cortex Search use cases",
+    "q": "A policy application needs to retrieve relevant paragraphs from thousands of text documents stored in Snowflake. The team wants managed text retrieval rather than generating SQL over financial metrics. Which feature fits?",
+    "options": [
+      "Cortex Search",
+      "Cortex Analyst",
+      "Snowpipe Streaming",
+      "A resource monitor"
+    ],
+    "answer": 0,
+    "kind": "single",
+    "why": "Cortex Search provides managed retrieval over indexed content.",
+    "hint": "Identify whether the input is document text or a defined business metric over tables.",
+    "clues": [
+      {
+        "text": "retrieve relevant paragraphs",
+        "why": "Identify whether the input is document text or a defined business metric over tables."
+      }
+    ],
+    "keyPoints": [
+      "retrieve relevant paragraphs"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "Cortex Search provides managed retrieval over indexed content.",
+      "Cortex Analyst fits natural-language analytics over structured data with business semantics.",
+      "Snowpipe Streaming ingests rows rather than serving document retrieval.",
+      "A resource monitor tracks warehouse credits and associated thresholds."
+    ],
+    "transfer": "A question asking for liability by quarter over governed financial tables would favor Cortex Analyst.",
+    "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 3,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 1,
+    "objective": "1.5",
+    "concept": "Transient table retention",
+    "q": "A team creates a transient staging table in a Business Critical account. The source data can be regenerated. What is the maximum Time Travel retention setting for this transient table?",
+    "options": [
+      "90 days",
+      "7 days",
+      "0 days",
+      "1 day"
+    ],
+    "answer": 3,
+    "kind": "single",
+    "why": "Transient tables support a maximum of one day of Time Travel.",
+    "hint": "Check the table type before using the account edition to decide a retention limit.",
+    "clues": [
+      {
+        "text": "transient staging table",
+        "why": "Check the table type before using the account edition to decide a retention limit."
+      }
+    ],
+    "keyPoints": [
+      "transient staging table"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "Extended retention applies to eligible permanent data rather than transient tables.",
+      "Seven days describes the Fail-safe period for eligible permanent data, not this transient retention limit.",
+      "Zero disables retention where no higher effective minimum applies; it is not the maximum.",
+      "Transient tables support a maximum of one day of Time Travel."
+    ],
+    "transfer": "When evaluating longer historical access, check whether the data is permanent and whether the edition supports it.",
+    "source": "https://docs.snowflake.com/en/user-guide/data-time-travel",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 4,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 2,
+    "objective": "2.1",
+    "concept": "Role inheritance direction",
+    "q": "The LEASE_READER role has the privileges needed to query a table. An administrator runs GRANT ROLE LEASE_READER TO ROLE PORTFOLIO_LEAD. What happens to the lead role?",
+    "options": [
+      "It can use the table privileges only after copying the table",
+      "It inherits the privileges of LEASE_READER",
+      "It loses its previous privileges",
+      "Its privileges are inherited by LEASE_READER instead"
+    ],
+    "answer": 1,
+    "kind": "single",
+    "why": "PORTFOLIO_LEAD is the recipient parent and inherits the child role privileges.",
+    "hint": "Follow the grant from the child role toward the recipient parent role.",
+    "clues": [
+      {
+        "text": "TO ROLE PORTFOLIO_LEAD",
+        "why": "Follow the grant from the child role toward the recipient parent role."
+      }
+    ],
+    "keyPoints": [
+      "TO ROLE PORTFOLIO_LEAD"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "Granting a role does not require a data copy.",
+      "PORTFOLIO_LEAD is the recipient parent and inherits the child role privileges.",
+      "An additional inherited role does not erase existing grants.",
+      "The inheritance direction in this statement runs toward PORTFOLIO_LEAD."
+    ],
+    "transfer": "If a reporting role is granted to a manager role, the manager can inherit the reporting role privileges.",
+    "source": "https://docs.snowflake.com/en/user-guide/security-access-control-overview",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 5,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 2,
+    "objective": "2.2",
+    "concept": "Column masking versus row filtering",
+    "q": "An analyst must see each eligible tenant record but the tax ID column must be concealed unless the active role is authorized. Which feature directly implements this requirement at query time?",
+    "options": [
+      "A row access policy that removes each tenant record",
+      "A longer Time Travel retention period",
+      "Dynamic Data Masking on the tax ID column",
+      "A network policy that admits the corporate office"
+    ],
+    "answer": 2,
+    "kind": "single",
+    "why": "A masking policy can transform the sensitive column value according to query context.",
+    "hint": "Decide whether access needs to change for a whole row or for a value inside that row.",
+    "clues": [
+      {
+        "text": "tax ID column must be concealed",
+        "why": "Decide whether access needs to change for a whole row or for a value inside that row."
+      }
+    ],
+    "keyPoints": [
+      "tax ID column must be concealed"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "Removing rows would hide records that the analyst must still see.",
+      "Retention controls historical access rather than how this column appears.",
+      "A masking policy can transform the sensitive column value according to query context.",
+      "A network policy restricts connection origins rather than returned column values."
+    ],
+    "transfer": "If the entire record should disappear for another portfolio, evaluate a row access policy.",
+    "source": "https://docs.snowflake.com/en/user-guide/security-column-ddm-intro",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 6,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 3,
+    "objective": "3.2",
+    "concept": "Row ingestion versus arriving files",
+    "q": "An application emits events as individual rows and must ingest them into Snowflake with low latency. Its design does not create staged files. Which service best matches that input?",
+    "options": [
+      "Snowpipe Streaming",
+      "Snowpipe triggered by file-arrival notifications",
+      "A nightly bulk COPY job over an external stage",
+      "A directory table on an internal stage"
+    ],
+    "answer": 0,
+    "kind": "single",
+    "why": "Snowpipe Streaming accepts rows through supported ingestion interfaces.",
+    "hint": "Check what arrives first: a completed file or a row sent by the application.",
+    "clues": [
+      {
+        "text": "does not create staged files",
+        "why": "Check what arrives first: a completed file or a row sent by the application."
+      }
+    ],
+    "keyPoints": [
+      "does not create staged files"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "Snowpipe Streaming accepts rows through supported ingestion interfaces.",
+      "File-driven Snowpipe expects files to load from a stage.",
+      "A nightly staged-file job conflicts with both the input design and freshness requirement.",
+      "A directory table describes staged files rather than ingesting application rows."
+    ],
+    "transfer": "A supplier that lands CSV files continuously in cloud storage presents a file-ingestion problem instead.",
+    "source": "https://docs.snowflake.com/en/user-guide/snowpipe-streaming/data-load-snowpipe-streaming-overview",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 7,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 3,
+    "objective": "3.1",
+    "concept": "Load and unload direction",
+    "q": "A data team needs to export the rows returned by a SELECT statement into files on a named stage. Which command pattern expresses that direction?",
+    "options": [
+      "COPY INTO lease_table FROM @export_stage",
+      "PUT file:///leases.csv @export_stage",
+      "GET @export_stage file:///exports",
+      "COPY INTO @export_stage FROM (SELECT * FROM lease_table)"
+    ],
+    "answer": 3,
+    "kind": "single",
+    "why": "A stage target unloads query output as files at that location.",
+    "hint": "Read the target immediately after INTO to identify where the output should go.",
+    "clues": [
+      {
+        "text": "export the rows returned by a SELECT",
+        "why": "Read the target immediately after INTO to identify where the output should go."
+      }
+    ],
+    "keyPoints": [
+      "export the rows returned by a SELECT"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "A table target loads data into the table.",
+      "PUT uploads local files to an internal stage; it does not export a SELECT result.",
+      "GET downloads existing internal-stage files to a client.",
+      "A stage target unloads query output as files at that location."
+    ],
+    "transfer": "For an import, reverse the pattern so a table is the COPY target and a stage is the source.",
+    "source": "https://docs.snowflake.com/en/user-guide/data-unload-overview",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 8,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 4,
+    "objective": "4.3",
+    "concept": "Pruning using metadata",
+    "q": "A new query filters a five-year sales table to one day. The warehouse has just resumed. Query Profile shows 36 partitions scanned out of 12,400 total. Which process directly explains skipping most partitions?",
+    "options": [
+      "Warehouse cache preserved across suspension",
+      "Micro-partition pruning using metadata",
+      "Result reuse from this query’s prior execution",
+      "Reclustering all rows during the SELECT"
+    ],
+    "answer": 1,
+    "kind": "single",
+    "why": "Metadata can show that a partition cannot contain rows matching the date predicate.",
+    "hint": "Ask what lets the optimizer reject a partition before reading its data.",
+    "clues": [
+      {
+        "text": "36 partitions scanned out of 12,400",
+        "why": "Ask what lets the optimizer reject a partition before reading its data."
+      }
+    ],
+    "keyPoints": [
+      "36 partitions scanned out of 12,400"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "Suspension discards local warehouse cache.",
+      "Metadata can show that a partition cannot contain rows matching the date predicate.",
+      "This query is new and the profile describes an actual scan.",
+      "Reorganizing rows is different from using metadata to skip existing partitions."
+    ],
+    "transfer": "A selective amount range can also benefit when partition metadata excludes values outside the filter.",
+    "source": "https://docs.snowflake.com/en/user-guide/tables-clustering-micropartitions",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 9,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 4,
+    "objective": "4.3",
+    "concept": "Persisted results versus local data cache",
+    "q": "A user repeats exactly the same deterministic SELECT. The relevant data is unchanged, the user has the required privileges, and all result-reuse conditions are satisfied. The query returns while its warehouse remains suspended. What explains the response?",
+    "options": [
+      "The suspended warehouse preserved its local scan cache",
+      "Snowpipe ran the SELECT in the background",
+      "An eligible persisted query result was reused",
+      "The stage file list contained the query result"
+    ],
+    "answer": 2,
+    "kind": "single",
+    "why": "Eligible persisted results can be retrieved without executing the query on a warehouse.",
+    "hint": "Distinguish stored query output from data cached on running compute.",
+    "clues": [
+      {
+        "text": "warehouse remains suspended",
+        "why": "Distinguish stored query output from data cached on running compute."
+      }
+    ],
+    "keyPoints": [
+      "warehouse remains suspended"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "The local warehouse data cache is discarded when compute is suspended.",
+      "Snowpipe loads data and does not serve arbitrary SELECT results.",
+      "Eligible persisted results can be retrieved without executing the query on a warehouse.",
+      "A stage directory listing does not provide this SELECT output."
+    ],
+    "transfer": "A different query scanning similar data on an active warehouse may benefit from local data cache instead.",
+    "source": "https://docs.snowflake.com/en/user-guide/querying-persisted-results",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  },
+  {
+    "id": 10,
+    "examId": "snowpro-core-cof-c03",
+    "domain": 5,
+    "objective": "5.2",
+    "concept": "Reader account cost ownership",
+    "q": "A provider shares a dataset with a partner that does not have a full Snowflake account. The provider creates a reader account for the partner. Who is billed for the reader account’s warehouse compute?",
+    "options": [
+      "The partner through an automatically created full account",
+      "Snowflake, because reader compute is free",
+      "The public Marketplace listing owner in every case",
+      "The provider that created and manages the reader account"
+    ],
+    "answer": 3,
+    "kind": "single",
+    "why": "The provider pays compute costs for the reader account it manages.",
+    "hint": "Distinguish a provider-managed reader account from an ordinary consumer with its own account.",
+    "clues": [
+      {
+        "text": "creates a reader account",
+        "why": "Distinguish a provider-managed reader account from an ordinary consumer with its own account."
+      }
+    ],
+    "keyPoints": [
+      "creates a reader account"
+    ],
+    "analysis": "Identify the deciding requirement, then compare each option against it.",
+    "trap": "A nearby feature can be valid but address a different requirement.",
+    "reasons": [
+      "The scenario specifies a reader account rather than a separate full account billed to the partner.",
+      "Reader accounts still incur compute usage.",
+      "A public listing is not required for this arrangement.",
+      "The provider pays compute costs for the reader account it manages."
+    ],
+    "transfer": "A full consumer account generally uses and pays for its own query warehouse.",
+    "source": "https://docs.snowflake.com/en/user-guide/data-sharing-intro",
+    "objectiveSource": "https://learn.snowflake.com/en/certifications/snowpro-core-c03/",
+    "reviewedOn": "2026-11-18",
+    "contentRevision": 1,
+    "reviewStatus": "AI-assisted source check; independent subject review pending",
+    "difficulty": "Foundation (editorial estimate)"
+  }
+]
