@@ -6,7 +6,8 @@ permissions:
   contents: read
 jobs:
   browser:
-    runs-on: ubuntu-latest
+    # Playwright 1.56 supports this image; ubuntu-latest moved to 26.04.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -23,6 +24,10 @@ jobs:
       - run: node test-browser.cjs
       - run: node test-zamify.cjs
       - run: node test-catalogue.cjs
+      - run: python3 prepare_release.py
+      - run: node test-study-hub.cjs
+      - run: node test-all-actions.cjs
+      - run: node test-hub-questions.cjs
       - run: node test-regressions.cjs
       - run: python3 prepare_release.py
       - run: node test-release.cjs
@@ -52,14 +57,16 @@ jobs:
       - run: ./gradlew assembleDebug assembleRelease bundleRelease lintRelease --no-daemon
       - run: python3 verify_release.py
       - run: python3 build-test-apk.py
+      - run: python3 build-test-apk.py --side-by-side
       - run: python3 sign-test-release.py
       - uses: actions/upload-artifact@v4
         with:
-          name: Zamify-0.9-builds
+          name: Zamify-0.10-builds
           path: |
             app/build/outputs/apk/debug/app-debug.apk
             app/build/outputs/bundle/release/app-release.aab
             test-build/Zamify_Test.apk
+            test-build/side-by-side/Zamify_Test.apk
             test-build/Zamify_Release_Test.apk
             app/build/reports/lint-results-release.html
 
@@ -79,7 +86,7 @@ jobs:
           java-version: '17'
       - uses: actions/download-artifact@v4
         with:
-          name: Zamify-0.9-builds
+          name: Zamify-0.10-builds
           path: test-input
       - name: Enable KVM for the test emulator
         run: |
@@ -99,6 +106,7 @@ jobs:
           script: |
             python3 test-android.py --apk test-input/app/build/outputs/apk/debug/app-debug.apk
             python3 test-android.py --apk test-input/test-build/Zamify_Release_Test.apk --release
+            if [ "${{ matrix.api-level }}" = "36" ]; then python3 test-android.py --apk test-input/test-build/side-by-side/Zamify_Test.apk --preview; fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:

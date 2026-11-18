@@ -25,7 +25,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),path
   await p.evaluate(()=>{state=fresh();state.previewFullPack=true;save()});
  }
  // A lesson opened from a scrolled Learn page must reveal the quiz heading/exit.
- await p.evaluate(()=>{state=fresh();save();go('learn')});
+ await p.evaluate(()=>{state=fresh();save();legacyGo('learn')});
  await p.locator('[data-action=lesson]').click();
  const exit=await p.locator('[data-action=exit]').boundingBox();
  const pane=await p.locator('.shell').boundingBox();

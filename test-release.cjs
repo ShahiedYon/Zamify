@@ -10,9 +10,9 @@ const {chromium}=require('playwright'),assert=require('assert'),fs=require('fs')
  await page.evaluate(()=>{localStorage.setItem('exam-sprint-aif-v1',JSON.stringify({...fresh(),previewFullPack:true}));});
  await page.reload();await page.locator('#zami-welcome').waitFor({state:'detached'});
  assert.equal(await page.evaluate(()=>pool().length),10,'Stored demo flag must not unlock release');
- await page.evaluate(()=>go('about'));
+ await page.evaluate(()=>legacyGo('about'));
  assert.equal(await page.getByText('Developer preview tools',{exact:true}).count(),0);
- await page.evaluate(()=>go('packs'));assert(await page.getByRole('button',{name:'Purchases coming soon'}).isDisabled());
+ await page.evaluate(()=>legacyGo('packs'));assert(await page.getByRole('button',{name:'Purchases coming soon'}).isDisabled());
  assert(await page.locator('main').innerText().then(t=>t.includes('73 new paid questions')));
  for(const invalid of [null,{},[],Array(73).fill(null),Array(73).fill({id:1})]){
   await page.evaluate(items=>window.onZamifyPaidPackUnlocked(items),invalid);

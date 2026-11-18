@@ -16,12 +16,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--apk', type=Path, required=True)
 parser.add_argument('--serial')
 parser.add_argument('--release', action='store_true')
+parser.add_argument('--preview', action='store_true',help='Test the separately installed preview package')
 args = parser.parse_args()
 sdk = os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
 adb_bin = shutil.which('adb') or str(Path(sdk or '')/'platform-tools/adb')
 adb = [adb_bin] + (['-s', args.serial] if args.serial else [])
-pkg = 'com.zamify.study'
-mode = 'release' if args.release else 'debug'
+pkg = 'com.zamify.preview' if args.preview else 'com.zamify.study'
+mode = 'preview' if args.preview else 'release' if args.release else 'debug'
 out = Path('test-output/android') / mode
 out.mkdir(parents=True, exist_ok=True)
 step = 0
@@ -128,7 +129,7 @@ def screenshot(name):
     (out / f'{name}.png').write_bytes(command('exec-out', 'screencap', '-p', binary=True))
 
 def launch():
-    shell('am', 'start', '-W', '-n', pkg+'/.MainActivity')
+    shell('am', 'start', '-W', '-n', pkg+'/com.zamify.study.MainActivity')
 
 def crash_check():
     crash = command('logcat', '-b', 'crash', '-d')
@@ -168,55 +169,59 @@ try:
         crash_check()
         print('PASS',mode,': old-WebView recovery UI launches offline and Back exits; full study flow requires a WebView update',flush=True)
     else:
-        wait('Start my free practice')
-        screenshot('offline-home')
-        # Deterministic Q11 through the real public lesson flow.
-        print('Home rendered; opening real lesson',flush=True)
-        tap('Learn')
-        tap('Try two connected questions')
-        wait('Save & exit')
-        screenshot('question')
-        correct = next(q for q in json.loads(Path('questions.json').read_text()) if q['id']==11)
-        tap(correct['options'][correct['answer']])
-        _, check = locate('Check answer')
-        assert check.get('enabled') != 'false'
-        tap('Save & exit', down=False)
-        print('Checking cold resume',flush=True)
-        shell('am', 'force-stop', pkg)
-        launch()
-        wait('Continue practising')
-        tap('Continue practising')
-        _, check = locate('Check answer')
-        assert check.get('enabled') != 'false', 'Draft choice lost after cold launch'
-        shell('settings', 'put', 'system', 'user_rotation', '1')
-        _, check = locate('Check answer')
-        assert check.get('enabled') != 'false', 'Draft lost on rotation'
-        screenshot('landscape-draft')
-        shell('settings', 'put', 'system', 'user_rotation', '0')
-        shell('input', 'keyevent', '4')
-        wait('Keep going.')
-        tap('Continue learning')
-        tap('Check answer')
-        wait('Correct — check the insight.')
-        screenshot('feedback')
-        print('Checking cold resume',flush=True)
-        shell('am', 'force-stop', pkg)
-        launch()
-        wait('Continue practising')
-        tap('Continue practising')
-        locate('Correct — check the insight.')  # Restored answered questions open at the stem; feedback is below.
-        shell('input', 'keyevent', '4')
-        tap('About')
-        root,_ = wait('Study simply.')
-        has_demo = find(root, 'Developer preview tools') is not None
-        assert has_demo != args.release, 'Developer tools/release isolation mismatch'
-        tap('Privacy policy')
-        locate('info@zamify.net')
-        screenshot('privacy')
+        wait('YOUR NEXT CHAPTER')
+        screenshot('offline-catalogue')
+        tap('Open COF-C03 study path')
+        wait('COF-C03')
+        tap('Official exam information')
+        root=dump()
+        browser_packages={n.get('package','') for n in root.iter('node')}
+        activity=shell('dumpsys','activity','activities')
+        assert any('chrome' in x or 'browser' in x for x in browser_packages) or 'ResolverActivity' in activity or 'ChooserActivity' in activity, 'Official source did not hand off to browser selection'
+        (out/'source-link-activity.txt').write_text(activity)
+        screenshot('external-source-browser')
+        shell('input','keyevent','4')
+        locate('COF-C03',down=False)
+        tap('Start 10 free questions')
+        wait('LEARN & PRACTICE')
+        root=dump();all_text=' '.join(label(n) for n in root.iter('node'))
+        snow=next(p for p in json.loads(Path('study/packs.json').read_text()) if p['id']=='snowpro-core')
+        current=next((q for q in snow['questions'] if q['q'] in all_text),None)
+        assert current,'Could not identify rendered question from UI text'
+        tap(current['options'][current['answer']])
+        screenshot('snowpro-draft')
+        tap('Save & return to study path')
+        shell('am','force-stop',pkg);launch()
+        wait('YOUR NEXT CHAPTER')
+        tap('Open COF-C03 study path')
+        tap('Resume saved session')
+        shell('settings','put','system','user_rotation','1')
+        locate('Check answer');screenshot('landscape-draft')
+        shell('settings','put','system','user_rotation','0')
+        tap('Check answer');locate('Correct — now explain why.');screenshot('feedback')
+        shell('input','keyevent','4');locate('Your place is saved.')
+        tap('View full study pack');root,_=locate('Purchases not available')
+        # Preview tools may be below the fold, so use rendered label search with scrolling.
+        try:locate('Developer preview',attempts=4);has_demo=True
+        except AssertionError:has_demo=False
+        assert has_demo != args.release,'Developer preview escaped into release'
+        if args.preview:
+            tap('Developer preview')
+            tap('Try full tools')
+            tap('Flashcards')
+            tap('Show answer')
+            tap('Got it')
+            screenshot('preview-flashcards')
+            shell('input','keyevent','4')
+            tap('About');tap('Study');locate('SnowPro Core')
+            tap('Learn');locate('Understand the decision.')
+            screenshot('preview-lessons')
+        shell('input','keyevent','4');tap('About');tap('Privacy policy');locate('info@zamify.net');screenshot('privacy')
         crash_check()
-        print('PASS',mode,': offline launch, real lesson, draft/cold resume, rotation, Back, grading, answered resume, privacy and release isolation',flush=True)
+        print('PASS',mode,': offline catalogue, SnowPro free question, draft/cold resume, rotation, Back, grading, privacy and release isolation',flush=True)
+
 finally:
-    if not args.release:
+    if not args.release and not args.preview:
         try:
             subprocess.run(['node','diagnose-android.cjs',adb_bin,args.serial or '',str(out/'webview.json')],check=False,timeout=30)
         except subprocess.TimeoutExpired:

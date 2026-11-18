@@ -33,7 +33,7 @@ replace_once("case'demo':return saveTier(true);", '')
 replace_once('<details><summary>Developer preview tools</summary><p class="small muted">Test access only. This does not represent a purchase or a production content lock.</p><button class="btn secondary" data-action="demo">Preview full pack — no payment</button></details>', '')
 source = source.replace('Payments are not available in this test build.', 'The full pack is not yet available.')
 source = source.replace('This prototype uses clearly labeled demo access, not Google Play Billing.', 'Purchases are not available yet.')
-source = source.replace('Zamify · 0.9 preview', 'Zamify · 0.9 free edition')
+source = source.replace('Zamify · 0.10.1 preview', 'Zamify · 0.10.1 free edition')
 # Do not describe a future native entitlement as developer demo access.
 source = source.replace('FULL-PACK DEMO · No purchase has been made.', 'Full study pack')
 source = source.replace('Draft-bank demo', 'Full study pack')
@@ -103,10 +103,33 @@ with tempfile.TemporaryDirectory(prefix='zamify-pack-') as tmp:
     plain = Path(tmp) / 'paid.json'
     plain.write_bytes(paid_json.encode('utf-8'))
     subprocess.run(['node', '-e', node_script, key.hex(), iv.hex(), str(plain), str(out_dir / 'paid_pack.enc')], check=True)
+# Full study content is absent from the free HTML. The ciphertext is packaging,
+# not an entitlement boundary: a hostile APK owner can derive this offline key.
+packs = json.loads((root / 'study/packs.json').read_text())
+public_packs = []
+for pack in packs:
+    public = dict(pack)
+    public['totalCandidates'] = len(pack['questions'])
+    public['questions'] = [q for q in pack['questions'] if q['id'] in pack['freeIds']]
+    public['lessons'] = []
+    public['cards'] = []
+    public['references'] = []
+    public['glossary'] = []
+    public_packs.append(public)
+source, count = re.subn(r'const STUDY_PACKS=.*?;\nconst HUB_KEY=', lambda _: 'const STUDY_PACKS=' + json.dumps(public_packs, ensure_ascii=False).replace('<', '\\u003c') + ';\nconst HUB_KEY=', source, count=1, flags=re.S)
+assert count == 1
+source = source.replace('const HUB_PREVIEW=true;', 'const HUB_PREVIEW=false;')
+key = hashlib.sha256(b'com.zamify.study:multi-exam-study:v1').digest()
+with tempfile.TemporaryDirectory(prefix='zamify-study-') as tmp:
+    plain = Path(tmp) / 'study.json'
+    plain.write_text(json.dumps(packs, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+    subprocess.run(['node', '-e', node_script, key.hex(), secrets.token_bytes(12).hex(), str(plain), str(out_dir / 'study_packs.enc')], check=True)
 (out_dir / 'index.html').write_text(source, encoding='utf-8')
+assert all(len(p['questions']) == 10 and not p['lessons'] and not p['cards'] for p in public_packs)
+
 assert 'Developer preview tools' not in source
 assert 'Preview full pack — no payment' not in source
 assert 'data-action="demo"' not in source and "case'demo':" not in source
 assert 'previewFullPack?BANK' not in source
 assert len(json.loads(re.search(r'const BANK=(.*?);\nconst DOMAINS=', source, re.S).group(1))) == 10
-print('Prepared release: 10 free + 73 AES-256-GCM encrypted candidates; purchases disabled')
+print('Prepared release: 10 free per exam; AWS legacy and full study candidates encrypted; purchases disabled')

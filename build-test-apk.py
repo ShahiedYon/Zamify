@@ -6,9 +6,9 @@ The key is a local development/test key, never a production publishing key.
 """
 from pathlib import Path
 import argparse,subprocess,zipfile,xml.etree.ElementTree as ET,os,shutil
-parser=argparse.ArgumentParser();parser.add_argument('--sdk',default=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT'));args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--side-by-side',action='store_true',help='Install as Zamify Preview without replacing the existing app');parser.add_argument('--sdk',default=os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT'));args=parser.parse_args()
 if not args.sdk: parser.error('Pass --sdk or set ANDROID_HOME / ANDROID_SDK_ROOT')
-root=Path(__file__).resolve().parent;sdk=Path(args.sdk).resolve();tools=sdk/'build-tools/35.0.0';android=sdk/'platforms/android-36/android.jar';out=root/'test-build';out.mkdir(exist_ok=True)
+root=Path(__file__).resolve().parent;sdk=Path(args.sdk).resolve();tools=sdk/'build-tools/35.0.0';android=sdk/'platforms/android-36/android.jar';out=root/'test-build'/('side-by-side' if args.side_by_side else '');out.mkdir(parents=True,exist_ok=True)
 classes=out/'classes';classes.mkdir(exist_ok=True);gen=out/'generated';gen.mkdir(exist_ok=True);dex=out/'dex';dex.mkdir(exist_ok=True)
 def run(*cmd):print('Running',Path(str(cmd[0])).name,flush=True);subprocess.run([str(x) for x in cmd],check=True)
 ns='http://schemas.android.com/apk/res/android';ET.register_namespace('android',ns)
@@ -18,11 +18,15 @@ manifest=ET.parse(root/'app/src/main/AndroidManifest.xml')
 permissions=manifest.getroot().findall('uses-permission')
 assert [p.get('{'+ns+'}name') for p in permissions]==['com.android.vending.BILLING']
 manifest.getroot().remove(permissions[0])
-manifest.getroot().set('package','com.zamify.study')
+package_id='com.zamify.preview' if args.side_by_side else 'com.zamify.study'
+manifest.getroot().set('package',package_id)
+if args.side_by_side:
+ manifest.getroot().find('application').set('{'+ns+'}label','Zamify Preview')
+ manifest.getroot().find('application/activity').set('{'+ns+'}name','com.zamify.study.MainActivity')
 manifest.getroot().find('application').set('{'+ns+'}debuggable','true')
 manifest.write(out/'AndroidManifest.xml',encoding='utf-8',xml_declaration=True)
 run(tools/'aapt2','compile','--dir',root/'app/src/main/res','-o',out/'resources.zip')
-run(tools/'aapt2','link','-I',android,'--manifest',out/'AndroidManifest.xml','--java',gen,'--min-sdk-version','26','--target-sdk-version','36','--version-code','9','--version-name','0.9.0','-o',out/'unsigned.apk',out/'resources.zip')
+run(tools/'aapt2','link','--custom-package','com.zamify.study','-I',android,'--manifest',out/'AndroidManifest.xml','--java',gen,'--min-sdk-version','26','--target-sdk-version','36','--version-code','11','--version-name','0.10.1','-o',out/'unsigned.apk',out/'resources.zip')
 sources=list((root/'app/src/main/java').rglob('*.java'))+list(gen.rglob('*.java'))
 compiler=['javac'] if shutil.which('javac') else ['java','-m','jdk.compiler/com.sun.tools.javac.Main']
 run(*compiler,'-encoding','UTF-8','-source','8','-target','8','-classpath',android,'-d',classes,*sources)
@@ -41,5 +45,9 @@ run(tools/'apksigner','sign','--v4-signing-enabled','false','--ks',key,'--ks-key
 run(tools/'apksigner','verify','--verbose',out/'Zamify_Test.apk')
 with zipfile.ZipFile(out/'Zamify_Test.apk') as z: assert z.testzip() is None
 badging=subprocess.run([str(tools/'aapt2'),'dump','badging',str(out/'Zamify_Test.apk')],check=True,capture_output=True,text=True).stdout
+assert f"package: name='{package_id}'" in badging
+if args.side_by_side:
+ assert "application-label:'Zamify Preview'" in badging
+ assert "launchable-activity: name='com.zamify.study.MainActivity'" in badging
 assert 'uses-permission' not in badging, 'Offline preview must remain permission-free'
 print('Created',out/'Zamify_Test.apk',flush=True)
