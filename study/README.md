@@ -41,3 +41,7 @@ Independent subject-matter review, larger coverage-balanced banks, verified Play
 ## Validation record — 18 November 2026
 
 Local Chrome: all legacy question/format, browser, regression, release and new hub checks passed. The updated welcome/catalogue checks cover phone layouts and 320–1440px widths. Local Gradle `assembleDebug assembleRelease bundleRelease lintRelease` and compiled release verification passed; platform-only test APK signatures and exact asset equality passed. GitHub Android build, release verification and APK signing also passed. Emulator runs are tracked in PR #3. The browser runner was pinned to Ubuntu 24.04 because the previously floating image moved to an OS unsupported by the pinned Playwright version.
+
+## Installing beside an existing signed app
+
+If Android reports a package conflict, build with `python3 build-test-apk.py --sdk /path/to/sdk --side-by-side`. This creates a separately identified `com.zamify.preview` app labeled **Zamify Preview**, under `test-build/side-by-side/`. It keeps the existing installation and its local data untouched. Preview progress starts separately; it is not migrated from the installed production app. This variant omits billing and retains the development-preview tools.
