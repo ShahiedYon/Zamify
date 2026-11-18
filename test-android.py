@@ -181,7 +181,7 @@ try:
         (out/'source-link-activity.txt').write_text(activity)
         screenshot('external-source-browser')
         shell('input','keyevent','4')
-        locate('COF-C03')
+        locate('COF-C03',down=False)
         tap('Start 10 free questions')
         wait('LEARN & PRACTICE')
         root=dump();all_text=' '.join(label(n) for n in root.iter('node'))
