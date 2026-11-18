@@ -37,3 +37,7 @@ Run the existing browser/release suites as well. Gradle builds execute release p
 ## Before paid launch
 
 Independent subject-matter review, larger coverage-balanced banks, verified Play purchase/restore/revocation handling, entitlement-to-pack integration, final pricing/product configuration, production signing and Play Console account testing. This build is for functional review, not a claim of Play release readiness.
+
+## Validation record — 18 November 2026
+
+Local Chrome: all legacy question/format, browser, regression, release and new hub checks passed. The updated welcome/catalogue checks cover phone layouts and 320–1440px widths. Local Gradle `assembleDebug assembleRelease bundleRelease lintRelease` and compiled release verification passed; platform-only test APK signatures and exact asset equality passed. GitHub Android build, release verification and APK signing also passed. Emulator runs are tracked in PR #3. The browser runner was pinned to Ubuntu 24.04 because the previously floating image moved to an OS unsupported by the pinned Playwright version.
